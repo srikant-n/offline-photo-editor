@@ -71,6 +71,14 @@ export async function decodeBMP(buf: ArrayBuffer): Promise<ImageBitmap> {
   const compression = dv.getUint32(infoOff + 16, true);
   const colorsUsed = headerSize >= 40 ? dv.getUint32(infoOff + 32, true) : 0;
 
+  // BI_RGB(0), BI_RLE8(1), BI_RLE4(2), BI_BITFIELDS(3), BI_ALPHABITFIELDS(6)
+  if (![0, 1, 2, 3, 6].includes(compression)) {
+    throw new Error(`Unsupported BMP compression: ${compression}`);
+  }
+  if ((compression === 1 || compression === 2) && bpp !== 4 && bpp !== 8) {
+    throw new Error('RLE-compressed BMP must be 4 or 8 bpp');
+  }
+
   let masks = readMasks(dv, infoOff, compression, headerSize);
   // All-zero masks (e.g. BI_RGB inside a V4/V5 header) mean "no bitfields".
   if (masks && (masks.r | masks.g | masks.b | masks.a) === 0) masks = null;
@@ -175,8 +183,9 @@ function decodeRaw(info: BmpInfo, stride: number, put: PutFn) {
       for (let x = 0; x < width; x++) {
         const o = lineOff + x * bpr;
         const b = dv.getUint8(o), g = dv.getUint8(o + 1), r = dv.getUint8(o + 2);
-        const a = bpp === 32 ? dv.getUint8(o + 3) : 255;
-        put(x, y, r, g, b, a);
+        // The 4th byte of 32bpp BI_RGB is undefined per spec (often 0);
+        // only bitfield masks may supply alpha, handled in the masks path.
+        put(x, y, r, g, b, 255);
       }
     }
     return;
@@ -190,7 +199,7 @@ function decodeRaw(info: BmpInfo, stride: number, put: PutFn) {
       for (let x = 0; x < width; x++) {
         const idx = dv.getUint8(lineOff + x);
         const c = info.palette[idx] ?? info.palette[0];
-        put(x, y, c & 255, (c >> 8) & 255, (c >> 16) & 255, 255);
+        put(x, y, (c >> 16) & 255, (c >> 8) & 255, c & 255, 255);
       }
     }
     return;
@@ -205,7 +214,7 @@ function decodeRaw(info: BmpInfo, stride: number, put: PutFn) {
         const byte = dv.getUint8(lineOff + (x >> 1));
         const idx = x & 1 ? byte >> 4 : byte & 15;
         const c = info.palette[idx] ?? info.palette[0];
-        put(x, y, c & 255, (c >> 8) & 255, (c >> 16) & 255, 255);
+        put(x, y, (c >> 16) & 255, (c >> 8) & 255, c & 255, 255);
       }
     }
     return;
@@ -224,7 +233,7 @@ function decodeRLE(info: BmpInfo, put: PutFn, bpp: 4 | 8) {
 
   const plot = (px: number, py: number, idx: number) => {
     const c = palette?.[idx] ?? 0;
-    put(px, py, c & 255, (c >> 8) & 255, (c >> 16) & 255, 255);
+    put(px, py, (c >> 16) & 255, (c >> 8) & 255, c & 255, 255);
   };
 
   while (!end()) {

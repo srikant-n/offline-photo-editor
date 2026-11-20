@@ -198,10 +198,11 @@ export const useEditor = create<EditorState>((set, get) => {
     updateDoc: (fn, history = 'push') => {
       const { doc, gestureBase } = get();
       if (!doc) return;
+      const next = fn(doc);
+      if (next === doc) return;
       if (history === 'push') get().commit();
       else if (history === 'transient' && !gestureBase) set({ gestureBase: doc });
-      const next = fn(doc);
-      if (next !== doc) set({ doc: next });
+      set({ doc: next });
     },
 
     setTool: (tool) => set({ tool, cropDraft: null }),

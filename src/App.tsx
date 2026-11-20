@@ -18,18 +18,18 @@ export default function App() {
   const zoomFit = useEditor((s) => s.zoomFit);
   const view = useEditor((s) => s.view);
   const [exportOpen, setExportOpen] = useState(false);
-  const [openTick, setOpenTick] = useState(0);
 
   useFileInput();
   useKeyboard();
 
   // Warn before losing unsaved work
+  const canUndo = useEditor((s) => s.past.length > 0);
   useEffect(() => {
-    if (!doc) return;
+    if (!doc || !canUndo) return;
     const h = (e: BeforeUnloadEvent) => { e.preventDefault(); };
     window.addEventListener('beforeunload', h);
     return () => window.removeEventListener('beforeunload', h);
-  }, [doc]);
+  }, [doc, canUndo]);
 
   const openFile = () => {
     const inp = document.createElement('input');
@@ -38,7 +38,6 @@ export default function App() {
     inp.onchange = () => {
       const f = inp.files?.[0];
       if (f) void useEditor.getState().loadFile(f);
-      setOpenTick((n) => n + 1);
     };
     inp.click();
   };
@@ -61,12 +60,11 @@ export default function App() {
         {doc && <Inspector />}
       </div>
       <ExportDialog open={exportOpen} onClose={() => setExportOpen(false)} />
-      {loadError && doc && (
+      {loadError && (
         <div className="load-error-toast" onClick={() => setLoadError(null)}>
           {loadError}
         </div>
       )}
-      <span hidden data-open-tick={openTick} />
     </div>
   );
 }
