@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary-fixed-dim": "#4cd7f6", "primary-fixed-dim": "#c0c1ff", "secondary-fixed": "#acedff", "tertiary-fixed": "#ffddb8", "error-container": "#93000a", "on-secondary": "#003640", "on-tertiary-fixed-variant": "#653e00", "tertiary-container": "#ca8100", "inverse-primary": "#494bd6", "tertiary-fixed-dim": "#ffb95f", "on-tertiary-fixed": "#2a1700", "surface-container-low": "#191b21", "error": "#ffb4ab", "on-secondary-fixed": "#001f26", "on-surface": "#e2e2ea", "surface-container": "#1d1f26", "inverse-on-surface": "#2e3037", "on-primary-container": "#0d0096", "on-background": "#e2e2ea", "tertiary": "#ffb95f", "surface-container-lowest": "#0c0e14", "surface-variant": "#33353b", "on-primary": "#1000a9", "surface-dim": "#111319", "on-error-container": "#ffdad6", "surface-tint": "#c0c1ff", "inverse-surface": "#e2e2ea", "outline": "#908fa0", "on-error": "#690005", "secondary-container": "#03b5d3", "on-secondary-fixed-variant": "#004e5c", "surface": "#111319", "background": "#111319", "secondary": "#4cd7f6", "primary-container": "#8083ff", "surface-container-highest": "#33353b", "on-primary-fixed-variant": "#2f2ebe", "surface-container-high": "#282a30", "on-primary-fixed": "#07006c", "on-surface-variant": "#c7c4d7", "primary-fixed": "#e1e0ff", "surface-bright": "#373940", "on-secondary-container": "#00424e", "primary": "#c0c1ff", "outline-variant": "#464554", "on-tertiary-container": "#3e2400", "on-tertiary": "#472a00" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-sm": "0.25rem", "space-xl": "1rem", "space-md": "0.5rem", "space-xs": "0.125rem", "space-lg": "0.75rem", "gutter": "0.5rem", "margin": "0.75rem" }, "fontFamily": { "headline-md": ["Inter"], "headline-sm": ["Inter"], "body-md": ["Inter"], "body-sm": ["Inter"], "label-xs": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"] }, "fontSize": { "headline-md": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-md": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }], "label-xs": ["9px", { "lineHeight": "10px", "letterSpacing": "0.05em", "fontWeight": "600" }], "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.03em", "fontWeight": "500" }], "headline-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "body-lg": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "label-md": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }] } } } }</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="h-10 w-full px-margin flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg shrink-0"><img alt="Offline Photo Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrAs8DWWNg74_QpfPJcsK3weHnXtizHmMJsho1dqy6uBP7Wf53B_ioIfAB0cEekvHGQDfalOV3oxzatGCF77hqjbMMT3zL21QcBIJW0CSHDjY0VUiBawKvWg54ud2JaV2hvJGiDPFbPvfrQIFVuQ5nYzy7uimLcgW6zXwMJuZ1HUBiax0MLxK5AXQFaKcw0dCqDX1Pl2B1ohReiYvFmKUWGhCuTF1n2g8HxMxe28Bg2Z"/><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">Offline Photo</span><div class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container-high rounded text-secondary"><span class="material-symbols-outlined text-[14px]">verified_user</span><span class="font-label-xs text-label-xs tracking-wider uppercase">100% Client-Side / Zero Cloud</span></div></div><div class="flex items-center gap-space-lg shrink truncate"><div class="flex items-center gap-space-sm bg-surface-container px-space-md py-space-xs rounded text-on-surface truncate"><span class="material-symbols-outlined text-[14px] text-primary">image</span><span class="font-label-md text-label-md truncate text-on-surface">Landscape_GoldenHour_RAW.jpg</span><span class="text-outline font-label-xs text-label-xs">•</span><span class="font-label-xs text-label-xs text-on-surface-variant shrink-0">3840×2160</span><span class="text-outline font-label-xs text-label-xs">•</span><span class="font-label-xs text-label-xs text-secondary shrink-0">100%</span></div><div class="hidden md:flex items-center gap-space-xs"><button class="w-7 h-7 flex items-center justify-center rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" title="Undo (Ctrl+Z)" type="button"><span class="material-symbols-outlined text-[16px]">undo</span></button><button class="w-7 h-7 flex items-center justify-center rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" title="Redo (Ctrl+Y)" type="button"><span class="material-symbols-outlined text-[16px]">redo</span></button></div><div class="hidden lg:flex items-center gap-space-xs"><button class="flex items-center gap-space-xs h-7 px-space-md rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" title="Split View Before / After" type="button"><span class="material-symbols-outlined text-[14px]">compare</span><span class="font-label-xs text-label-xs uppercase">Split</span></button><div class="flex items-center bg-surface-container rounded p-space-xs"><button class="px-space-md py-space-xs rounded hover:bg-surface-container-high font-label-xs text-label-xs text-on-surface-variant hover:text-on-surface" type="button">Fit</button><button class="px-space-md py-space-xs rounded hover:bg-surface-container-high font-label-xs text-label-xs text-on-surface-variant hover:text-on-surface" type="button">Fill</button><button class="px-space-md py-space-xs rounded bg-surface-container-high font-label-xs text-label-xs text-primary" type="button">100%</button></div></div></div><div class="flex items-center gap-space-md shrink-0"><button class="flex items-center gap-space-xs px-space-lg py-space-xs h-7 rounded bg-primary text-on-primary hover:bg-primary-fixed-dim transition-all shadow-[0_1px_4px_rgba(0,0,0,0.3)]" type="button"><span class="material-symbols-outlined text-[16px]">download</span><span class="font-label-md text-label-md font-semibold uppercase tracking-wider">Export</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><aside class="fixed left-0 top-10 bottom-0 w-11 bg-surface-container-lowest z-40 flex flex-col items-center py-space-md justify-between"><nav class="flex flex-col items-center gap-space-sm w-full px-space-xs" data-active-classes="bg-surface-container-high text-primary rounded"><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="canvas-studio" href="#" title="Edit Canvas"><span class="material-symbols-outlined text-[18px]">crop</span></a><a aria-current="page" class="w-8 h-8 flex items-center justify-center transition-colors bg-surface-container-high text-primary rounded" data-path="lightroom-adjustments" href="#" title="Color & Tone"><span class="material-symbols-outlined text-[18px]">tune</span></a><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="graphic-markup" href="#" title="Markup & Vectors"><span class="material-symbols-outlined text-[18px]">draw</span></a><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="retouch-healing" href="#" title="Heal & Clone"><span class="material-symbols-outlined text-[18px]">healing</span></a><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="batch-processing" href="#" title="Batch Export Queue"><span class="material-symbols-outlined text-[18px]">photo_library</span></a></nav><div class="flex flex-col items-center gap-space-sm"><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="studio-settings" href="#" title="Workspace Preferences"><span class="material-symbols-outlined text-[18px]">settings</span></a></div></aside><div class="pl-11"><main class="relative pt-10 min-h-screen bg-surface-container-lowest"><div class="flex flex-col w-full h-[calc(100vh-2.5rem)] overflow-hidden select-none">
+<!-- Sub-Header / Tool Action Ribbon -->
+<div class="h-9 shrink-0 bg-surface-container-low px-space-lg flex items-center justify-between shadow-sm z-30">
+<!-- Left utility toggles -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center bg-surface-container-lowest rounded p-space-xs">
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container text-primary font-label-xs text-label-xs uppercase font-semibold" id="btn-split" type="button">
+<span class="material-symbols-outlined text-[14px]">vertical_split</span>
+<span>Split Screen</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-label-xs text-label-xs uppercase transition-colors" id="btn-toggle-view" title="Hold backslash key to view raw preview" type="button">
+<span class="material-symbols-outlined text-[14px]">preview</span>
+<span>Hold \ to Preview</span>
+</button>
+</div>
+<div class="h-3.5 w-px bg-surface-variant mx-space-xs"></div>
+<!-- Quick Action Pills -->
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface text-label-xs font-label-xs transition-colors" id="btn-copy-recipe" type="button">
+<span class="material-symbols-outlined text-[13px]">content_copy</span>
+<span>Copy Edit Recipe</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface text-label-xs font-label-xs transition-colors" id="btn-paste-recipe" type="button">
+<span class="material-symbols-outlined text-[13px]">content_paste</span>
+<span>Paste Recipe</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded hover:bg-error-container/30 text-error font-label-xs text-label-xs transition-colors" id="btn-reset-all" type="button">
+<span class="material-symbols-outlined text-[13px]">restart_alt</span>
+<span>Reset Adjustments</span>
+</button>
+</div>
+<!-- Center active mode status indicator -->
+<div class="hidden xl:flex items-center gap-space-md text-label-xs font-label-xs text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-on-surface font-medium uppercase tracking-wider">Tone Engine v4.2 Local</span>
+</div>
+<span class="text-outline-variant">•</span>
+<span>Color Space: <strong class="text-on-surface font-medium">ProPhoto RGB</strong></span>
+<span class="text-outline-variant">•</span>
+<span>Depth: <strong class="text-on-surface font-medium">16-bit Float</strong></span>
+</div>
+<!-- Viewport controls -->
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-space-xs bg-surface-container-lowest px-space-md py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-tertiary">warning</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase">Clipping Alert:</span>
+<button class="px-1 py-0.5 rounded bg-secondary/20 text-secondary font-label-xs text-label-xs" id="btn-clip-shadows" title="Shadow clipping active (Under 0 EV)" type="button">-0.0 EV</button>
+<button class="px-1 py-0.5 rounded bg-error/20 text-error font-label-xs text-label-xs" id="btn-clip-highlights" title="Highlight clipping active (Above 1.0)" type="button">+1.2 EV</button>
+</div>
+<button class="w-6 h-6 flex items-center justify-center rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant" title="Recenter Viewport" type="button">
+<span class="material-symbols-outlined text-[14px]">center_focus_strong</span>
+</button>
+</div>
+</div>
+<!-- Primary Workspace Canvas & Right Grading Dock -->
+<div class="flex-1 flex overflow-hidden w-full relative">
+<!-- CENTER VIEWPORT: High-Performance Split Canvas Area -->
+<div class="flex-1 relative bg-surface-container-lowest flex items-center justify-center overflow-hidden p-space-md" id="viewport-canvas-container">
+<!-- Micro-coordinate Guides / Floating View HUD -->
+<div class="absolute top- space-md left-space-md z-20 flex items-center gap-space-sm bg-surface-container-low/90 backdrop-blur-md px-space-md py-space-xs rounded shadow-md pointer-events-none">
+<span class="material-symbols-outlined text-[13px] text-secondary">tune</span>
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant">Live Hardware Pipeline</span>
+<span class="font-label-xs text-label-xs text-outline">•</span>
+<span class="font-label-xs text-label-xs text-secondary">WebGL2 Zero-Copy</span>
+</div>
+<div class="absolute bottom-space-md left-space-md z-20 flex items-center gap-space-md bg-surface-container-low/90 backdrop-blur-md px-space-md py-space-xs rounded shadow-md">
+<div class="flex items-center gap-space-xs font-label-xs text-label-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px]">zoom_in</span>
+<span>Zoom: <strong class="text-on-surface">64.2%</strong></span>
+</div>
+<div class="w-px h-2.5 bg-surface-variant"></div>
+<div class="flex items-center gap-space-xs font-label-xs text-label-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px]">aspect_ratio</span>
+<span>Original RAW DNG</span>
+</div>
+</div>
+<!-- Split Image Viewport Frame -->
+<div class="relative w-full max-w-[1240px] h-full max-h-[820px] rounded-lg overflow-hidden bg-surface-dim shadow-2xl flex items-center justify-center" id="split-box">
+<!-- Right Background Layer: AFTER (Graded Photo) -->
+<div class="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center">
+<img alt="Graded Master Version" class="w-full h-full object-cover object-center pointer-events-none select-none scale-100" data-alt="Photographic landscape during golden hour captured in dramatic dynamic range. Sun casts warm amber and honey light across craggy cinematic alpine peaks, with lush alpine pine valleys below in deep teal shadows. Rich warm highlights, crystal clear atmospheric clarity, and saturated golden sunset gradients." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-lqBou1m3VCAZWmFpOxDBkQdPIGBCNXmsQpLrmpAuYoa8wbwaEq0Iwl-aHa9E70kXIZQRxUvKTIMfIOf8XxmFOPy-1vSqLPgWpIAksRWPdBTmKn2Tq69nPdFiZ9OQhgSvPJYzytmqA5ktMHwNE2fzP5tdcMOABicX2jfcRhm8KaBSYk6Xn6VOlzX2kiFtUAup5_TbAvaxzwJDwMndVu7IcHCx4R6RG4rnIiLfzfI"/>
+<!-- Badge 'After' -->
+<div class="absolute top-4 right-4 z-10 px- space-md py-1 rounded bg-surface-container-lowest/80 backdrop-blur-md shadow-md flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-xs text-label-xs uppercase font-bold tracking-widest text-secondary-fixed">After (Client-Side Grade)</span>
+</div>
+</div>
+<!-- Left Foreground Layer: BEFORE (Muted RAW Photo with clipping path) -->
+<div class="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center pointer-events-none select-none" id="before-layer" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+<img alt="Original Camera RAW" class="w-full h-full object-cover object-center filter grayscale-[30%] brightness-[92%] contrast-[86%] pointer-events-none" data-alt="Flat desaturated muted unedited camera RAW capture of jagged rocky mountain summits under dusk light. Flat low contrast exposure, hazy highlights with neutral slate cast, dull pale shadows, uncolored slate tones representing flat linear RAW profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpfEtT7S1m6vddMGklnyMxGUesLnLbFVsqD8mtiASI4UuDVk4H6GYQUJEzSU4MtQ4qwGEvKr3thTZZHioqznkhTdzknSLzDYqc_IVpvawAANVQFFY2Dclc2yzAB27rFbFZPJjjFgCh1YL4iJm8Nmmo45okAh6an7RCBPmPphbGAtMbqbDqfvzhAqucSMFdCAgnZVtwTMe91bnAKffaCddo5-lkBokAwhRYdJJTnMk"/>
+<!-- Badge 'Before' -->
+<div class="absolute top-4 left-4 z-10 px-space-md py-1 rounded bg-surface-container-lowest/80 backdrop-blur-md shadow-md flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="font-label-xs text-label-xs uppercase font-bold tracking-widest text-on-surface-variant">Before (Original RAW)</span>
+</div>
+</div>
+<!-- Split Draggable Handle Line -->
+<div class="absolute top-0 bottom-0 w-0.5 bg-on-surface z-30 cursor-ew-resize flex items-center justify-center shadow-[0_0_12px_rgba(0,0,0,0.8)]" id="split-handle" style="left: 50%;">
+<!-- Center Grab Knob -->
+<div class="w-8 h-8 -ml-[15px] rounded-full bg-surface-container-highest shadow-xl flex items-center justify-center text-on-surface cursor-grab active:cursor-grabbing hover:scale-110 active:scale-95 transition-transform">
+<div class="flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-[13px] text-on-surface">chevron_left</span>
+<span class="material-symbols-outlined text-[13px] text-on-surface">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT TOOL INSPECTOR: Color & Tone Suite (Fixed 340px) -->
+<div class="w-[340px] shrink-0 bg-surface-container-low flex flex-col h-full shadow-2xl z-20">
+<!-- Dock Tabs Header -->
+<div class="h-9 px-space-md bg-surface-container flex items-center justify-between shrink-0">
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-1 rounded bg-surface-container-high text-primary font-label-xs text-label-xs font-semibold uppercase tracking-wider flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[13px]">palette</span>
+<span>Tone & Color</span>
+</button>
+<button class="px-space-md py-1 rounded text-on-surface-variant hover:text-on-surface font-label-xs text-label-xs font-semibold uppercase tracking-wider" type="button">
+<span>Curves</span>
+</button>
+<button class="px-space-md py-1 rounded text-on-surface-variant hover:text-on-surface font-label-xs text-label-xs font-semibold uppercase tracking-wider" type="button">
+<span>HSL/Color</span>
+</button>
+</div>
+<div class="flex items-center">
+<button class="w-6 h-6 flex items-center justify-center rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface" title="Panel Settings" type="button">
+<span class="material-symbols-outlined text-[15px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Scrollable Grading Controls Container -->
+<div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-md">
+<!-- SECTION 1: LIVE INTERACTIVE WAVE HISTOGRAM -->
+<div class="bg-surface-container-lowest p-space-sm rounded shadow-sm">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[13px] text-primary">equalizer</span>
+<span class="font-label-xs text-label-xs font-semibold text-on-surface uppercase tracking-wide">Live RGB / Luminance</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-xs text-label-xs text-on-surface-variant">
+<span class="text-error font-medium">R: 218</span>
+<span class="text-secondary-container font-medium">G: 172</span>
+<span class="text-primary font-medium">B: 129</span>
+</div>
+</div>
+<!-- SVG Wave Histogram -->
+<div class="relative w-full h-24 bg-surface-container-lowest rounded overflow-hidden flex items-end">
+<!-- Histogram Grid background lines -->
+<div class="absolute inset-0 grid grid-cols-4 pointer-events-none opacity-20">
+<div class="border-r border-outline-variant"></div>
+<div class="border-r border-outline-variant"></div>
+<div class="border-r border-outline-variant"></div>
+<div></div>
+</div>
+<!-- SVG Multi-Layer RGB curves -->
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 300 100">
+<defs>
+<lineargradient id="lumGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#c0c1ff" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#c0c1ff" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="redGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#ffb4ab" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#ffb4ab" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="cyanGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4cd7f6" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#4cd7f6" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Shadows Alert indicator (left spike) -->
+<rect class="opacity-90" fill="#4cd7f6" height="100" width="3" x="0" y="0"></rect>
+<!-- Red Channel Wave -->
+<path d="M0,95 Q30,85 60,65 T120,40 T180,30 T240,15 T280,20 L300,90 L300,100 L0,100 Z" fill="url(#redGrad)"></path>
+<path d="M0,95 Q30,85 60,65 T120,40 T180,30 T240,15 T280,20 L300,90" fill="none" stroke="#ffb4ab" stroke-width="1.2"></path>
+<!-- Cyan Channel Wave -->
+<path d="M0,90 Q40,75 80,50 T150,55 T210,45 T270,55 L300,85 L300,100 L0,100 Z" fill="url(#cyanGrad)"></path>
+<path d="M0,90 Q40,75 80,50 T150,55 T210,45 T270,55 L300,85" fill="none" stroke="#4cd7f6" stroke-width="1"></path>
+<!-- Composite Luminance Fill Wave -->
+<path d="M0,88 Q35,70 70,52 T140,42 T210,25 T270,30 L298,10 L300,100 L0,100 Z" fill="url(#lumGrad)"></path>
+<path d="M0,88 Q35,70 70,52 T140,42 T210,25 T270,30 L298,10" fill="none" stroke="#e2e2ea" stroke-width="1.5"></path>
+<!-- Highlights Alert Indicator (right spike) -->
+<rect class="opacity-95" fill="#ffb4ab" height="100" width="3" x="297" y="0"></rect>
+</svg>
+<!-- Bottom axis tags -->
+<div class="absolute bottom-0 inset-x-0 h-3.5 bg-surface-container-high/60 backdrop-blur-sm flex items-center justify-between px-1.5 text-[8px] font-mono text-on-surface-variant">
+<span>0 (Blacks)</span>
+<span>64 (Shadows)</span>
+<span>128 (Mids)</span>
+<span>192 (Highlights)</span>
+<span>255 (Whites)</span>
+</div>
+</div>
+</div>
+<!-- SECTION 2: BASIC TONE ADJUSTMENTS -->
+<div class="bg-surface-container rounded p-space-sm shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wide flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-primary">exposure</span>
+<span>Tone Adjustments</span>
+</span>
+<button class="text-on-surface-variant hover:text-on-surface text-label-xs font-label-xs uppercase transition-colors" id="reset-tone-section" title="Double click labels or this to reset" type="button">
+              Reset Tone
+            </button>
+</div>
+<!-- Parameter 1: Exposure -->
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant cursor-help" title="Double-click to reset exposure">Exposure</span>
+<span class="text-secondary font-mono cursor-ew-resize hover:underline" id="val-exposure" title="Scrub value">+0.45 EV</span>
+</div>
+<div class="relative flex items-center h-4">
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-secondary" id="slider-exposure" max="3" min="-3" step="0.05" type="range" value="0.45"/>
+</div>
+</div>
+<!-- Parameter 2: Contrast -->
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant cursor-help">Contrast</span>
+<span class="text-on-surface font-mono cursor-ew-resize hover:underline" id="val-contrast">+18</span>
+</div>
+<div class="relative flex items-center h-4">
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-primary" id="slider-contrast" max="100" min="-100" step="1" type="range" value="18"/>
+</div>
+</div>
+<!-- Parameter 3: Highlights -->
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant cursor-help">Highlights</span>
+<span class="text-error font-mono cursor-ew-resize hover:underline" id="val-highlights">-32</span>
+</div>
+<div class="relative flex items-center h-4">
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-error" id="slider-highlights" max="100" min="-100" step="1" type="range" value="-32"/>
+</div>
+</div>
+<!-- Parameter 4: Shadows -->
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant cursor-help">Shadows</span>
+<span class="text-secondary font-mono cursor-ew-resize hover:underline" id="val-shadows">+24</span>
+</div>
+<div class="relative flex items-center h-4">
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-secondary" id="slider-shadows" max="100" min="-100" step="1" type="range" value="24"/>
+</div>
+</div>
+<!-- 2-Column Whites & Blacks -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Whites</span>
+<span class="text-on-surface font-mono" id="val-whites">+10</span>
+</div>
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-primary" id="slider-whites" max="100" min="-100" step="1" type="range" value="10"/>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Blacks</span>
+<span class="text-on-surface font-mono" id="val-blacks">-15</span>
+</div>
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-primary" id="slider-blacks" max="100" min="-100" step="1" type="range" value="-15"/>
+</div>
+</div>
+</div>
+<!-- SECTION 3: COLOR & WHITE BALANCE -->
+<div class="bg-surface-container rounded p-space-sm shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wide flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-tertiary">wb_sunny</span>
+<span>Color & White Balance</span>
+</span>
+<div class="flex items-center gap-1">
+<button class="w-5 h-5 flex items-center justify-center rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface" title="Eyedropper White Balance Picker" type="button">
+<span class="material-symbols-outlined text-[12px]">colorize</span>
+</button>
+</div>
+</div>
+<!-- Color Temp Slider with Warmth Color Ramp -->
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Temperature</span>
+<span class="text-tertiary font-mono" id="val-temp">6,200 K (+600)</span>
+</div>
+<div class="relative flex items-center h-4">
+<!-- Gradient Ramp Bar -->
+<div class="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-secondary via-surface-container-highest to-tertiary pointer-events-none opacity-80"></div>
+<input class="w-full h-1 bg-transparent appearance-none cursor-pointer relative z-10 accent-tertiary" id="slider-temp" max="9000" min="3000" step="50" type="range" value="6200"/>
+</div>
+</div>
+<!-- Tint Slider with Green/Magenta Color Ramp -->
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Tint</span>
+<span class="text-on-surface font-mono" id="val-tint">+4</span>
+</div>
+<div class="relative flex items-center h-4">
+<!-- Tint Gradient -->
+<div class="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-[#4cd79b] via-surface-container-highest to-[#f352bf] pointer-events-none opacity-70"></div>
+<input class="w-full h-1 bg-transparent appearance-none cursor-pointer relative z-10 accent-primary" id="slider-tint" max="50" min="-50" step="1" type="range" value="4"/>
+</div>
+</div>
+<!-- Vibrance & Saturation Dual Control -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Vibrance</span>
+<span class="text-secondary font-mono" id="val-vibrance">+22</span>
+</div>
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-secondary" id="slider-vibrance" max="100" min="-100" step="1" type="range" value="22"/>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Saturation</span>
+<span class="text-primary font-mono" id="val-saturation">+12</span>
+</div>
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-primary" id="slider-saturation" max="100" min="-100" step="1" type="range" value="12"/>
+</div>
+</div>
+</div>
+<!-- SECTION 4: DETAIL & CLARITY -->
+<div class="bg-surface-container rounded p-space-sm shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wide flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-secondary">flare</span>
+<span>Detail & Presence</span>
+</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Unsharp Mask</span>
+</div>
+<!-- Sharpness with Radius micro-tag -->
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<div class="flex items-center gap-1.5">
+<span class="text-on-surface-variant">Sharpness</span>
+<span class="px-1 py-0.2 bg-surface-container-high text-[8px] font-mono rounded text-on-surface-variant">R: 1.0px</span>
+</div>
+<span class="text-secondary font-mono" id="val-sharpness">+28</span>
+</div>
+<div class="relative flex items-center h-4">
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-secondary" id="slider-sharpness" max="150" min="0" step="1" type="range" value="28"/>
+</div>
+</div>
+<!-- Clarity & Dehaze Grid -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Clarity</span>
+<span class="text-on-surface font-mono" id="val-clarity">+14</span>
+</div>
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-primary" id="slider-clarity" max="100" min="-100" step="1" type="range" value="14"/>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Dehaze</span>
+<span class="text-on-surface font-mono" id="val-dehaze">+8</span>
+</div>
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-primary" id="slider-dehaze" max="100" min="-100" step="1" type="range" value="8"/>
+</div>
+</div>
+<!-- Vignette Slider -->
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Vignette</span>
+<span class="text-on-surface font-mono" id="val-vignette">-12</span>
+</div>
+<div class="relative flex items-center h-4">
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-primary" id="slider-vignette" max="100" min="-100" step="1" type="range" value="-12"/>
+</div>
+</div>
+</div>
+<!-- SECTION 5: FILTER PRESETS STRIP WITH MASTER INTENSITY -->
+<div class="bg-surface-container-high/60 rounded p-space-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wide flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-tertiary">auto_fix_high</span>
+<span>Look Presets</span>
+</span>
+<span class="font-label-xs text-label-xs text-secondary font-medium">Warm Sunset Active</span>
+</div>
+<!-- Filter Cards Carousel -->
+<div class="grid grid-cols-3 gap-1.5">
+<!-- Preset 1 -->
+<button class="preset-card group relative flex flex-col items-center p-1 rounded bg-surface-container hover:bg-surface-container-highest transition-all text-left" type="button">
+<div class="w-full h-10 rounded bg-gradient-to-tr from-[#2d1b10] to-[#b37d4e] mb-1 relative overflow-hidden">
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface truncate w-full text-center">Vintage Film</span>
+</button>
+<!-- Preset 2 -->
+<button class="preset-card group relative flex flex-col items-center p-1 rounded bg-surface-container hover:bg-surface-container-highest transition-all text-left" type="button">
+<div class="w-full h-10 rounded bg-gradient-to-tr from-[#003640] via-[#103040] to-[#ca8100] mb-1 relative overflow-hidden">
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface truncate w-full text-center">Teal & Orange</span>
+</button>
+<!-- Preset 3 -->
+<button class="preset-card group relative flex flex-col items-center p-1 rounded bg-surface-container hover:bg-surface-container-highest transition-all text-left" type="button">
+<div class="w-full h-10 rounded bg-gradient-to-b from-[#404040] to-[#121212] mb-1 relative overflow-hidden">
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface truncate w-full text-center">Moody Mono</span>
+</button>
+<!-- Preset 4 (ACTIVE) -->
+<button class="preset-card active group relative flex flex-col items-center p-1 rounded bg-primary-container/20 shadow-[0_0_8px_rgba(128,131,255,0.4)] transition-all text-left" type="button">
+<div class="w-full h-10 rounded bg-gradient-to-tr from-[#581500] via-[#c46900] to-[#ffd074] mb-1 relative overflow-hidden">
+<div class="absolute top-1 right-1 w-2.5 h-2.5 bg-primary text-on-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[8px] font-bold">check</span>
+</div>
+</div>
+<span class="font-label-xs text-label-xs text-primary font-semibold truncate w-full text-center">Warm Sunset</span>
+</button>
+<!-- Preset 5 -->
+<button class="preset-card group relative flex flex-col items-center p-1 rounded bg-surface-container hover:bg-surface-container-highest transition-all text-left" type="button">
+<div class="w-full h-10 rounded bg-gradient-to-tr from-[#1b2f28] via-[#2f5540] to-[#a0c5b0] mb-1 relative overflow-hidden">
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface truncate w-full text-center">Fuji Provia</span>
+</button>
+<!-- Preset Custom / Add -->
+<button class="group relative flex flex-col items-center justify-center p-1 rounded bg-surface-container/60 hover:bg-surface-container-highest transition-all text-on-surface-variant hover:text-on-surface" type="button">
+<div class="w-full h-10 rounded bg-surface-container-lowest flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</div>
+<span class="font-label-xs text-label-xs truncate w-full text-center">+ Custom</span>
+</button>
+</div>
+<!-- Preset Master Intensity Slider -->
+<div class="flex flex-col gap-0.5 pt-space-xs">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant">Preset Intensity</span>
+<span class="text-primary font-mono font-medium" id="val-intensity">85%</span>
+</div>
+<div class="relative flex items-center h-4">
+<input class="w-full h-1 bg-surface-variant rounded appearance-none cursor-pointer accent-primary" id="slider-intensity" max="100" min="0" step="1" type="range" value="85"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Inspector Footer Bar -->
+<div class="h-8 px-space-md bg-surface-container-lowest flex items-center justify-between text-label-xs font-label-xs text-on-surface-variant shrink-0">
+<span class="flex items-center gap-1 text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>GPU Shaders: Compiled</span>
+</span>
+<div class="flex items-center gap-space-sm font-mono text-[10px]">
+<span>LUT: Rec.709-Lin</span>
+<span>•</span>
+<span class="text-secondary">0.4ms Render</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initGradingSuite() {
+    const splitBox = document.getElementById('split-box');
+    const splitHandle = document.getElementById('split-handle');
+    const beforeLayer = document.getElementById('before-layer');
+    let isDragging = false;
+
+    // Draggable Split Screen Implementation
+    function setSplitPosition(percent) {
+      const clamped = Math.max(2, Math.min(98, percent));
+      splitHandle.style.left = clamped + '%';
+      beforeLayer.style.clipPath = `polygon(0 0, ${clamped}% 0, ${clamped}% 100%, 0 100%)`;
+    }
+
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      const rect = splitBox.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const percent = (x / rect.width) * 100;
+      setSplitPosition(percent);
+    }
+
+    function stopDragging() {
+      if (isDragging) {
+        isDragging = false;
+        document.body.style.cursor = '';
+      }
+    }
+
+    if (splitHandle && splitBox) {
+      splitHandle.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        isDragging = true;
+        document.body.style.cursor = 'ew-resize';
+      });
+
+      window.addEventListener('mousemove', onPointerMove);
+      window.addEventListener('mouseup', stopDragging);
+
+      // Touch events for tablets
+      splitHandle.addEventListener('touchstart', () => { isDragging = true; }, { passive: true });
+      window.addEventListener('touchmove', (e) => {
+        if (!isDragging || !e.touches[0]) return;
+        const rect = splitBox.getBoundingClientRect();
+        const x = e.touches[0].clientX - rect.left;
+        setSplitPosition((x / rect.width) * 100);
+      }, { passive: true });
+      window.addEventListener('touchend', stopDragging);
+    }
+
+    // Interactive Slider Syncing with Numerical Values
+    const sliderDefs = [
+      { id: 'exposure', el: 'slider-exposure', val: 'val-exposure', format: (v) => (v >= 0 ? `+${Number(v).toFixed(2)} EV` : `${Number(v).toFixed(2)} EV`) },
+      { id: 'contrast', el: 'slider-contrast', val: 'val-contrast', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'highlights', el: 'slider-highlights', val: 'val-highlights', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'shadows', el: 'slider-shadows', val: 'val-shadows', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'whites', el: 'slider-whites', val: 'val-whites', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'blacks', el: 'slider-blacks', val: 'val-blacks', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'temp', el: 'slider-temp', val: 'val-temp', format: (v) => `${Number(v).toLocaleString()} K (${v >= 5600 ? '+' : ''}${v - 5600})` },
+      { id: 'tint', el: 'slider-tint', val: 'val-tint', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'vibrance', el: 'slider-vibrance', val: 'val-vibrance', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'saturation', el: 'slider-saturation', val: 'val-saturation', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'sharpness', el: 'slider-sharpness', val: 'val-sharpness', format: (v) => `+${v}` },
+      { id: 'clarity', el: 'slider-clarity', val: 'val-clarity', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'dehaze', el: 'slider-dehaze', val: 'val-dehaze', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'vignette', el: 'slider-vignette', val: 'val-vignette', format: (v) => (v >= 0 ? `+${v}` : `${v}`) },
+      { id: 'intensity', el: 'slider-intensity', val: 'val-intensity', format: (v) => `${v}%` }
+    ];
+
+    sliderDefs.forEach(({ el, val, format }) => {
+      const slider = document.getElementById(el);
+      const display = document.getElementById(val);
+      if (slider && display) {
+        slider.addEventListener('input', () => {
+          display.textContent = format(slider.value);
+        });
+        display.addEventListener('dblclick', () => {
+          // Double-click resets back to natural zero or baseline
+          if (el === 'slider-temp') slider.value = 5600;
+          else if (el === 'slider-intensity') slider.value = 100;
+          else slider.value = 0;
+          slider.dispatchEvent(new Event('input'));
+        });
+      }
+    });
+
+    // Hold Backslash key to preview original RAW
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '\\') {
+        if (beforeLayer) beforeLayer.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0 100%)';
+        if (splitHandle) splitHandle.style.opacity = '0';
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.key === '\\') {
+        const currentSplit = parseFloat(splitHandle.style.left) || 50;
+        setSplitPosition(currentSplit);
+        if (splitHandle) splitHandle.style.opacity = '1';
+      }
+    });
+
+    // Reset Tone Section
+    const resetToneBtn = document.getElementById('reset-tone-section');
+    if (resetToneBtn) {
+      resetToneBtn.addEventListener('click', () => {
+        ['slider-exposure', 'slider-contrast', 'slider-highlights', 'slider-shadows', 'slider-whites', 'slider-blacks'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.value = 0;
+            el.dispatchEvent(new Event('input'));
+          }
+        });
+      });
+    }
+
+    // Reset All Button in top ribbon
+    const resetAllBtn = document.getElementById('btn-reset-all');
+    if (resetAllBtn) {
+      resetAllBtn.addEventListener('click', () => {
+        sliderDefs.forEach(({ el }) => {
+          const s = document.getElementById(el);
+          if (s) {
+            if (el === 'slider-temp') s.value = 5600;
+            else if (el === 'slider-intensity') s.value = 100;
+            else s.value = 0;
+            s.dispatchEvent(new Event('input'));
+          }
+        });
+      });
+    }
+
+    // Copy Edit Recipe action feedback
+    const copyBtn = document.getElementById('btn-copy-recipe');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const origText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<span class="material-symbols-outlined text-[13px] text-secondary">check</span><span class="text-secondary">Copied!</span>';
+        setTimeout(() => { copyBtn.innerHTML = origText; }, 1600);
+      });
+    }
+
+    // Filter preset select toggles
+    document.querySelectorAll('.preset-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.preset-card').forEach(c => {
+          c.classList.remove('active', 'bg-primary-container/20', 'shadow-[0_0_8px_rgba(128,131,255,0.4)]');
+          c.classList.add('bg-surface-container');
+          const check = c.querySelector('.material-symbols-outlined');
+          if (check && check.textContent === 'check') check.parentElement.remove();
+        });
+        btn.classList.add('active', 'bg-primary-container/20', 'shadow-[0_0_8px_rgba(128,131,255,0.4)]');
+        btn.classList.remove('bg-surface-container');
+      });
+    });
+  })();
+</script></main></div></body></html>

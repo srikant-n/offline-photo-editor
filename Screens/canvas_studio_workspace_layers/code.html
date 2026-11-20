@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary-fixed-dim": "#4cd7f6", "primary-fixed-dim": "#c0c1ff", "secondary-fixed": "#acedff", "tertiary-fixed": "#ffddb8", "error-container": "#93000a", "on-secondary": "#003640", "on-tertiary-fixed-variant": "#653e00", "tertiary-container": "#ca8100", "inverse-primary": "#494bd6", "tertiary-fixed-dim": "#ffb95f", "on-tertiary-fixed": "#2a1700", "surface-container-low": "#191b21", "error": "#ffb4ab", "on-secondary-fixed": "#001f26", "on-surface": "#e2e2ea", "surface-container": "#1d1f26", "inverse-on-surface": "#2e3037", "on-primary-container": "#0d0096", "on-background": "#e2e2ea", "tertiary": "#ffb95f", "surface-container-lowest": "#0c0e14", "surface-variant": "#33353b", "on-primary": "#1000a9", "surface-dim": "#111319", "on-error-container": "#ffdad6", "surface-tint": "#c0c1ff", "inverse-surface": "#e2e2ea", "outline": "#908fa0", "on-error": "#690005", "secondary-container": "#03b5d3", "on-secondary-fixed-variant": "#004e5c", "surface": "#111319", "background": "#111319", "secondary": "#4cd7f6", "primary-container": "#8083ff", "surface-container-highest": "#33353b", "on-primary-fixed-variant": "#2f2ebe", "surface-container-high": "#282a30", "on-primary-fixed": "#07006c", "on-surface-variant": "#c7c4d7", "primary-fixed": "#e1e0ff", "surface-bright": "#373940", "on-secondary-container": "#00424e", "primary": "#c0c1ff", "outline-variant": "#464554", "on-tertiary-container": "#3e2400", "on-tertiary": "#472a00" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-sm": "0.25rem", "space-xl": "1rem", "space-md": "0.5rem", "space-xs": "0.125rem", "space-lg": "0.75rem", "gutter": "0.5rem", "margin": "0.75rem" }, "fontFamily": { "headline-md": ["Inter"], "headline-sm": ["Inter"], "body-md": ["Inter"], "body-sm": ["Inter"], "label-xs": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"] }, "fontSize": { "headline-md": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-md": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }], "label-xs": ["9px", { "lineHeight": "10px", "letterSpacing": "0.05em", "fontWeight": "600" }], "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.03em", "fontWeight": "500" }], "headline-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "body-lg": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "label-md": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }] } } } }</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="h-10 w-full px-margin flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg shrink-0"><img alt="Offline Photo Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrAs8DWWNg74_QpfPJcsK3weHnXtizHmMJsho1dqy6uBP7Wf53B_ioIfAB0cEekvHGQDfalOV3oxzatGCF77hqjbMMT3zL21QcBIJW0CSHDjY0VUiBawKvWg54ud2JaV2hvJGiDPFbPvfrQIFVuQ5nYzy7uimLcgW6zXwMJuZ1HUBiax0MLxK5AXQFaKcw0dCqDX1Pl2B1ohReiYvFmKUWGhCuTF1n2g8HxMxe28Bg2Z"/><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">Offline Photo</span><div class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container-high rounded text-secondary"><span class="material-symbols-outlined text-[14px]">verified_user</span><span class="font-label-xs text-label-xs tracking-wider uppercase">100% Client-Side / Zero Cloud</span></div></div><div class="flex items-center gap-space-lg shrink truncate"><div class="flex items-center gap-space-sm bg-surface-container px-space-md py-space-xs rounded text-on-surface truncate"><span class="material-symbols-outlined text-[14px] text-primary">image</span><span class="font-label-md text-label-md truncate text-on-surface">Landscape_GoldenHour_RAW.jpg</span><span class="text-outline font-label-xs text-label-xs">•</span><span class="font-label-xs text-label-xs text-on-surface-variant shrink-0">3840×2160</span><span class="text-outline font-label-xs text-label-xs">•</span><span class="font-label-xs text-label-xs text-secondary shrink-0">100%</span></div><div class="hidden md:flex items-center gap-space-xs"><button class="w-7 h-7 flex items-center justify-center rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" title="Undo (Ctrl+Z)" type="button"><span class="material-symbols-outlined text-[16px]">undo</span></button><button class="w-7 h-7 flex items-center justify-center rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" title="Redo (Ctrl+Y)" type="button"><span class="material-symbols-outlined text-[16px]">redo</span></button></div><div class="hidden lg:flex items-center gap-space-xs"><button class="flex items-center gap-space-xs h-7 px-space-md rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" title="Split View Before / After" type="button"><span class="material-symbols-outlined text-[14px]">compare</span><span class="font-label-xs text-label-xs uppercase">Split</span></button><div class="flex items-center bg-surface-container rounded p-space-xs"><button class="px-space-md py-space-xs rounded hover:bg-surface-container-high font-label-xs text-label-xs text-on-surface-variant hover:text-on-surface" type="button">Fit</button><button class="px-space-md py-space-xs rounded hover:bg-surface-container-high font-label-xs text-label-xs text-on-surface-variant hover:text-on-surface" type="button">Fill</button><button class="px-space-md py-space-xs rounded bg-surface-container-high font-label-xs text-label-xs text-primary" type="button">100%</button></div></div></div><div class="flex items-center gap-space-md shrink-0"><button class="flex items-center gap-space-xs px-space-lg py-space-xs h-7 rounded bg-primary text-on-primary hover:bg-primary-fixed-dim transition-all shadow-[0_1px_4px_rgba(0,0,0,0.3)]" type="button"><span class="material-symbols-outlined text-[16px]">download</span><span class="font-label-md text-label-md font-semibold uppercase tracking-wider">Export</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><aside class="fixed left-0 top-10 bottom-0 w-11 bg-surface-container-lowest z-40 flex flex-col items-center py-space-md justify-between"><nav class="flex flex-col items-center gap-space-sm w-full px-space-xs" data-active-classes="bg-surface-container-high text-primary rounded"><a aria-current="page" class="w-8 h-8 flex items-center justify-center transition-colors bg-surface-container-high text-primary rounded" data-path="canvas-studio" href="#" title="Edit Canvas"><span class="material-symbols-outlined text-[18px]">crop</span></a><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="lightroom-adjustments" href="#" title="Color & Tone"><span class="material-symbols-outlined text-[18px]">tune</span></a><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="graphic-markup" href="#" title="Markup & Vectors"><span class="material-symbols-outlined text-[18px]">draw</span></a><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="retouch-healing" href="#" title="Heal & Clone"><span class="material-symbols-outlined text-[18px]">healing</span></a><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="batch-processing" href="#" title="Batch Export Queue"><span class="material-symbols-outlined text-[18px]">photo_library</span></a></nav><div class="flex flex-col items-center gap-space-sm"><a class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="studio-settings" href="#" title="Workspace Preferences"><span class="material-symbols-outlined text-[18px]">settings</span></a></div></aside><div class="pl-11"><main class="relative pt-10 min-h-screen bg-surface-container-lowest"><div class="flex flex-col w-full">
+<!-- WORKSPACE GRID CONTAINER -->
+<div class="flex w-full h-[calc(100vh-40px)] overflow-hidden select-none bg-surface-container-lowest">
+<!-- 1. SECONDARY TOOLWELL (VERTICAL WORKBENCH RAIL) -->
+<aside class="w-12 shrink-0 bg-surface-container-low flex flex-col items-center justify-between py-space-sm z-30">
+<div class="flex flex-col items-center gap-space-xs w-full px-space-xs">
+<!-- Move / Selection (V) -->
+<button class="relative w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-all group" title="Select / Move (V)" type="button">
+<span class="material-symbols-outlined text-[18px]">near_me</span>
+<span class="absolute left-10 bg-surface-container-highest px-space-md py-space-xs rounded shadow-lg text-on-surface font-label-xs text-label-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">Select (V)</span>
+</button>
+<!-- Crop & Straighten (C) - ACTIVE -->
+<button class="relative w-8 h-8 flex items-center justify-center rounded bg-surface-container-highest text-primary shadow-sm transition-all group" title="Crop & Straighten (C)" type="button">
+<span class="w-1 h-3.5 bg-primary absolute left-0.5 rounded-full"></span>
+<span class="material-symbols-outlined text-[18px]">crop</span>
+<span class="absolute left-10 bg-surface-container-highest px-space-md py-space-xs rounded shadow-lg text-on-surface font-label-xs text-label-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">Crop & Straighten (C)</span>
+</button>
+<!-- Transform / Rotate / Flip -->
+<button class="relative w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-all group" title="Transform / Flip" type="button">
+<span class="material-symbols-outlined text-[18px]">transform</span>
+<span class="absolute left-10 bg-surface-container-highest px-space-md py-space-xs rounded shadow-lg text-on-surface font-label-xs text-label-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">Transform / Rotate</span>
+</button>
+<!-- Adjust / Tone (A) -->
+<button class="relative w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-all group" title="Tone Adjustments (A)" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span class="absolute left-10 bg-surface-container-highest px-space-md py-space-xs rounded shadow-lg text-on-surface font-label-xs text-label-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">Tone Curve & Color (A)</span>
+</button>
+<!-- Layers & Text (T) -->
+<button class="relative w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-all group" title="Layers & Typography (T)" type="button">
+<span class="material-symbols-outlined text-[18px]">title</span>
+<span class="absolute left-10 bg-surface-container-highest px-space-md py-space-xs rounded shadow-lg text-on-surface font-label-xs text-label-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">Vector Text Overlay (T)</span>
+</button>
+<!-- Brush & Markup (B) -->
+<button class="relative w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-all group" title="Brush & Masks (B)" type="button">
+<span class="material-symbols-outlined text-[18px]">brush</span>
+<span class="absolute left-10 bg-surface-container-highest px-space-md py-space-xs rounded shadow-lg text-on-surface font-label-xs text-label-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">Masking Brush (B)</span>
+</button>
+<!-- Preset Filters (F) -->
+<button class="relative w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-all group" title="Presets & LUTs (F)" type="button">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+<span class="absolute left-10 bg-surface-container-highest px-space-md py-space-xs rounded shadow-lg text-on-surface font-label-xs text-label-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">Film Presets & LUTs (F)</span>
+</button>
+<!-- History (H) -->
+<button class="relative w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-all group" id="history-toggle-tool" title="Snapshots & History (H)" type="button">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="absolute left-10 bg-surface-container-highest px-space-md py-space-xs rounded shadow-lg text-on-surface font-label-xs text-label-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">Full History (H)</span>
+</button>
+</div>
+<!-- Quick Canvas Ratio Status -->
+<div class="flex flex-col items-center gap-space-xs text-outline font-label-xs text-label-xs tracking-wider">
+<span class="p-1 rounded bg-surface-container text-secondary text-[8px] font-mono leading-none">16:9</span>
+<span class="material-symbols-outlined text-[14px] text-outline">lock</span>
+</div>
+</aside>
+<!-- 2. CENTRAL VIEWPORT AREA -->
+<section class="relative flex-1 flex flex-col h-full overflow-hidden bg-surface-container-lowest">
+<!-- TOP STATUS / MEASURE STRIP (HUD METRICS) -->
+<div class="h-7 w-full bg-surface-container-lowest/80 backdrop-blur px-margin flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs z-20 shrink-0">
+<div class="flex items-center gap-space-lg">
+<span class="flex items-center gap-space-xs text-on-surface"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>RAW Development Engine (GPU v2.4)</span>
+<span class="text-outline">•</span>
+<span class="font-mono text-on-surface-variant">RGB [242, 178, 92] | sRGB D65</span>
+<span class="text-outline">•</span>
+<span class="text-secondary font-mono">Straighten: -1.4°</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="px-space-md py-0.5 rounded bg-surface-container-high text-tertiary font-label-xs text-label-xs flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[12px]">warning</span>Highlight Clipping Guard
+          </span>
+<span class="text-outline">W: 3840px H: 2160px</span>
+</div>
+</div>
+<!-- MAIN CANVAS STAGE -->
+<div class="relative flex-1 flex items-center justify-center p-margin overflow-hidden bg-surface-container-lowest">
+<!-- Interactive Cropping Box / Artwork Container -->
+<div class="relative max-w-4xl w-full aspect-[16/9] flex items-center justify-center shadow-2xl rounded-none overflow-visible group" id="canvas-frame">
+<!-- SAMPLE PHOTO: Moody Alpine Landscape Reflection -->
+<div class="relative w-full h-full overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+<img class="w-full h-full object-cover select-none pointer-events-none transform scale-[1.04] -rotate-[1.4deg] transition-transform duration-150" data-alt="Cinematic ultra high-resolution landscape photograph of an alpine lake reflection in jagged mountain peaks at twilight golden hour. Dramatic mist rising from the still glassy dark water, warm amber sunset glow hitting high glaciers with deep indigo and forest pine shadows, moody film grading, professional fine-art photography aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW3iqU7KSwNMjINa4yBWNvwASQeKGyk4ONVOwQP4zIwq4sBNqlRTOIgeiX3lZ-ld8MPOAz7M2mqPu2pBAUlj5EjaIEDyJtfl9SBmQtvKNN-69bvEtjH04fn3IbWAKHPA23AFGkq8Q--AeDz7aq8TvzdC7auUpG97zzbrd9K5cjGwvYeNgZGart7_0Gy8TJl6bqsqQzUSRZja3VpnaMiC0fM7A7wApq32NzHoDqV9c"/>
+<!-- Split Preview Line (Simulated) -->
+<div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-secondary-fixed shadow-[0_0_8px_rgba(76,215,246,0.6)] cursor-ew-resize flex items-center justify-center pointer-events-none" id="split-screen-divider">
+<div class="w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-lg -ml-[1px]">
+<span class="material-symbols-outlined text-[12px]">compare_arrows</span>
+</div>
+<!-- Split Tags -->
+<span class="absolute top-3 right-3 px-space-md py-space-xs rounded bg-surface-container-lowest/80 font-label-xs text-label-xs text-secondary uppercase tracking-widest pointer-events-none">Edited Grade</span>
+<span class="absolute top-3 -left-20 px-space-md py-space-xs rounded bg-surface-container-lowest/80 font-label-xs text-label-xs text-on-surface-variant uppercase tracking-widest pointer-events-none">Original RAW</span>
+</div>
+<!-- RULE OF THIRDS GRID OVERLAY -->
+<div class="absolute inset-0 pointer-events-none grid grid-cols-3 grid-rows-3">
+<div class="bg-secondary/5"></div>
+<div class="bg-transparent"></div>
+<div class="bg-secondary/5"></div>
+<div class="bg-transparent"></div>
+<div class="bg-transparent flex items-center justify-center">
+<!-- Center Horizon Focus Reticle -->
+<div class="w-6 h-6 rounded-full border border-secondary/40 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+</div>
+</div>
+<div class="bg-transparent"></div>
+<div class="bg-secondary/5"></div>
+<div class="bg-transparent"></div>
+<div class="bg-secondary/5"></div>
+</div>
+<!-- SVG Grid Overlay Lines (No borders per guidelines) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none stroke-secondary/25" stroke-dasharray="3,3" stroke-width="0.75">
+<line x1="33.333%" x2="33.333%" y1="0" y2="100%"></line>
+<line x1="66.666%" x2="66.666%" y1="0" y2="100%"></line>
+<line x1="0" x2="100%" y1="33.333%" y2="33.333%"></line>
+<line x1="0" x2="100%" y1="66.666%" y2="66.666%"></line>
+</svg>
+</div>
+<!-- CROP MARQUEE & CORNER HANDLES -->
+<div class="absolute -inset-1 pointer-events-none flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<!-- Top-Left Crop Node -->
+<div class="w-3.5 h-3.5 bg-primary shadow-md cursor-nwse-resize -translate-x-1.5 -translate-y-1.5 pointer-events-auto"></div>
+<!-- Top Straighten Angle Readout -->
+<div class="bg-surface-container-highest px-space-md py-space-xs rounded-full shadow-lg text-primary font-mono font-label-xs text-label-xs flex items-center gap-space-xs -translate-y-4">
+<span class="material-symbols-outlined text-[12px]">screen_rotation_alt</span>
+<span>Straighten -1.4°</span>
+</div>
+<!-- Top-Right Crop Node -->
+<div class="w-3.5 h-3.5 bg-primary shadow-md cursor-nesw-resize translate-x-1.5 -translate-y-1.5 pointer-events-auto"></div>
+</div>
+<div class="flex justify-between items-end">
+<!-- Bottom-Left Crop Node -->
+<div class="w-3.5 h-3.5 bg-primary shadow-md cursor-nesw-resize -translate-x-1.5 translate-y-1.5 pointer-events-auto"></div>
+<!-- Bottom-Right Crop Node -->
+<div class="w-3.5 h-3.5 bg-primary shadow-md cursor-nwse-resize translate-x-1.5 translate-y-1.5 pointer-events-auto"></div>
+</div>
+</div>
+<!-- Active Aspect Ratio Badge -->
+<div class="absolute bottom-2 left-2 pointer-events-none px-space-md py-space-xs bg-surface-container-lowest/80 backdrop-blur rounded text-on-surface-variant font-label-xs text-label-xs uppercase">
+            Ratio: <span class="text-on-surface font-semibold">16:9 Landscape Lock</span>
+</div>
+</div>
+<!-- FLOATING BOTTOM CANVAS QUICK CONTROLS BAR -->
+<div class="absolute bottom-space-lg bg-surface-container-high/90 backdrop-blur-md rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.7)] px-space-lg py-space-xs flex items-center gap-space-md z-30">
+<!-- Pan Spacebar trigger -->
+<button class="h-6 px-space-md rounded-full bg-surface-container hover:bg-surface-container-highest flex items-center gap-space-xs text-on-surface-variant hover:text-on-surface transition-colors" title="Hold Space to Pan" type="button">
+<span class="material-symbols-outlined text-[14px]">pan_tool</span>
+<span class="font-label-xs text-label-xs font-mono">Space</span>
+</button>
+<!-- History Step Undo / Redo Pills -->
+<div class="flex items-center gap-space-xs bg-surface-container px-space-xs py-0.5 rounded-full">
+<button class="w-6 h-6 rounded-full hover:bg-surface-container-highest flex items-center justify-center text-on-surface transition-colors" title="Undo (Cmd+Z)" type="button">
+<span class="material-symbols-outlined text-[14px]">undo</span>
+</button>
+<span class="font-label-xs text-label-xs text-outline px-space-xs">5/6</span>
+<button class="w-6 h-6 rounded-full hover:bg-surface-container-highest flex items-center justify-center text-outline-variant transition-colors opacity-50 cursor-not-allowed" title="Redo (Cmd+Shift+Z)" type="button">
+<span class="material-symbols-outlined text-[14px]">redo</span>
+</button>
+</div>
+<div class="w-px h-4 bg-surface-container-highest"></div>
+<!-- Zoom Slider Cluster -->
+<div class="flex items-center gap-space-sm">
+<button class="text-on-surface-variant hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[14px]">zoom_out</span></button>
+<input class="w-20 accent-primary h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer" max="400" min="25" type="range" value="125"/>
+<button class="text-on-surface-variant hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[14px]">zoom_in</span></button>
+<span class="font-label-xs text-label-xs font-mono text-primary w-9 text-right">125%</span>
+</div>
+<div class="w-px h-4 bg-surface-container-highest"></div>
+<!-- Hold for Before/After Preview Button -->
+<button class="h-6 px-space-lg rounded-full bg-secondary-container text-on-secondary-container hover:bg-secondary-fixed transition-all flex items-center gap-space-xs active:scale-95 shadow-sm" id="preview-toggle" type="button">
+<span class="material-symbols-outlined text-[14px]">visibility</span>
+<span class="font-label-xs text-label-xs font-semibold tracking-wide uppercase">Hold Compare</span>
+</button>
+</div>
+</div>
+<!-- 3. COLLAPSIBLE BOTTOM HISTORY STACK & FILMSTRIP -->
+<footer class="h-9 shrink-0 bg-surface-container-low px-margin flex items-center justify-between z-20">
+<div class="flex items-center gap-space-md overflow-x-auto py-1">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider shrink-0">
+<span class="material-symbols-outlined text-[14px] text-primary">schedule</span>
+<span>History</span>
+</div>
+<!-- Step Pills -->
+<div class="flex items-center gap-space-xs">
+<div class="px-space-md py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs cursor-pointer flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[10px]">file_open</span> Import File
+            </div>
+<span class="text-outline text-[10px]">›</span>
+<div class="px-space-md py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs cursor-pointer">
+              Crop 16:9
+            </div>
+<span class="text-outline text-[10px]">›</span>
+<div class="px-space-md py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs cursor-pointer">
+              Straighten -1.4°
+            </div>
+<span class="text-outline text-[10px]">›</span>
+<div class="px-space-md py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs cursor-pointer">
+              Exposure +0.35
+            </div>
+<span class="text-outline text-[10px]">›</span>
+<div class="px-space-md py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs cursor-pointer">
+              Highlights -24
+            </div>
+<span class="text-outline text-[10px]">›</span>
+<!-- ACTIVE STEP -->
+<div class="px-space-md py-0.5 rounded bg-primary text-on-primary font-label-xs text-label-xs cursor-pointer font-semibold shadow-sm flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[12px]">check</span> Sharpen +15
+            </div>
+</div>
+</div>
+<div class="flex items-center gap-space-lg shrink-0">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span>Local Cache Ready (0 bytes cloud)</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" title="Minimize Drawer" type="button">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</footer>
+</section>
+<!-- 4. RIGHT PROPERTY INSPECTOR DOCK (320px) -->
+<aside class="w-80 shrink-0 bg-surface-container flex flex-col h-full z-30">
+<!-- TOP INSPECTOR TABS -->
+<div class="h-9 w-full bg-surface-container-low grid grid-cols-3 p-space-xs gap-space-xs shrink-0">
+<button class="rounded font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[13px]">tune</span> Adjust
+        </button>
+<!-- ACTIVE TAB: LAYERS -->
+<button class="rounded bg-surface-container-highest text-primary font-semibold font-label-xs text-label-xs uppercase tracking-wider flex items-center justify-center gap-space-xs shadow-sm" type="button">
+<span class="material-symbols-outlined text-[13px]">layers</span> Layers
+        </button>
+<button class="rounded font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[13px]">crop_rotate</span> Transform
+        </button>
+</div>
+<!-- LAYER PARAMETERS BAR (Opacity & Blend Mode) -->
+<div class="p-margin bg-surface-container-high/60 flex flex-col gap-space-md shrink-0">
+<!-- Blend Mode & Quick Fill Row -->
+<div class="flex items-center justify-between gap-space-md">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Blend Mode</span>
+<div class="relative flex-1">
+<select class="w-full bg-surface-container-lowest text-on-surface px-space-md py-1 rounded font-body-sm text-body-sm appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary">
+<option>Normal</option>
+<option>Multiply</option>
+<option>Screen</option>
+<option selected="">Overlay</option>
+<option>Soft Light</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1.5 text-[14px] text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Opacity Slider Compound Control -->
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider w-16">
+<span>Opacity</span>
+</div>
+<div class="flex-1 flex items-center gap-space-md">
+<input class="w-full accent-primary h-1 bg-surface-container-highest rounded appearance-none cursor-ew-resize" max="100" min="0" type="range" value="100"/>
+<span class="font-mono font-label-xs text-label-xs text-on-surface bg-surface-container-lowest px-space-md py-0.5 rounded w-10 text-center">100%</span>
+</div>
+</div>
+</div>
+<!-- LAYER STACK LIST (FLEX-1 SCROLLABLE) -->
+<div class="flex-1 overflow-y-auto px-space-sm py-space-sm flex flex-col gap-space-xs">
+<!-- LAYER 1: Vignette & Grain (Overlay 45%) - Selected -->
+<div class="group flex items-center h-8 px-space-sm rounded bg-surface-container-highest text-on-surface shadow-sm cursor-pointer relative overflow-hidden">
+<div class="w-1 h-full bg-primary absolute left-0 top-0"></div>
+<!-- Eye Visibility -->
+<button class="w-5 h-5 flex items-center justify-center text-primary hover:text-on-surface mr-space-xs" title="Toggle Visibility" type="button">
+<span class="material-symbols-outlined text-[15px]">visibility</span>
+</button>
+<!-- Thumbnail -->
+<div class="w-5 h-5 rounded bg-surface-container-lowest flex items-center justify-center overflow-hidden shrink-0 mr-space-md">
+<div class="w-full h-full bg-gradient-to-br from-tertiary/20 to-transparent"></div>
+</div>
+<!-- Title & Meta -->
+<div class="flex-1 min-w-0 flex flex-col justify-center">
+<span class="font-body-sm text-body-sm truncate text-on-surface font-medium">Vignette & Grain</span>
+<span class="font-label-xs text-label-xs text-secondary-fixed truncate leading-none">Overlay 45%</span>
+</div>
+<!-- Lock & More -->
+<button class="w-5 h-5 flex items-center justify-center text-on-surface-variant hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[14px]">lock_open</span>
+</button>
+</div>
+<!-- LAYER 2: Text: Sunset Valley 2025 -->
+<div class="group flex items-center h-8 px-space-sm rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface cursor-pointer relative">
+<!-- Eye Visibility -->
+<button class="w-5 h-5 flex items-center justify-center text-on-surface-variant hover:text-on-surface mr-space-xs" title="Toggle Visibility" type="button">
+<span class="material-symbols-outlined text-[15px]">visibility</span>
+</button>
+<!-- Thumbnail Vector Text -->
+<div class="w-5 h-5 rounded bg-surface-container-lowest flex items-center justify-center shrink-0 mr-space-md">
+<span class="material-symbols-outlined text-[12px] text-tertiary">title</span>
+</div>
+<!-- Title & Meta -->
+<div class="flex-1 min-w-0 flex flex-col justify-center">
+<span class="font-body-sm text-body-sm truncate text-on-surface">Text: Sunset Valley 2025</span>
+<span class="font-label-xs text-label-xs text-outline truncate leading-none">Normal 100%</span>
+</div>
+<!-- Lock Status -->
+<button class="w-5 h-5 flex items-center justify-center text-outline hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[14px]">lock_open</span>
+</button>
+</div>
+<!-- LAYER 3: Retouch Patch 1 -->
+<div class="group flex items-center h-8 px-space-sm rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface cursor-pointer relative">
+<!-- Eye Visibility -->
+<button class="w-5 h-5 flex items-center justify-center text-on-surface-variant hover:text-on-surface mr-space-xs" title="Toggle Visibility" type="button">
+<span class="material-symbols-outlined text-[15px]">visibility</span>
+</button>
+<!-- Thumbnail Healing -->
+<div class="w-5 h-5 rounded bg-surface-container-lowest flex items-center justify-center shrink-0 mr-space-md">
+<span class="material-symbols-outlined text-[12px] text-secondary">healing</span>
+</div>
+<!-- Title & Meta -->
+<div class="flex-1 min-w-0 flex flex-col justify-center">
+<span class="font-body-sm text-body-sm truncate text-on-surface">Retouch Patch 1</span>
+<span class="font-label-xs text-label-xs text-outline truncate leading-none">Normal 80%</span>
+</div>
+<!-- Lock Status -->
+<button class="w-5 h-5 flex items-center justify-center text-outline hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[14px]">lock_open</span>
+</button>
+</div>
+<!-- LAYER 4: Base Image: Alpine_Lake.jpg (Locked Background) -->
+<div class="group flex items-center h-8 px-space-sm rounded bg-surface-container-low/70 text-on-surface-variant cursor-pointer relative">
+<!-- Eye Visibility -->
+<button class="w-5 h-5 flex items-center justify-center text-on-surface-variant mr-space-xs" title="Toggle Visibility" type="button">
+<span class="material-symbols-outlined text-[15px]">visibility</span>
+</button>
+<!-- Thumbnail Photo Backing -->
+<div class="w-5 h-5 rounded bg-surface-container-lowest flex items-center justify-center overflow-hidden shrink-0 mr-space-md">
+<span class="material-symbols-outlined text-[12px] text-outline">photo</span>
+</div>
+<!-- Title & Meta -->
+<div class="flex-1 min-w-0 flex flex-col justify-center">
+<span class="font-body-sm text-body-sm truncate text-on-surface">Base Image: Alpine_Lake.jpg</span>
+<span class="font-label-xs text-label-xs text-outline truncate leading-none">Background Locked</span>
+</div>
+<!-- Lock Status (LOCKED) -->
+<div class="w-5 h-5 flex items-center justify-center text-primary-fixed-dim">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+</div>
+</div>
+<!-- HISTOGRAM MINI CARD -->
+<div class="mt-space-lg p-space-md bg-surface-container-lowest rounded flex flex-col gap-space-xs">
+<div class="flex items-center justify-between font-label-xs text-label-xs text-on-surface-variant">
+<span class="uppercase tracking-widest font-semibold">RGB Histogram</span>
+<span class="font-mono text-outline">ISO 64 • 24mm • f/8.0 • 1/160s</span>
+</div>
+<!-- Inline Histogram SVG -->
+<div class="w-full h-16 relative overflow-hidden flex items-end">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 240 60">
+<defs>
+<lineargradient id="histGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#c0c1ff" stop-opacity="0.75"></stop>
+<stop offset="100%" stop-color="#4cd7f6" stop-opacity="0.1"></stop>
+</lineargradient>
+</defs>
+<!-- Backing Red/Green/Blue Curves -->
+<path d="M0,60 L20,55 L45,40 L70,25 L100,12 L130,22 L160,35 L190,10 L210,4 L230,25 L240,60 Z" fill="url(#histGrad)"></path>
+<path d="M0,60 L30,50 L60,30 L90,18 L120,8 L150,28 L180,18 L210,9 L240,60 Z" fill="none" opacity="0.6" stroke="#4cd7f6" stroke-width="1.2"></path>
+<path d="M0,60 L25,48 L55,34 L85,25 L115,15 L145,19 L175,8 L205,14 L240,60 Z" fill="none" opacity="0.5" stroke="#ffb95f" stroke-width="1.2"></path>
+</svg>
+<div class="absolute inset-0 flex justify-between pointer-events-none opacity-20">
+<div class="w-px h-full bg-outline"></div>
+<div class="w-px h-full bg-outline"></div>
+<div class="w-px h-full bg-outline"></div>
+<div class="w-px h-full bg-outline"></div>
+</div>
+</div>
+<div class="flex justify-between font-label-xs text-label-xs font-mono text-outline pt-0.5">
+<span>Shadows</span>
+<span>Midtones</span>
+<span>Highlights</span>
+</div>
+</div>
+</div>
+<!-- LAYER ACTION FOOTER (CREATE, GROUP, DELETE, FLATTEN) -->
+<div class="h-10 bg-surface-container-low px-margin flex items-center justify-between shrink-0">
+<div class="flex items-center gap-space-xs">
+<!-- + New Layer -->
+<button class="w-7 h-7 rounded hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" title="Add New Layer" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+<!-- Group -->
+<button class="w-7 h-7 rounded hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" title="Group Selected Layers" type="button">
+<span class="material-symbols-outlined text-[16px]">folder</span>
+</button>
+<!-- Duplicate -->
+<button class="w-7 h-7 rounded hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" title="Duplicate Layer" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs">
+<!-- Flatten -->
+<button class="px-space-md py-space-xs rounded hover:bg-surface-container-high font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-colors" title="Flatten Image" type="button">
+            Flatten
+          </button>
+<!-- Delete -->
+<button class="w-7 h-7 rounded hover:bg-surface-container-high flex items-center justify-center text-outline hover:text-error transition-colors" title="Delete Layer" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</div>
+</aside>
+</div>
+<!-- CLIENT-SIDE MICRO-INTERACTIONS SCRIPT -->
+<script>
+    (function initWorkspaceInteractions() {
+      const previewBtn = document.getElementById('preview-toggle');
+      const divider = document.getElementById('split-screen-divider');
+
+      if (previewBtn && divider) {
+        let isHolding = false;
+        
+        const activateSplit = () => {
+          isHolding = true;
+          divider.classList.add('ring-2', 'ring-primary');
+          previewBtn.classList.replace('bg-secondary-container', 'bg-primary');
+          previewBtn.classList.replace('text-on-secondary-container', 'text-on-primary');
+        };
+
+        const deactivateSplit = () => {
+          isHolding = false;
+          divider.classList.remove('ring-2', 'ring-primary');
+          previewBtn.classList.replace('bg-primary', 'bg-secondary-container');
+          previewBtn.classList.replace('text-on-primary', 'text-on-secondary-container');
+        };
+
+        previewBtn.addEventListener('mousedown', activateSplit);
+        window.addEventListener('mouseup', () => {
+          if (isHolding) deactivateSplit();
+        });
+        previewBtn.addEventListener('touchstart', activateSplit, { passive: true });
+        window.addEventListener('touchend', deactivateSplit, { passive: true });
+      }
+    })();
+  </script>
+</div></main></div></body></html>

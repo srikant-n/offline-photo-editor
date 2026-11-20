@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary-fixed-dim": "#4cd7f6", "primary-fixed-dim": "#c0c1ff", "secondary-fixed": "#acedff", "tertiary-fixed": "#ffddb8", "error-container": "#93000a", "on-secondary": "#003640", "on-tertiary-fixed-variant": "#653e00", "tertiary-container": "#ca8100", "inverse-primary": "#494bd6", "tertiary-fixed-dim": "#ffb95f", "on-tertiary-fixed": "#2a1700", "surface-container-low": "#191b21", "error": "#ffb4ab", "on-secondary-fixed": "#001f26", "on-surface": "#e2e2ea", "surface-container": "#1d1f26", "inverse-on-surface": "#2e3037", "on-primary-container": "#0d0096", "on-background": "#e2e2ea", "tertiary": "#ffb95f", "surface-container-lowest": "#0c0e14", "surface-variant": "#33353b", "on-primary": "#1000a9", "surface-dim": "#111319", "on-error-container": "#ffdad6", "surface-tint": "#c0c1ff", "inverse-surface": "#e2e2ea", "outline": "#908fa0", "on-error": "#690005", "secondary-container": "#03b5d3", "on-secondary-fixed-variant": "#004e5c", "surface": "#111319", "background": "#111319", "secondary": "#4cd7f6", "primary-container": "#8083ff", "surface-container-highest": "#33353b", "on-primary-fixed-variant": "#2f2ebe", "surface-container-high": "#282a30", "on-primary-fixed": "#07006c", "on-surface-variant": "#c7c4d7", "primary-fixed": "#e1e0ff", "surface-bright": "#373940", "on-secondary-container": "#00424e", "primary": "#c0c1ff", "outline-variant": "#464554", "on-tertiary-container": "#3e2400", "on-tertiary": "#472a00" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-sm": "0.25rem", "space-xl": "1rem", "space-md": "0.5rem", "space-xs": "0.125rem", "space-lg": "0.75rem", "gutter": "0.5rem", "margin": "0.75rem" }, "fontFamily": { "headline-md": ["Inter"], "headline-sm": ["Inter"], "body-md": ["Inter"], "body-sm": ["Inter"], "label-xs": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"] }, "fontSize": { "headline-md": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-md": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }], "label-xs": ["9px", { "lineHeight": "10px", "letterSpacing": "0.05em", "fontWeight": "600" }], "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.03em", "fontWeight": "500" }], "headline-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "body-lg": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "label-md": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }] } } } }</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface"><main class="w-full min-h-screen flex items-center justify-center p-margin"><div class="flex flex-col w-full">
+<!-- Backdrop Simulated Canvas Host -->
+<div class="relative w-full min-h-[860px] flex items-center justify-center p-space-lg select-none">
+<!-- Background Workspace Chrome & Canvas Underlay (Dimmed / Blurred Context) -->
+<div class="absolute inset-0 flex flex-col pointer-events-none opacity-40 filter blur-sm">
+<!-- Top Bar Mock -->
+<div class="h-10 bg-surface-container-low flex items-center justify-between px-space-xl">
+<div class="flex items-center gap-space-md">
+<span class="font-headline-sm text-headline-sm text-on-surface">DSC09442_A7RV_RAW.arw</span>
+<span class="text-label-xs font-label-xs bg-surface-container-high px-space-sm py-0.5 rounded text-outline">16-BIT PROPHOTO</span>
+</div>
+<div class="flex items-center gap-space-lg text-outline">
+<span class="material-symbols-outlined text-[16px]">undo</span>
+<span class="material-symbols-outlined text-[16px]">redo</span>
+<span class="material-symbols-outlined text-[16px]">zoom_in</span>
+</div>
+</div>
+<!-- Body Split Viewport -->
+<div class="flex-1 flex bg-surface-container-lowest">
+<div class="w-11 bg-surface-container-low flex flex-col items-center py-space-md gap-space-md text-outline">
+<span class="material-symbols-outlined text-[18px]">crop</span>
+<span class="material-symbols-outlined text-[18px]">healing</span>
+<span class="material-symbols-outlined text-[18px] text-primary">brush</span>
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</div>
+<div class="flex-1 relative bg-surface-container-lowest flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover opacity-60" data-alt="High-end cinematic architectural composition of a brutalist concrete pavilion beside a still minimalist water basin at dusk, deep ultramarine shadows, razor sharp geometric reflections, subtle ambient amber linear lights, master grade photo grade" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv0of3flrX0XSfjmlEVVNfBFcgl2XSWFcoX20nKYuUO2yc8XGvJI8djyIokkGuVY7KVkJfhil-j8-mzIsKp6goYHLqWUEtOQAjTbiROdSflnEQr5sQBneEYqajpQi_wHVGmVzxZPIziwmw5MuySXwuEf8l4eUyHRgiONEz7qinLVjzDbU-gXFRTHDJhJ9xfM2FsTqBa0eWivsAZ1ULg2dIFgRfKDRNbQy_H5Cejkw"/>
+</div>
+<div class="w-72 bg-surface-container-low flex flex-col p-space-md gap-space-md text-on-surface-variant">
+<div class="h-28 bg-surface-container rounded-lg"></div>
+<div class="h-8 bg-surface-container rounded-lg"></div>
+<div class="h-8 bg-surface-container rounded-lg"></div>
+</div>
+</div>
+</div>
+<!-- Frosted Glass Modal Overlay Backdrop -->
+<div class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-md transition-opacity"></div>
+<!-- Center Export Modal Container -->
+<div class="relative z-10 w-full max-w-[1040px] bg-surface-container-low rounded-xl shadow-2xl overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-200">
+<!-- Top Modal Header -->
+<div class="h-16 px-space-xl bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-lg">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">file_export</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-md">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Export Document</h2>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-xs text-label-xs font-semibold tracking-wide">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                CLIENT-SIDE VERIFIED
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Processed 100% locally in your browser via WebGL & Canvas API — Zero data leaves your device</p>
+</div>
+</div>
+<!-- Window Actions -->
+<div class="flex items-center gap-space-sm">
+<button class="w-7 h-7 rounded hover:bg-surface-variant text-outline hover:text-on-surface flex items-center justify-center transition-colors" title="Export Help" type="button">
+<span class="material-symbols-outlined text-[16px]">help</span>
+</button>
+<button class="w-7 h-7 rounded hover:bg-surface-variant text-outline hover:text-on-surface flex items-center justify-center transition-colors" title="Close Modal" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<!-- Main Modal Columns Grid -->
+<div class="grid grid-cols-12 min-h-[580px] bg-surface-container-lowest">
+<!-- Left Column: Visual Asset Preview & Metrics -->
+<div class="col-span-12 lg:col-span-6 bg-surface-container-lowest flex flex-col p-space-lg">
+<!-- Viewport Canvas Stage with Checkerboard Background -->
+<div class="relative flex-1 rounded-lg overflow-hidden bg-surface-dim flex items-center justify-center group shadow-inner min-h-[380px]">
+<!-- Alpha Transparent Grid Pattern -->
+<div class="absolute inset-0 opacity-15" style="background-image: linear-gradient(45deg, #242731 25%, transparent 25%), linear-gradient(-45deg, #242731 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #242731 75%), linear-gradient(-45deg, transparent 75%, #242731 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px;"></div>
+<!-- Image Asset -->
+<div class="relative max-w-[92%] max-h-[90%] transition-transform duration-150" id="export-preview-container">
+<img class="rounded object-contain shadow-2xl max-h-[340px] w-auto" data-alt="Brutalist architectural concrete monolith with clean shadow edges, minimal water reflecting cool blue evening sky with subtle amber interior lighting gradient, razor sharp 8k photorealistic texture, medium format studio clarity" id="preview-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBID8BlQcPR01d2HolDvQXRWgPLQG0Yi1eRqDvkvyrN7gS6peh7v_qAAKqMrAqgCBjuxpxVrE-FJiDCi3atAun4RTcvVzSUsjvSzh4tqbHt-oQedwJXqsfDgrUCQEw2cPoZi-boByK1rz4asgQy1Of5TBDs7rM23MwVZ1n4jsJb2BTjncx3PMfV8EsXRdj32HTyJznXljkQQ723qBvuYYSZb3ismtGTNeal7vjSRD8"/>
+<!-- Floating On-Canvas Bounding Box Overlay -->
+<div class="absolute inset-0 pointer-events-none rounded">
+<span class="absolute top-1 left-1.5 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-sm text-label-xs font-label-xs text-on-surface">100% Canvas</span>
+</div>
+</div>
+<!-- Viewport HUD Overlay Floating Badges -->
+<div class="absolute top-space-md left-space-md flex items-center gap-space-xs">
+<div class="px-space-sm py-0.5 rounded bg-surface-container-low/90 backdrop-blur text-outline text-label-xs font-label-xs uppercase">
+                Render: <span class="text-secondary font-mono">Bilinear Filtered</span>
+</div>
+</div>
+<!-- Floating Preview Viewport Controls -->
+<div class="absolute bottom-space-md left-space-md right-space-md flex items-center justify-between pointer-events-none">
+<div class="pointer-events-auto flex items-center gap-0.5 bg-surface-container-high/90 backdrop-blur-md p-0.5 rounded-lg shadow-lg">
+<button class="w-6 h-6 flex items-center justify-center text-outline hover:text-on-surface rounded hover:bg-surface-variant transition-colors" id="zoom-out" type="button">
+<span class="material-symbols-outlined text-[14px]">remove</span>
+</button>
+<span class="font-label-xs text-label-xs font-mono text-on-surface px-1.5 min-w-[38px] text-center" id="zoom-val">100%</span>
+<button class="w-6 h-6 flex items-center justify-center text-outline hover:text-on-surface rounded hover:bg-surface-variant transition-colors" id="zoom-in" type="button">
+<span class="material-symbols-outlined text-[14px]">add</span>
+</button>
+<div class="w-px h-3.5 bg-surface-variant mx-1"></div>
+<button class="w-6 h-6 flex items-center justify-center text-outline hover:text-on-surface rounded hover:bg-surface-variant transition-colors" id="zoom-fit" title="Fit to Preview Frame" type="button">
+<span class="material-symbols-outlined text-[14px]">fit_screen</span>
+</button>
+</div>
+<!-- Color Clipping Warning Pill -->
+<div class="pointer-events-auto flex items-center gap-1.5 px-space-md py-1 rounded-lg bg-surface-container-high/90 backdrop-blur-md shadow-lg">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-xs text-label-xs text-on-surface">In Gamut (sRGB)</span>
+</div>
+</div>
+</div>
+<!-- Bottom Metric Ticker Card -->
+<div class="mt-space-md p-space-md bg-surface-container-low rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Estimated Weight</span>
+<span class="px-1.5 py-0.2 rounded bg-primary/20 text-primary font-label-xs text-label-xs">-64% VS RAW</span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface font-mono font-bold" id="metric-filesize">1.84 MB</span>
+<span class="font-body-sm text-body-sm text-outline">(Original 5.12 MB)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider block">Output Matrix</span>
+<span class="font-label-md text-label-md font-mono text-on-surface font-medium" id="metric-dim">3840 × 2160 px</span>
+<span class="font-label-xs text-label-xs text-outline block">8.29 MP • 16:9 UHD</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Export Settings & Parameters -->
+<div class="col-span-12 lg:col-span-6 bg-surface-container-low p-space-xl flex flex-col gap-space-lg overflow-y-auto max-h-[580px]">
+<!-- Format Selector Section -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Target Codec / Format</label>
+<span class="font-label-xs text-label-xs text-primary">Web & Archival Standard</span>
+</div>
+<!-- Format Option Chips -->
+<div class="grid grid-cols-4 gap-space-xs bg-surface-container p-0.5 rounded-lg">
+<button class="format-btn active px-space-sm py-space-md rounded text-center transition-all bg-primary-container text-on-primary font-label-md text-label-md font-semibold shadow-sm flex flex-col items-center gap-0.5" data-format="jpeg" type="button">
+<span>JPEG</span>
+<span class="text-[9px] opacity-75 font-normal">Lossy Balanced</span>
+</button>
+<button class="format-btn px-space-sm py-space-md rounded text-center transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-variant font-label-md text-label-md font-semibold flex flex-col items-center gap-0.5" data-format="png" type="button">
+<span>PNG</span>
+<span class="text-[9px] opacity-75 font-normal">Lossless / Alpha</span>
+</button>
+<button class="format-btn px-space-sm py-space-md rounded text-center transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-variant font-label-md text-label-md font-semibold flex flex-col items-center gap-0.5" data-format="webp" type="button">
+<span>WebP</span>
+<span class="text-[9px] opacity-75 font-normal">Compact 2.0</span>
+</button>
+<button class="format-btn px-space-sm py-space-md rounded text-center transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-variant font-label-md text-label-md font-semibold flex flex-col items-center gap-0.5" data-format="avif" type="button">
+<span>AVIF</span>
+<span class="text-[9px] opacity-75 font-normal">Ultra High HDR</span>
+</button>
+</div>
+</div>
+<!-- Quality Slider Section -->
+<div class="p-space-md bg-surface-container rounded-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Compression Quality</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-variant text-on-surface font-label-xs text-label-xs" id="quality-badge">High Quality (Recommended)</span>
+</div>
+<span class="font-mono text-label-md font-label-md text-primary font-bold" id="quality-display">88%</span>
+</div>
+<!-- Tactile Interactive Slider -->
+<div class="relative flex items-center py-1">
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary focus:outline-none" id="quality-slider" max="100" min="10" type="range" value="88"/>
+</div>
+<div class="flex justify-between font-label-xs text-label-xs text-outline">
+<span>Small Size (50%)</span>
+<span>Balanced (80%)</span>
+<span>Perceptual Lossless (100%)</span>
+</div>
+</div>
+<!-- Dimensions & Aspect Ratio Resizing Unit -->
+<div class="p-space-md bg-surface-container rounded-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Canvas Resizing & Geometry</span>
+<span class="font-label-xs text-label-xs text-outline">Native: 3840 × 2160</span>
+</div>
+<!-- Input Pair with Aspect Link -->
+<div class="flex items-center gap-space-md">
+<!-- Width Box -->
+<div class="flex-1 bg-surface-container-high rounded px-space-md py-space-sm flex flex-col focus-within:ring-1 focus-within:ring-primary">
+<span class="font-label-xs text-label-xs text-outline uppercase">Width (px)</span>
+<input class="bg-transparent text-on-surface font-mono font-headline-sm text-headline-sm focus:outline-none w-full" id="width-input" type="number" value="3840"/>
+</div>
+<!-- Link Button -->
+<button class="p-2 rounded-lg bg-surface-container-high hover:bg-surface-variant text-secondary hover:text-on-surface transition-colors flex items-center justify-center" id="aspect-toggle" title="Constrain Proportions (16:9 Locked)" type="button">
+<span class="material-symbols-outlined text-[18px]">link</span>
+</button>
+<!-- Height Box -->
+<div class="flex-1 bg-surface-container-high rounded px-space-md py-space-sm flex flex-col focus-within:ring-1 focus-within:ring-primary">
+<span class="font-label-xs text-label-xs text-outline uppercase">Height (px)</span>
+<input class="bg-transparent text-on-surface font-mono font-headline-sm text-headline-sm focus:outline-none w-full" id="height-input" type="number" value="2160"/>
+</div>
+</div>
+<!-- Target Ratio Presets Quick Row -->
+<div class="flex flex-wrap gap-1.5">
+<button class="preset-btn active px-space-md py-1 rounded bg-primary-container/20 text-primary text-label-xs font-label-xs font-medium hover:bg-primary-container/30 transition-colors" data-h="2160" data-w="3840" type="button">
+                Original (100%)
+              </button>
+<button class="preset-btn px-space-md py-1 rounded bg-surface-container-high text-on-surface-variant text-label-xs font-label-xs hover:bg-surface-variant hover:text-on-surface transition-colors" data-h="1080" data-w="1920" type="button">
+                2K Full HD (50%)
+              </button>
+<button class="preset-btn px-space-md py-1 rounded bg-surface-container-high text-on-surface-variant text-label-xs font-label-xs hover:bg-surface-variant hover:text-on-surface transition-colors" data-h="1350" data-w="1080" type="button">
+                Instagram 4:5 (1080×1350)
+              </button>
+<button class="preset-btn px-space-md py-1 rounded bg-surface-container-high text-on-surface-variant text-label-xs font-label-xs hover:bg-surface-variant hover:text-on-surface transition-colors" data-h="675" data-w="1200" type="button">
+                Twitter/X Post (16:9)
+              </button>
+<button class="preset-btn px-space-md py-1 rounded bg-surface-container-high text-on-surface-variant text-label-xs font-label-xs hover:bg-surface-variant hover:text-on-surface transition-colors" data-w="custom" type="button">
+                Custom
+              </button>
+</div>
+</div>
+<!-- Color Profile & Privacy Flags Bento Block -->
+<div class="grid grid-cols-2 gap-space-md">
+<!-- Color Management Profile -->
+<div class="p-space-md bg-surface-container rounded-lg flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Target Profile</span>
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center gap-space-sm cursor-pointer">
+<input checked="" class="accent-primary" name="color-profile" type="radio" value="srgb"/>
+<span class="font-body-sm text-body-sm text-on-surface">sRGB (Standard Web)</span>
+</label>
+<label class="flex items-center gap-space-sm cursor-pointer">
+<input class="accent-primary" name="color-profile" type="radio" value="p3"/>
+<span class="font-body-sm text-body-sm text-on-surface">Display P3 (Wide Gamut)</span>
+</label>
+</div>
+</div>
+<!-- Privacy & Exif Safeguards -->
+<div class="p-space-md bg-surface-container rounded-lg flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Data Sanitation</span>
+<div class="flex flex-col gap-1.5">
+<label class="flex items-start gap-space-sm cursor-pointer">
+<input checked="" class="mt-0.5 accent-primary rounded" id="strip-exif" type="checkbox"/>
+<div class="flex flex-col leading-tight">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Strip EXIF & GPS</span>
+<span class="font-label-xs text-label-xs text-secondary font-mono">Privacy Safe</span>
+</div>
+</label>
+<label class="flex items-start gap-space-sm cursor-pointer">
+<input checked="" class="mt-0.5 accent-primary rounded" id="embed-icc" type="checkbox"/>
+<div class="flex flex-col leading-tight">
+<span class="font-body-sm text-body-sm text-on-surface">Embed ICC Profile</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Action Bar Footer -->
+<div class="h-16 px-space-xl bg-surface-container flex items-center justify-between">
+<!-- Left: Quick Batch Queue Action -->
+<div class="flex items-center gap-space-md">
+<button class="flex items-center gap-1.5 text-outline hover:text-on-surface px-space-md py-1.5 rounded-lg hover:bg-surface-variant font-label-md text-label-md transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">queue_play_next</span>
+<span>Add to Batch Queue</span>
+</button>
+<span class="text-surface-variant font-mono">/</span>
+<span class="font-label-xs text-label-xs text-outline font-mono">HASH: 9A82-F83C-LOCAL</span>
+</div>
+<!-- Right: Primary CTA Buttons -->
+<div class="flex items-center gap-space-md">
+<!-- Clipboard Copy Button -->
+<button class="px-space-lg py-2 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md font-medium transition-all active:scale-95 flex items-center gap-1.5" id="copy-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy Bitmap (⌘C)</span>
+</button>
+<!-- Main High Contrast Download Button -->
+<button class="px-space-xl py-2 rounded-lg bg-primary-container text-on-primary font-headline-sm text-headline-sm font-semibold tracking-wide transition-all shadow-lg hover:opacity-90 active:scale-98 flex items-center gap-2" id="download-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span id="download-label">Download File (JPEG 1.84 MB)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Client-side Scripting Logic -->
+<script>
+    (function initExportModal() {
+      const slider = document.getElementById('quality-slider');
+      const qualityDisplay = document.getElementById('quality-display');
+      const qualityBadge = document.getElementById('quality-badge');
+      const fileSize = document.getElementById('metric-filesize');
+      const downloadLabel = document.getElementById('download-label');
+      const widthInput = document.getElementById('width-input');
+      const heightInput = document.getElementById('height-input');
+      const metricDim = document.getElementById('metric-dim');
+      const formatButtons = document.querySelectorAll('.format-btn');
+      const presetButtons = document.querySelectorAll('.preset-btn');
+      const aspectToggle = document.getElementById('aspect-toggle');
+      const zoomIn = document.getElementById('zoom-in');
+      const zoomOut = document.getElementById('zoom-out');
+      const zoomFit = document.getElementById('zoom-fit');
+      const zoomVal = document.getElementById('zoom-val');
+      const previewImg = document.getElementById('preview-image');
+      const copyBtn = document.getElementById('copy-btn');
+      const downloadBtn = document.getElementById('download-btn');
+
+      let currentFormat = 'jpeg';
+      let currentQuality = 88;
+      let aspectRatioLocked = true;
+      let currentZoom = 100;
+      let baseAspect = 3840 / 2160;
+
+      // Dynamic Size Estimator Formula
+      function recalculateEstimatedSize() {
+        const w = parseInt(widthInput.value, 10) || 1920;
+        const h = parseInt(heightInput.value, 10) || 1080;
+        const pixels = w * h;
+        
+        let formatMultiplier = 0.22; // JPEG
+        if (currentFormat === 'png') formatMultiplier = 0.85;
+        if (currentFormat === 'webp') formatMultiplier = 0.16;
+        if (currentFormat === 'avif') formatMultiplier = 0.12;
+
+        const qualityFactor = (currentQuality / 100);
+        // Formula in megabytes
+        let estMB = (pixels / (1024 * 1024)) * (formatMultiplier * (qualityFactor * 0.9 + 0.1));
+        
+        if (currentFormat === 'png') {
+          // PNG ignores lossy quality slider
+          estMB = (pixels / (1024 * 1024)) * 0.72;
+        }
+
+        const formatted = estMB < 1 ? (estMB * 1024).toFixed(0) + ' KB' : estMB.toFixed(2) + ' MB';
+        fileSize.textContent = formatted;
+        metricDim.textContent = `${w} × ${h} px`;
+        downloadLabel.textContent = `Download File (${currentFormat.toUpperCase()} ${formatted})`;
+      }
+
+      // Slider Handler
+      slider.addEventListener('input', (e) => {
+        currentQuality = parseInt(e.target.value, 10);
+        qualityDisplay.textContent = currentQuality + '%';
+
+        if (currentQuality >= 90) {
+          qualityBadge.textContent = 'Maximum Fidelity';
+        } else if (currentQuality >= 75) {
+          qualityBadge.textContent = 'High Quality (Recommended)';
+        } else if (currentQuality >= 50) {
+          qualityBadge.textContent = 'Standard Web Comp';
+        } else {
+          qualityBadge.textContent = 'Aggressive Compression';
+        }
+        recalculateEstimatedSize();
+      });
+
+      // Format Switcher
+      formatButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          formatButtons.forEach(b => {
+            b.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+            b.classList.add('text-on-surface-variant');
+          });
+          btn.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+          btn.classList.remove('text-on-surface-variant');
+          currentFormat = btn.dataset.format;
+          
+          if (currentFormat === 'png') {
+            slider.disabled = true;
+            slider.classList.add('opacity-40');
+            qualityBadge.textContent = 'Lossless (Deflate Algorithm)';
+          } else {
+            slider.disabled = false;
+            slider.classList.remove('opacity-40');
+            slider.dispatchEvent(new Event('input'));
+          }
+          recalculateEstimatedSize();
+        });
+      });
+
+      // Dimension inputs
+      widthInput.addEventListener('input', () => {
+        const val = parseInt(widthInput.value, 10);
+        if (aspectRatioLocked && val) {
+          heightInput.value = Math.round(val / baseAspect);
+        }
+        recalculateEstimatedSize();
+      });
+
+      heightInput.addEventListener('input', () => {
+        const val = parseInt(heightInput.value, 10);
+        if (aspectRatioLocked && val) {
+          widthInput.value = Math.round(val * baseAspect);
+        }
+        recalculateEstimatedSize();
+      });
+
+      // Aspect toggle
+      aspectToggle.addEventListener('click', () => {
+        aspectRatioLocked = !aspectRatioLocked;
+        if (aspectRatioLocked) {
+          aspectToggle.classList.add('text-secondary');
+          aspectToggle.classList.remove('text-outline');
+          const w = parseInt(widthInput.value, 10) || 3840;
+          const h = parseInt(heightInput.value, 10) || 2160;
+          baseAspect = w / h;
+        } else {
+          aspectToggle.classList.remove('text-secondary');
+          aspectToggle.classList.add('text-outline');
+        }
+      });
+
+      // Quick Preset buttons
+      presetButtons.forEach(pBtn => {
+        pBtn.addEventListener('click', () => {
+          presetButtons.forEach(b => {
+            b.classList.remove('bg-primary-container/20', 'text-primary');
+            b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+          });
+          pBtn.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+          pBtn.classList.add('bg-primary-container/20', 'text-primary');
+
+          const targetW = pBtn.dataset.w;
+          const targetH = pBtn.dataset.h;
+
+          if (targetW !== 'custom') {
+            widthInput.value = targetW;
+            heightInput.value = targetH;
+            baseAspect = parseInt(targetW, 10) / parseInt(targetH, 10);
+            recalculateEstimatedSize();
+          }
+        });
+      });
+
+      // Preview Zoom Control
+      function updateZoom(newZoom) {
+        currentZoom = Math.min(Math.max(newZoom, 25), 300);
+        zoomVal.textContent = currentZoom + '%';
+        previewImg.style.transform = `scale(${currentZoom / 100})`;
+      }
+
+      zoomIn.addEventListener('click', () => updateZoom(currentZoom + 25));
+      zoomOut.addEventListener('click', () => updateZoom(currentZoom - 25));
+      zoomFit.addEventListener('click', () => updateZoom(100));
+
+      // Micro Feedback on Download & Clipboard
+      copyBtn.addEventListener('click', () => {
+        const originalContent = copyBtn.innerHTML;
+        copyBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-secondary">check</span><span>Copied!</span>`;
+        setTimeout(() => {
+          copyBtn.innerHTML = originalContent;
+        }, 1800);
+      });
+
+      downloadBtn.addEventListener('click', () => {
+        const originalText = downloadLabel.textContent;
+        downloadLabel.textContent = 'Rendering Buffer...';
+        setTimeout(() => {
+          downloadLabel.textContent = 'Exported Successfully!';
+          setTimeout(() => {
+            downloadLabel.textContent = originalText;
+          }, 2000);
+        }, 600);
+      });
+
+      // Initial execution
+      recalculateEstimatedSize();
+    })();
+  </script>
+</div></main></body></html>
