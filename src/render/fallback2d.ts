@@ -62,7 +62,7 @@ export function create2dRenderer(canvas: HTMLCanvasElement): Renderer {
         ctx.globalCompositeOperation = 'source-over';
       }
       // Sharpness: cheap 3x3 unsharp via offscreen when requested.
-      if (a.sharpness > 1) applySharpness2d(ctx, canvas, a.sharpness / 100);
+      if (a.sharpness > 1) applySharpness2d(ctx, canvas, Math.min(1.5, a.sharpness / 100) * 0.9);
     }
     ctx.restore();
   }
@@ -78,9 +78,15 @@ function applySharpness2d(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasEleme
   tctx.filter = 'blur(1px)';
   tctx.drawImage(canvas, 0, 0);
   tctx.filter = 'none';
-  ctx.globalCompositeOperation = 'overlay';
-  ctx.globalAlpha = Math.min(0.6, amount * 0.6);
-  ctx.drawImage(tmp, 0, 0);
-  ctx.globalAlpha = 1;
-  ctx.globalCompositeOperation = 'source-over';
+
+  const src = ctx.getImageData(0, 0, w, h);
+  const blur = tctx.getImageData(0, 0, w, h);
+  const data = src.data, blurred = blur.data;
+  for (let i = 0; i < data.length; i += 4) {
+    for (let c = 0; c < 3; c++) {
+      const v = data[i + c] + (data[i + c] - blurred[i + c]) * amount;
+      data[i + c] = Math.max(0, Math.min(255, v));
+    }
+  }
+  ctx.putImageData(src, 0, 0);
 }

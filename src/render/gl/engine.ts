@@ -35,12 +35,18 @@ function compile(gl: WebGL2RenderingContext, type: number, src: string): WebGLSh
 }
 
 function program(gl: WebGL2RenderingContext, fragSrc: string) {
+  const vs = compile(gl, gl.VERTEX_SHADER, VERT_SRC);
+  const fs = compile(gl, gl.FRAGMENT_SHADER, fragSrc);
   const p = gl.createProgram()!;
-  gl.attachShader(p, compile(gl, gl.VERTEX_SHADER, VERT_SRC));
-  gl.attachShader(p, compile(gl, gl.FRAGMENT_SHADER, fragSrc));
+  gl.attachShader(p, vs);
+  gl.attachShader(p, fs);
   gl.linkProgram(p);
-  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
+  const ok = gl.getProgramParameter(p, gl.LINK_STATUS);
+  gl.deleteShader(vs);
+  gl.deleteShader(fs);
+  if (!ok) {
     const log = gl.getProgramInfoLog(p);
+    gl.deleteProgram(p);
     console.error('[gl] program link failed:', log);
     throw new Error('Program link failed: ' + log);
   }
@@ -278,6 +284,15 @@ export function createGlRenderer(canvas: HTMLCanvasElement, opts?: { loseOnDispo
     canvas,
     render,
     dispose() {
+      for (const t of targets) {
+        gl.deleteFramebuffer(t.fbo);
+        gl.deleteTexture(t.tex);
+      }
+      targets = [];
+      gl.deleteTexture(srcTex);
+      gl.deleteVertexArray(vao);
+      gl.deleteBuffer(vbo);
+      for (const p of [toneProg, blurProg, sharpProg]) gl.deleteProgram(p);
       if (opts?.loseOnDispose) {
         gl.getExtension('WEBGL_lose_context')?.loseContext();
       }

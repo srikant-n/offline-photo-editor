@@ -3,8 +3,9 @@ import {
   transformedSize, sourceToOutputMatrix, effectiveCrop,
   applyMat, invertMat, multiply, rotatedRectCorners, rectFromQuad,
   displayDraftToSourceCrop, sourceCropToDisplayDraft, mapRotRect, IDENTITY,
+  documentOutputSize,
 } from './geometry';
-import type { TransformState } from '../types';
+import type { Document, TransformState } from '../types';
 
 const T = (over: Partial<TransformState> = {}): TransformState => ({
   rotate90: 0, flipH: false, flipV: false, ...over,
@@ -191,5 +192,32 @@ describe('mapRotRect', () => {
     let da = Math.abs(out.angle - 90) % 360;
     if (da > 180) da = 360 - da;
     expect(da).toBeCloseTo(0, 1);
+  });
+});
+
+describe('documentOutputSize', () => {
+  const doc = (over: Partial<Document> = {}): Document => ({
+    source: { width: 400, height: 300 } as ImageBitmap,
+    sourceName: 'x',
+    canvas: { width: 123, height: 45, background: '#fff' },
+    canvasAuto: true,
+    straighten: 0,
+    transform: T(),
+    adjustments: {} as Document['adjustments'],
+    ...over,
+  });
+
+  it('returns geometry-derived size when canvasAuto is true', () => {
+    expect(documentOutputSize(doc())).toEqual({ w: 400, h: 300 });
+    expect(documentOutputSize(doc({
+      transform: T({ rotate90: 90 }),
+    }))).toEqual({ w: 300, h: 400 });
+    expect(documentOutputSize(doc({
+      crop: { x: 50, y: 50, w: 200, h: 100 },
+    }))).toEqual({ w: 200, h: 100 });
+  });
+
+  it('returns the explicit canvas size when canvasAuto is false', () => {
+    expect(documentOutputSize(doc({ canvasAuto: false }))).toEqual({ w: 123, h: 45 });
   });
 });

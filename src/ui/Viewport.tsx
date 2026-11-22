@@ -58,7 +58,10 @@ export function Viewport() {
       rendererRef.current = create2dRenderer(c2d);
       setBackend('2d');
     }
-    return () => rendererRef.current?.dispose();
+    return () => {
+      rendererRef.current?.dispose();
+      rendererRef.current = null;
+    };
   }, []);
 
   const [renderError, setRenderError] = useState('');

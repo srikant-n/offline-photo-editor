@@ -212,7 +212,7 @@ function decodeRaw(info: BmpInfo, stride: number, put: PutFn) {
       const lineOff = base + row * stride;
       for (let x = 0; x < width; x++) {
         const byte = dv.getUint8(lineOff + (x >> 1));
-        const idx = x & 1 ? byte >> 4 : byte & 15;
+        const idx = x & 1 ? byte & 15 : byte >> 4;
         const c = info.palette[idx] ?? info.palette[0];
         put(x, y, (c >> 16) & 255, (c >> 8) & 255, c & 255, 255);
       }
@@ -262,7 +262,7 @@ function decodeRLE(info: BmpInfo, put: PutFn, bpp: 4 | 8) {
           const take = Math.min(n, avail * 2);
           for (let i = 0; i < take; i++) {
             const byte = dv.getUint8(off + (i >> 1));
-            const idx = i & 1 ? byte >> 4 : byte & 15;
+            const idx = i & 1 ? byte & 15 : byte >> 4;
             plot(x + i, height - 1 - y, idx);
           }
           off += Math.ceil(n / 2);
@@ -277,7 +277,7 @@ function decodeRLE(info: BmpInfo, put: PutFn, bpp: 4 | 8) {
         for (let i = 0; i < count; i++) plot(x + i, height - 1 - y, idxByte);
       } else {
         for (let i = 0; i < count; i++) {
-          const idx = i & 1 ? idxByte >> 4 : idxByte & 15;
+          const idx = i & 1 ? idxByte & 15 : idxByte >> 4;
           plot(x + i, height - 1 - y, idx);
         }
       }
