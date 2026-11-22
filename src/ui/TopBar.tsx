@@ -21,7 +21,11 @@ export function TopBar({ onExport, zoom, onZoomIn, onZoomOut, onZoomFit, onOpenF
   return (
     <header className="topbar">
       <div className="topbar-left">
-        <span className="brand">Obsidian Studio</span>
+        <div className="brand-lockup">
+          <img className="brand-logo" src="/offline-photo-logo.svg" alt="" width={20} height={20} />
+          <span className="brand">Offline Photo</span>
+          <span className="brand-badge">Local</span>
+        </div>
         <span className="topbar-sep" />
         <button className="icon-btn" onClick={onOpenFile} title="Open image">
           <span className="material-symbols-outlined">folder_open</span>

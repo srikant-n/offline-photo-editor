@@ -1,4 +1,4 @@
-# Obsidian Studio
+# Offline Photo
 
 A client-side photo editor built with React, TypeScript, and Vite. Images are decoded and edited entirely in the browser—there is no upload or server-side processing.
 

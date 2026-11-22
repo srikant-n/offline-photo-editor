@@ -1,7 +1,7 @@
 @import '@fontsource-variable/inter';
 @import '@material-symbols/font-400/outlined.css';
 
-/* ===== Obsidian Studio design tokens (Screens/obsidian_studio/DESIGN.md) ===== */
+/* ===== Offline Photo design tokens (Screens/obsidian_studio/DESIGN.md) ===== */
 :root {
   --surface-lowest: #0c0e14;
   --surface-low: #191b21;
@@ -57,7 +57,16 @@ body {
 }
 .topbar-left, .topbar-right { display: flex; align-items: center; gap: 6px; }
 .topbar-center { flex: 1; text-align: center; }
+.brand-lockup { display: flex; align-items: center; gap: 7px; }
+.brand-logo { width: 20px; height: 20px; object-fit: contain; }
 .brand { font-weight: 600; font-size: 13px; letter-spacing: -0.01em; color: var(--primary); }
+.brand-badge {
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 2px 5px; border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--primary-container) 20%, transparent);
+  color: var(--primary-container);
+  border: 1px solid color-mix(in srgb, var(--primary-container) 30%, transparent);
+}
 .topbar-sep { width: 1px; height: 16px; background: var(--outline-variant); margin: 0 4px; }
 .doc-name { color: var(--on-surface-variant); font-size: 11px; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .status-text { color: var(--on-surface-variant); font-size: 11px; }
