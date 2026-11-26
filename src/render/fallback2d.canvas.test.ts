@@ -97,6 +97,25 @@ describe('create2dRenderer pixels', () => {
     expect(far).toBeLessThan(edge / 4);
   });
 
+  it('flipH mirrors the rendered pixels', () => {
+    const src = makeSource(4, 1, (ctx, w) => {
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, w / 2, 1);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(w / 2, 0, w / 2, 1);
+    });
+    const doc = makeDoc(src, {
+      transform: { rotate90: 0, flipH: true, flipV: false },
+    });
+    const canvas = document.createElement('canvas');
+    const renderer = create2dRenderer(canvas);
+    renderer.render(doc, { before: true });
+
+    const img = pixels(canvas);
+    expect(px(img, 0, 0)).toEqual([255, 255, 255, 255]);
+    expect(px(img, 3, 0)).toEqual([0, 0, 0, 255]);
+  });
+
   it('fills custom canvas background around a smaller centered image', () => {
     const src = edgeSource(8, 8);
     const doc = makeDoc(src, {

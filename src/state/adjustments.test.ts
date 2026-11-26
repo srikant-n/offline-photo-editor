@@ -41,6 +41,22 @@ describe('ADJUSTMENTS', () => {
     expect(d.min).toBe(0);
     expect(d.max).toBe(100);
   });
+
+  it('every def has a label and a known group', () => {
+    for (const d of ADJUSTMENTS) {
+      expect(d.label.length).toBeGreaterThan(0);
+      expect(ADJUSTMENT_GROUPS.map((g) => g.id)).toContain(d.group);
+    }
+  });
+});
+
+describe('ADJUSTMENT_GROUPS', () => {
+  it('defines exactly the light/color/detail sections', () => {
+    expect(ADJUSTMENT_GROUPS.map((g) => g.id)).toEqual(['light', 'color', 'detail']);
+    // Every adjustment belongs to one of the declared groups.
+    const covered = new Set(ADJUSTMENTS.map((d) => d.group));
+    expect(covered.size).toBe(ADJUSTMENT_GROUPS.length);
+  });
 });
 
 describe('defaultAdjustments', () => {

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { renderHook, waitFor, cleanup } from '@testing-library/react';
-import { useFileInput } from './useFileInput';
+import { useFileInput, pickImageFile } from './useFileInput';
 import { useEditor } from '../state/documentStore';
 
 const s = () => useEditor.getState();
@@ -114,5 +114,44 @@ describe('useFileInput', () => {
     dispatchDragEvent('drop', { types: ['Files'], files: [file], dropEffect: 'none' });
     await new Promise((r) => setTimeout(r, 20));
     expect(s().doc).toBeNull();
+  });
+});
+
+describe('pickImageFile', () => {
+  function stubFileInput() {
+    const realCreate = document.createElement.bind(document);
+    const input: any = {
+      type: '', accept: '', files: null as any,
+      onchange: null as any, click: vi.fn(),
+    };
+    vi.spyOn(document, 'createElement').mockImplementation(((tag: string, ...rest: any[]) => {
+      if (tag === 'input') return input;
+      return realCreate(tag, ...(rest as [any]));
+    }) as typeof document.createElement);
+    return input;
+  }
+
+  it('opens a picker limited to images and loads the selection', async () => {
+    const input = stubFileInput();
+    pickImageFile();
+    expect(input.type).toBe('file');
+    expect(input.accept).toBe('image/*,.bmp');
+    expect(input.click).toHaveBeenCalledOnce();
+
+    input.files = [imageFile('picked.jpg', 'image/jpeg')];
+    input.onchange();
+    await waitFor(() => expect(s().doc).not.toBeNull());
+    expect(s().doc?.sourceName).toBe('picked.jpg');
+    vi.restoreAllMocks();
+  });
+
+  it('does nothing when the picker is cancelled', async () => {
+    const input = stubFileInput();
+    pickImageFile();
+    input.files = [];
+    input.onchange();
+    await new Promise((r) => setTimeout(r, 20));
+    expect(s().doc).toBeNull();
+    vi.restoreAllMocks();
   });
 });

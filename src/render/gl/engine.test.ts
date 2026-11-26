@@ -256,4 +256,44 @@ describe('createGlRenderer render', () => {
     expect(renderer).toBeNull();
     err.mockRestore();
   });
+
+  it('before:true skips sharpness passes and flags uBefore', async () => {
+    const { gl } = createFakeGl();
+    const { renderer } = await setupRender(gl);
+    if (!renderer) throw new Error('renderer unavailable');
+    const doc = makeDoc({
+      adjustments: { ...defaultAdjustments(), sharpness: 80 },
+    });
+
+    renderer.render(doc, { before: true });
+
+    // Tone pass + blit only; the sharpness path is bypassed entirely.
+    expect(gl.drawArrays).toHaveBeenCalledTimes(2);
+    expect(uniformVals(gl, 'uniform2f', 'uDir')).toEqual([]);
+    expect(uniformVals(gl, 'uniform1f', 'uBefore')).toEqual([1, 1]);
+  });
+
+  it('reuses render targets when the output size is unchanged', async () => {
+    const { gl } = createFakeGl();
+    const { renderer } = await setupRender(gl);
+    if (!renderer) throw new Error('renderer unavailable');
+    const doc = makeDoc();
+
+    renderer.render(doc);
+    renderer.render(doc);
+    expect(gl.deleteFramebuffer).not.toHaveBeenCalled();
+    expect(gl.deleteTexture).not.toHaveBeenCalled();
+  });
+
+  it('dispose without loseOnDispose keeps the GL context alive', async () => {
+    const { gl, loseContext } = createFakeGl();
+    const { renderer } = await setupRender(gl);
+    if (!renderer) throw new Error('renderer unavailable');
+    renderer.render(makeDoc());
+
+    renderer.dispose();
+
+    expect(loseContext).not.toHaveBeenCalled();
+    expect(gl.deleteProgram).toHaveBeenCalledTimes(3);
+  });
 });

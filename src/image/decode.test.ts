@@ -109,4 +109,25 @@ describe('decodeImageBlob', () => {
     const blob = new Blob([new Uint8Array(4)], { type: 'image/bmp' });
     await expect(decodeImageBlob(blob, 'tiny.bmp')).rejects.toThrow('Not a BMP file');
   });
+
+  it('matches the .bmp extension case-insensitively', async () => {
+    const blob = new Blob([makeTinyBmp()], { type: 'application/octet-stream' });
+    const img = await decodeImageBlob(blob, 'PHOTO.BMP');
+    expect(img.width).toBe(1);
+    expect(img.height).toBe(1);
+    expect(img.name).toBe('PHOTO.BMP');
+  });
+
+  it('lowercases the blob MIME type before checking', async () => {
+    const blob = new Blob([makeTinyBmp()], { type: 'IMAGE/X-MS-BMP' });
+    const img = await decodeImageBlob(blob, 'no-ext');
+    expect(img.width).toBe(1);
+    expect(img.height).toBe(1);
+  });
+
+  it('defaults the name to an empty string', async () => {
+    const blob = new Blob([new Uint8Array([137, 80, 78, 71])], { type: 'image/png' });
+    const img = await decodeImageBlob(blob);
+    expect(img.name).toBe('');
+  });
 });

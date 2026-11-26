@@ -190,4 +190,31 @@ describe('create2dRenderer passes', () => {
     expect(ctx.calls.filter((c) => c === 'drawImage')).toHaveLength(1);
     expect(createdCanvases.length).toBe(1); // geometry only, no scratch canvas
   });
+
+  it('skips sharpness when the amount is at or below the threshold', () => {
+    for (const sharpness of [0, 1, -5]) {
+      const doc = makeDoc();
+      doc.adjustments.sharpness = sharpness;
+      const { ctx, renderer } = setup(doc);
+      renderer.render(doc);
+      expect(ctx.calls).not.toContain('putImageData');
+      expect(ctx.calls).not.toContain('getImageData');
+    }
+  });
+
+  it('folds vibrance into the saturate() filter factor', () => {
+    const doc = makeDoc();
+    doc.adjustments.vibrance = 40;
+    const { ctx, renderer } = setup(doc);
+    renderer.render(doc);
+    // sat = 1 + saturation/100 + vibrance/200 = 1 + 0 + 0.2
+    const f = ctx.filterSets.find((v) => v.includes('saturate('));
+    expect(f).toContain('saturate(1.2)');
+  });
+
+  it('dispose is a safe no-op', () => {
+    const { renderer, doc } = setup();
+    renderer.render(doc);
+    expect(() => renderer.dispose()).not.toThrow();
+  });
 });

@@ -1,6 +1,9 @@
 // @vitest-environment jsdom
-import { describe, it, expect, beforeEach } from 'vitest';
-import { useEditor } from './documentStore';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import {
+  useEditor, imageLayer, defaultTextProps,
+  DEFAULT_BRUSH, DEFAULT_SHAPE,
+} from './documentStore';
 import type { Document } from '../types';
 
 const s = () => useEditor.getState();
@@ -24,9 +27,16 @@ beforeEach(() => {
     doc: null, past: [], future: [], gestureBase: null,
     tool: 'select', cropDraft: null, cropAspect: null,
     comparing: false, loadError: null,
+    selectedLayerId: null, activeStroke: null,
+    currentColor: '#ffd166',
+    brush: { ...DEFAULT_BRUSH }, shape: { ...DEFAULT_SHAPE },
     view: { scale: 1, tx: 0, ty: 0, baseW: 0, baseH: 0 },
     container: { w: 0, h: 0 },
   });
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
 });
 
 describe('loadImage / clearDocument', () => {
@@ -449,5 +459,237 @@ describe('layers', () => {
     expect(s().past.length).toBe(1);
     s().undo();
     expect(doc().adjustments.saturation).toBe(0);
+  });
+
+  it('applyPreset ignores unknown ids and clamps intensity', () => {
+    load();
+    s().applyPreset('does-not-exist', 1);
+    expect(doc().adjustments.saturation).toBe(0);
+    expect(s().canUndo()).toBe(false);
+    s().applyPreset('bw', 2);
+    expect(doc().adjustments.saturation).toBe(-100);
+  });
+
+  it('applyPreset transient coalesces into a single undo step', () => {
+    load();
+    s().applyPreset('warm', 0.5, true);
+    s().applyPreset('warm', 1, true);
+    s().endGesture();
+    expect(s().past.length).toBe(1);
+    expect(doc().adjustments.temperature).toBe(45);
+    s().undo();
+    expect(doc().adjustments.temperature).toBe(0);
+  });
+
+  it('moveLayer refuses to move past the stack ends', () => {
+    load();
+    const a = s().addTextLayer(5, 5)!;
+    const b = s().addTextLayer(20, 20)!;
+    const order = () => doc().layers.map((l) => l.id);
+    s().moveLayer(a, -1); // already directly above image → no-op
+    expect(order()).toEqual(['image', a, b]);
+    s().moveLayer(b, 1); // already topmost → no-op
+    expect(order()).toEqual(['image', a, b]);
+  });
+
+  it('duplicateLayer ignores the image pseudo-layer and unknown ids', () => {
+    load();
+    const before = doc().layers.length;
+    s().duplicateLayer('image');
+    s().duplicateLayer('missing');
+    expect(doc().layers).toHaveLength(before);
+    expect(s().selectedLayerId).toBeNull();
+  });
+
+  it('addShapeLayer returns null without a document', () => {
+    expect(s().addShapeLayer(0, 0, 10, 10)).toBeNull();
+    expect(s().addTextLayer(0, 0)).toBeNull();
+  });
+
+  it('addShapeLayer rasterizes with the shared current color', () => {
+    load(100, 50);
+    s().setCurrentColor('#123456');
+    s().setShape({ kind: 'ellipse', strokeWidth: 6 });
+    const id = s().addShapeLayer(10, 10, 60, 40);
+    expect(id).toBeTruthy();
+    const layer = doc().layers.find((l) => l.id === id)!;
+    expect(layer.type).toBe('shape');
+    expect(layer.name).toBe('Ellipse');
+    expect(layer.shape).toMatchObject({ kind: 'ellipse', color: '#123456', strokeWidth: 6 });
+    expect(layer.canvas).toBeDefined();
+    expect(layer.w).toBeGreaterThan(0);
+    expect(s().selectedLayerId).toBe(id);
+    expect(s().canUndo()).toBe(true);
+  });
+
+  it('updateTextLayer re-rasterizes and patches text props in one step', () => {
+    load(100, 50);
+    const id = s().addTextLayer(10, 10)!;
+    s().updateTextLayer(id, { content: 'Hello', fontSize: 80, align: 'center' });
+    const layer = doc().layers.find((l) => l.id === id)!;
+    expect(layer.text).toMatchObject({ content: 'Hello', fontSize: 80, align: 'center' });
+    expect(layer.canvas).toBeDefined();
+    expect(s().past.length).toBe(2); // add + update = two commits
+    s().undo();
+    const reverted = doc().layers.find((l) => l.id === id)!;
+    expect(reverted.text?.content).toBe('Text');
+  });
+
+  it('updateTextLayer ignores non-text layers and unknown ids', () => {
+    load();
+    const shapeId = s().addShapeLayer(0, 0, 20, 20)!;
+    const before = doc().layers.length;
+    s().updateTextLayer(shapeId, { content: 'nope' });
+    s().updateTextLayer('missing', { content: 'nope' });
+    s().updateTextLayer('image', { content: 'nope' });
+    expect(doc().layers).toHaveLength(before);
+    expect(doc().layers.find((l) => l.id === shapeId)?.text).toBeUndefined();
+  });
+});
+
+describe('tool settings', () => {
+  it('setBrush/setShape merge partial updates', () => {
+    s().setBrush({ size: 12, hardness: 0.5 });
+    expect(s().brush).toMatchObject({ size: 12, hardness: 0.5, opacity: 1, eraser: false });
+    s().setShape({ kind: 'arrow' });
+    expect(s().shape).toMatchObject({ kind: 'arrow', color: '#ffd166' });
+  });
+
+  it('setCurrentColor/selectLayer/setLoadError/setComparing update state', () => {
+    s().setCurrentColor('#abcdef');
+    expect(s().currentColor).toBe('#abcdef');
+    s().selectLayer('layer-1');
+    expect(s().selectedLayerId).toBe('layer-1');
+    s().setLoadError('boom');
+    expect(s().loadError).toBe('boom');
+    s().setComparing(true);
+    expect(s().comparing).toBe(true);
+  });
+});
+
+describe('exported helpers', () => {
+  it('imageLayer returns the locked pseudo-layer', () => {
+    expect(imageLayer()).toEqual({
+      id: 'image', type: 'image', name: 'Image',
+      visible: true, opacity: 1, blendMode: 'normal',
+      x: 0, y: 0, w: 0, h: 0,
+    });
+  });
+
+  it('defaultTextProps fills every TextProps field', () => {
+    const t = defaultTextProps('#ff0000', 300);
+    expect(t).toEqual({
+      content: 'Text', fontFamily: 'Inter, system-ui, sans-serif',
+      fontSize: 64, bold: false, italic: false, color: '#ff0000',
+      align: 'left', letterSpacing: 0, lineHeight: 1.2, wrapWidth: 300,
+    });
+  });
+});
+
+describe('brush stroke lifecycle', () => {
+  it('beginBrushStroke creates a full-frame raster layer and working state', () => {
+    load(100, 50);
+    s().setBrush({ size: 20 });
+    s().beginBrushStroke();
+    const stroke = s().activeStroke;
+    expect(stroke).not.toBeNull();
+    expect(stroke!.points).toEqual([]);
+    expect(stroke!.params).toMatchObject({ size: 20, color: '#ffd166', eraser: false });
+    const layer = doc().layers.find((l) => l.id === stroke!.layerId)!;
+    expect(layer.type).toBe('raster');
+    expect(layer).toMatchObject({ x: 0, y: 0, w: 100, h: 50 });
+    expect(stroke!.createdLayer).toBe(true);
+    expect(s().selectedLayerId).toBe(layer.id);
+    expect(s().canUndo()).toBe(false); // gesture not ended yet
+  });
+
+  it('beginBrushStroke is a no-op without a doc or during an active stroke', () => {
+    s().beginBrushStroke();
+    expect(s().activeStroke).toBeNull();
+    load();
+    s().beginBrushStroke();
+    const first = s().activeStroke;
+    s().beginBrushStroke();
+    expect(s().activeStroke).toBe(first);
+    expect(doc().layers.filter((l) => l.type === 'raster')).toHaveLength(1);
+  });
+
+  it('brushStrokeTo accumulates points and commitBrushStroke writes the canvas', () => {
+    load(100, 50);
+    s().beginBrushStroke();
+    s().brushStrokeTo(10, 10);
+    s().brushStrokeTo(30, 30);
+    const stroke = s().activeStroke!;
+    expect(stroke.points).toEqual([{ x: 10, y: 10 }, { x: 30, y: 30 }]);
+    s().commitBrushStroke();
+    expect(s().activeStroke).toBeNull();
+    const layer = doc().layers.find((l) => l.id === stroke.layerId)!;
+    expect(layer.canvas).toBe(stroke.canvas);
+    // The stamp drew something: some pixel in the stroke canvas is non-transparent.
+    const ctx = layer.canvas!.getContext('2d')!;
+    const data = ctx.getImageData(0, 0, layer.canvas!.width, layer.canvas!.height).data;
+    let painted = 0;
+    for (let i = 3; i < data.length; i += 4) if (data[i] > 0) painted++;
+    expect(painted).toBeGreaterThan(0);
+    // One gesture = one undo step that removes the whole stroke.
+    expect(s().past.length).toBe(1);
+    s().undo();
+    expect(doc().layers.find((l) => l.id === stroke.layerId)).toBeUndefined();
+  });
+
+  it('cancelBrushStroke removes a stroke-created layer and its selection', () => {
+    load(100, 50);
+    s().beginBrushStroke();
+    const stroke = s().activeStroke!;
+    s().brushStrokeTo(10, 10);
+    s().cancelBrushStroke();
+    expect(s().activeStroke).toBeNull();
+    expect(doc().layers.find((l) => l.id === stroke.layerId)).toBeUndefined();
+    expect(s().selectedLayerId).toBeNull();
+  });
+
+  it('reuses the selected raster layer instead of creating a new one', () => {
+    load(100, 50);
+    s().beginBrushStroke();
+    const stroke = s().activeStroke!;
+    s().commitBrushStroke();
+    // Second stroke targets the same raster layer.
+    s().beginBrushStroke();
+    const second = s().activeStroke!;
+    expect(second.layerId).toBe(stroke.layerId);
+    expect(second.createdLayer).toBe(false);
+    expect(doc().layers.filter((l) => l.type === 'raster')).toHaveLength(1);
+    s().cancelBrushStroke();
+    // Cancelling a reused layer keeps the layer (and its prior content).
+    expect(doc().layers.find((l) => l.id === stroke.layerId)).toBeDefined();
+  });
+
+  it('commitBrushStroke/cancelBrushStroke are no-ops without a stroke', () => {
+    load();
+    s().commitBrushStroke();
+    s().cancelBrushStroke();
+    expect(s().activeStroke).toBeNull();
+    expect(doc().layers).toHaveLength(1);
+  });
+});
+
+describe('loadFile success path', () => {
+  it('decodes an image blob and loads it', async () => {
+    vi.stubGlobal('createImageBitmap', vi.fn(async () => ({ width: 8, height: 4 })));
+    const blob = new Blob([new Uint8Array([137, 80, 78, 71])], { type: 'image/png' });
+    await s().loadFile(blob, 'ok.png');
+    expect(s().loadError).toBeNull();
+    expect(doc().sourceName).toBe('ok.png');
+    expect(doc().canvas).toMatchObject({ width: 8, height: 4 });
+  });
+
+  it('clears a previous loadError on successful load', async () => {
+    s().setLoadError('old');
+    vi.stubGlobal('createImageBitmap', vi.fn(async () => ({ width: 2, height: 2 })));
+    const blob = new Blob([new Uint8Array([1])], { type: 'image/png' });
+    await s().loadFile(blob);
+    expect(s().loadError).toBeNull();
+    // No name → falls back to blob name (empty for a plain Blob) → 'image'.
+    expect(doc().sourceName).toBe('image');
   });
 });

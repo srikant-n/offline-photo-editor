@@ -1,9 +1,10 @@
+// @vitest-environment jsdom
 import { describe, it, expect } from 'vitest';
 import {
   transformedSize, sourceToOutputMatrix, effectiveCrop,
   applyMat, invertMat, multiply, rotatedRectCorners, rectFromQuad,
   displayDraftToSourceCrop, sourceCropToDisplayDraft, mapRotRect, IDENTITY,
-  documentOutputSize,
+  documentOutputSize, rotatedBounds, translate, rotate, scale, renderGeometry,
 } from './geometry';
 import type { Document, TransformState } from '../types';
 
@@ -195,6 +196,38 @@ describe('mapRotRect', () => {
   });
 });
 
+describe('transform helpers', () => {
+  it('translate/rotate/scale compose through multiply', () => {
+    // translate then rotate: M = R * T applied to point p → R*(p + t)
+    const m = multiply(rotate(90), translate(10, 0));
+    const [x, y] = applyMat(m, 0, 0);
+    expect(x).toBeCloseTo(0);
+    expect(y).toBeCloseTo(10);
+    const s = scale(2, 3);
+    expect(applyMat(s, 4, 5)).toEqual([8, 15]);
+    expect(applyMat(translate(7, -2), 1, 1)).toEqual([8, -1]);
+  });
+});
+
+describe('rotatedBounds', () => {
+  it('returns the rect size at 0 degrees', () => {
+    expect(rotatedBounds({ x: 0, y: 0, w: 100, h: 50, angle: 0 }, 0))
+      .toMatchObject({ w: 100, h: 50 });
+  });
+
+  it('swaps w/h for a 90 degree straighten', () => {
+    const b = rotatedBounds({ x: 0, y: 0, w: 100, h: 50, angle: 0 }, 90);
+    expect(b.w).toBeCloseTo(50);
+    expect(b.h).toBeCloseTo(100);
+  });
+
+  it('grows the bbox for a 45 degree straighten', () => {
+    const b = rotatedBounds({ x: 0, y: 0, w: 100, h: 100, angle: 0 }, 45);
+    expect(b.w).toBeCloseTo(100 * Math.SQRT2, 5);
+    expect(b.h).toBeCloseTo(100 * Math.SQRT2, 5);
+  });
+});
+
 describe('documentOutputSize', () => {
   const doc = (over: Partial<Document> = {}): Document => ({
     source: { width: 400, height: 300 } as ImageBitmap,
@@ -220,5 +253,43 @@ describe('documentOutputSize', () => {
 
   it('returns the explicit canvas size when canvasAuto is false', () => {
     expect(documentOutputSize(doc({ canvasAuto: false }))).toEqual({ w: 123, h: 45 });
+  });
+});
+
+describe('renderGeometry', () => {
+  function sourceCanvas(w: number, h: number, color: string): HTMLCanvasElement {
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const ctx = c.getContext('2d')!;
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, w, h);
+    return c;
+  }
+
+  const px = (c: HTMLCanvasElement, x: number, y: number) =>
+    Array.from(c.getContext('2d')!.getImageData(x, y, 1, 1).data);
+
+  const geo = (over = {}) => ({
+    straighten: 0, transform: T(), outW: 0, outH: 0, background: '#ffffff', ...over,
+  });
+
+  it('sizes the output canvas and fills the background', () => {
+    const src = sourceCanvas(4, 4, '#000000') as unknown as ImageBitmap;
+    const out = renderGeometry(src, 4, 4, geo({ outW: 8, outH: 8, background: '#ff0000' }));
+    expect(out.width).toBe(8);
+    expect(out.height).toBe(8);
+    // Corners outside the centered 4x4 image keep the background.
+    expect(px(out, 0, 0)).toEqual([255, 0, 0, 255]);
+    expect(px(out, 4, 4)).toEqual([0, 0, 0, 255]);
+  });
+
+  it('returns the cached canvas for identical params', () => {
+    const src = sourceCanvas(4, 4, '#336699') as unknown as ImageBitmap;
+    const p = geo({ outW: 4, outH: 4 });
+    const a = renderGeometry(src, 4, 4, p);
+    const b = renderGeometry(src, 4, 4, { ...p });
+    expect(b).toBe(a);
+    const c = renderGeometry(src, 4, 4, geo({ outW: 8, outH: 8 }));
+    expect(c).not.toBe(a);
   });
 });

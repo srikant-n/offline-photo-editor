@@ -45,4 +45,17 @@ describe('shader sources', () => {
     expect(SHARPEN_FRAG_SRC).toContain('uniform sampler2D uBlur');
     expect(SHARPEN_FRAG_SRC).toContain('uniform float uAmount');
   });
+
+  it('tone shader clamps its output color', () => {
+    expect(TONE_FRAG_SRC).toContain('clamp(c, 0.0, 1.0)');
+    expect(TONE_FRAG_SRC).toContain('fragColor = vec4(c, 1.0)');
+  });
+
+  it('blur shader performs five texture taps', () => {
+    expect((BLUR_FRAG_SRC.match(/texture\(uTex/g) ?? []).length).toBe(5);
+  });
+
+  it('sharpen shader clamps the composited result', () => {
+    expect(SHARPEN_FRAG_SRC).toContain('clamp(c, 0.0, 1.0)');
+  });
 });

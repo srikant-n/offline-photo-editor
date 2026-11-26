@@ -128,6 +128,32 @@ describe('useKeyboard', () => {
     expect(s().tool).toBe('adjust');
   });
 
+  it('Escape cancels an active brush stroke before considering crop', () => {
+    renderHook(() => useKeyboard());
+    load();
+    s().setCropDraft({ cx: 10, cy: 10, w: 20, h: 20, angle: 0 });
+    useEditor.setState({
+      activeStroke: {
+        layerId: 'stroke-1', canvas: document.createElement('canvas'),
+        ctx: null as any, offsetX: 0, offsetY: 0, points: [],
+        params: { size: 10, hardness: 1, opacity: 1, color: '#fff' },
+        createdLayer: false,
+      },
+    });
+    key(window, 'Escape');
+    expect(s().activeStroke).toBeNull();
+    // The crop draft is left alone — the stroke took priority.
+    expect(s().cropDraft).not.toBeNull();
+  });
+
+  it('meta+z undoes like ctrl+z', () => {
+    renderHook(() => useKeyboard());
+    load();
+    s().setAdjustment('brightness', 30);
+    key(window, 'z', { metaKey: true });
+    expect(s().doc?.adjustments.brightness).toBe(0);
+  });
+
   it('removes listeners on unmount', () => {
     const { unmount } = renderHook(() => useKeyboard());
     unmount();

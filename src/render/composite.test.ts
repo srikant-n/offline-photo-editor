@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from 'vitest';
-import { blendModeToComposite, compositeLayers } from './composite';
+import { blendModeToComposite, compositeLayers, layerContains } from './composite';
 import { defaultAdjustments } from '../state/adjustments';
-import type { Document, Layer } from '../types';
+import type { BlendMode, Document, Layer } from '../types';
 
 function solid(w: number, h: number, color: string): HTMLCanvasElement {
   const c = document.createElement('canvas');
@@ -60,6 +60,27 @@ describe('blendModeToComposite', () => {
     expect(blendModeToComposite('saturation')).toBe('saturation');
     expect(blendModeToComposite('color')).toBe('color');
     expect(blendModeToComposite('luminosity')).toBe('luminosity');
+  });
+
+  it('falls back to source-over for unknown modes', () => {
+    expect(blendModeToComposite('bogus' as BlendMode)).toBe('source-over');
+  });
+});
+
+describe('layerContains', () => {
+  const l = layer('a', solid(4, 4, '#fff'), { x: 10, y: 20, w: 30, h: 40 });
+
+  it('is inclusive on all edges', () => {
+    expect(layerContains(l, 10, 20)).toBe(true);
+    expect(layerContains(l, 40, 60)).toBe(true);
+    expect(layerContains(l, 25, 40)).toBe(true);
+  });
+
+  it('rejects points outside the rect', () => {
+    expect(layerContains(l, 9.9, 30)).toBe(false);
+    expect(layerContains(l, 30, 19)).toBe(false);
+    expect(layerContains(l, 40.1, 30)).toBe(false);
+    expect(layerContains(l, 30, 60.1)).toBe(false);
   });
 });
 
@@ -145,5 +166,49 @@ describe('compositeLayers', () => {
     const ctx = out.getContext('2d')!;
     compositeLayers(base, makeDoc([layer('a', red)]), ctx, { hideLayers: true });
     expect(pixel(out)).toEqual([0, 0, 0, 255]);
+  });
+
+  it('liveStroke substitutes the in-progress canvas for its layer', () => {
+    const base = solid(4, 4, '#000000');
+    const stored = solid(4, 4, '#ff0000');
+    const live = solid(4, 4, '#00ff00');
+    const out = document.createElement('canvas');
+    out.width = 4; out.height = 4;
+    const ctx = out.getContext('2d')!;
+    const l = layer('a', stored);
+    compositeLayers(base, makeDoc([l]), ctx, { liveStroke: { layerId: 'a', canvas: live } });
+    expect(pixel(out)).toEqual([0, 255, 0, 255]);
+  });
+
+  it('liveStroke for a different layer id leaves the stored canvas', () => {
+    const base = solid(4, 4, '#000000');
+    const stored = solid(4, 4, '#ff0000');
+    const live = solid(4, 4, '#00ff00');
+    const out = document.createElement('canvas');
+    out.width = 4; out.height = 4;
+    const ctx = out.getContext('2d')!;
+    compositeLayers(base, makeDoc([layer('a', stored)]), ctx, { liveStroke: { layerId: 'other', canvas: live } });
+    expect(pixel(out)).toEqual([255, 0, 0, 255]);
+  });
+
+  it('layers without a canvas are skipped', () => {
+    const base = solid(4, 4, '#000000');
+    const l = { ...layer('a', solid(4, 4, '#ff0000')), canvas: undefined };
+    const out = document.createElement('canvas');
+    out.width = 4; out.height = 4;
+    const ctx = out.getContext('2d')!;
+    compositeLayers(base, makeDoc([l]), ctx);
+    expect(pixel(out)).toEqual([0, 0, 0, 255]);
+  });
+
+  it('restores globalAlpha and composite op after compositing', () => {
+    const base = solid(4, 4, '#000000');
+    const red = solid(4, 4, '#ff0000');
+    const out = document.createElement('canvas');
+    out.width = 4; out.height = 4;
+    const ctx = out.getContext('2d')!;
+    compositeLayers(base, makeDoc([layer('a', red, { opacity: 0.5, blendMode: 'multiply' })]), ctx);
+    expect(ctx.globalAlpha).toBe(1);
+    expect(ctx.globalCompositeOperation).toBe('source-over');
   });
 });

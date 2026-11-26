@@ -270,4 +270,85 @@ describe('decodeBMP', () => {
     expect(px(bmp, 2, 1)).toEqual([20, 0, 0, 255]);
     expect(px(bmp, 3, 1)).toEqual([30, 0, 0, 255]);
   });
+
+  it('rejects buffers that are too small or lack the BM magic', async () => {
+    await expect(decodeBMP(new ArrayBuffer(10))).rejects.toThrow('Not a BMP file');
+    const buf = new ArrayBuffer(60);
+    new Uint8Array(buf).set([0x41, 0x42], 0); // 'AB'
+    await expect(decodeBMP(buf)).rejects.toThrow('Not a BMP file');
+  });
+
+  it('rejects headers smaller than BITMAPINFOHEADER', async () => {
+    const buf = makeBmp({ width: 1, height: 1, bpp: 24, rows: [new Uint8Array(4)] });
+    const dv = new DataView(buf);
+    dv.setUint32(14, 12, true); // headerSize = 12
+    await expect(decodeBMP(buf)).rejects.toThrow('Unsupported BMP header');
+  });
+
+  it('rejects invalid dimensions', async () => {
+    const buf = makeBmp({ width: 70000, height: 1, bpp: 24 });
+    await expect(decodeBMP(buf)).rejects.toThrow('invalid dimensions');
+  });
+
+  it('rejects a pixel data offset past the end of the buffer', async () => {
+    const buf = makeBmp({ width: 1, height: 1, bpp: 24, rows: [new Uint8Array(4)] });
+    new DataView(buf).setUint32(10, 0xfffffff0, true);
+    await expect(decodeBMP(buf)).rejects.toThrow('pixel data offset');
+  });
+
+  it('rejects bit depths the raw decoder does not support', async () => {
+    const buf = makeBmp({
+      width: 2, height: 1, bpp: 1, palette: [[0, 0, 0], [255, 255, 255]],
+      rows: [new Uint8Array([0x80, 0, 0, 0])],
+    });
+    await expect(decodeBMP(buf)).rejects.toThrow('bit depth');
+  });
+
+  it('decodes 16bpp BI_RGB with the default RGB555 masks', async () => {
+    const buf = makeBmp({
+      width: 3, height: 1, bpp: 16, compression: 0,
+      rows: [new Uint8Array([
+        0x00, 0x7c, // red   (0x7c00)
+        0xe0, 0x03, // green (0x03e0)
+        0x1f, 0x00, // blue  (0x001f)
+        0, 0,
+      ])],
+    });
+    const bmp = (await decodeBMP(buf)) as unknown as FakeImageData;
+    expect(px(bmp, 0, 0)).toEqual([255, 0, 0, 255]);
+    expect(px(bmp, 1, 0)).toEqual([0, 255, 0, 255]);
+    expect(px(bmp, 2, 0)).toEqual([0, 0, 255, 255]);
+  });
+
+  it('falls back to palette[0] for indices beyond biClrUsed', async () => {
+    const buf = makeBmp({
+      width: 2, height: 1, bpp: 8,
+      palette: [[200, 10, 20]], // biClrUsed = 1 → palette has a single entry
+      rows: [new Uint8Array([0, 7, 0, 0])],
+    });
+    const bmp = (await decodeBMP(buf)) as unknown as FakeImageData;
+    expect(px(bmp, 0, 0)).toEqual([200, 10, 20, 255]);
+    expect(px(bmp, 1, 0)).toEqual([200, 10, 20, 255]);
+  });
+
+  it('handles RLE8 delta commands that skip pixels and rows', async () => {
+    const palette: [number, number, number][] = [
+      [10, 0, 0], [20, 0, 0], [30, 0, 0], [40, 0, 0],
+    ];
+    const buf = makeBmp({
+      width: 4, height: 2, bpp: 8, compression: 1, palette,
+      rle: new Uint8Array([
+        0x02, 0x00,             // bottom row: two pixels of index 0 (x now 2)
+        0x00, 0x02, 0x00, 0x01, // delta: x += 0, y += 1 (now top row, x = 2)
+        0x02, 0x03,             // two pixels of index 3 at top row x = 2,3
+        0x00, 0x01,             // end of bitmap
+      ]),
+    });
+    const bmp = (await decodeBMP(buf)) as unknown as FakeImageData;
+    expect(px(bmp, 0, 1)).toEqual([10, 0, 0, 255]);
+    expect(px(bmp, 1, 1)).toEqual([10, 0, 0, 255]);
+    expect(px(bmp, 2, 0)).toEqual([40, 0, 0, 255]);
+    expect(px(bmp, 3, 0)).toEqual([40, 0, 0, 255]);
+    expect(px(bmp, 0, 0)).toEqual([0, 0, 0, 0]); // untouched stays transparent
+  });
 });
