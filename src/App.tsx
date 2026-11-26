@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useEditor } from './state/documentStore';
-import { useFileInput } from './hooks/useFileInput';
+import { pickImageFile, useFileInput } from './hooks/useFileInput';
 import { useKeyboard } from './hooks/useKeyboard';
 import { TopBar } from './ui/TopBar';
 import { ToolRail } from './ui/ToolRail';
@@ -31,16 +31,7 @@ export default function App() {
     return () => window.removeEventListener('beforeunload', h);
   }, [doc, canUndo]);
 
-  const openFile = () => {
-    const inp = document.createElement('input');
-    inp.type = 'file';
-    inp.accept = 'image/*,.bmp';
-    inp.onchange = () => {
-      const f = inp.files?.[0];
-      if (f) void useEditor.getState().loadFile(f);
-    };
-    inp.click();
-  };
+  const openFile = pickImageFile;
 
   return (
     <div className="app">

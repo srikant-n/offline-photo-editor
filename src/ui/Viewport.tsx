@@ -4,7 +4,9 @@ import type { Document } from '../types';
 import { createGlRenderer, type Renderer } from '../render/gl/engine';
 import { create2dRenderer } from '../render/fallback2d';
 import { documentOutputSize, sourceCropToDisplayDraft } from '../render/geometry';
+import { compositeLayers } from '../render/composite';
 import { CropOverlay } from './CropOverlay';
+import { BrushCanvas } from './overlays/BrushCanvas';
 
 const PREVIEW_MAX_DIM = 4096;
 
@@ -26,8 +28,10 @@ export function Viewport() {
   const containerRef = useRef<HTMLDivElement>(null);
   const glCanvasRef = useRef<HTMLCanvasElement>(null);
   const canvas2dRef = useRef<HTMLCanvasElement>(null);
+  const compCanvasRef = useRef<HTMLCanvasElement>(null);
+  const activeStroke = useEditor((s) => s.activeStroke);
   const rendererRef = useRef<Renderer | null>(null);
-  const [backend, setBackend] = useState<'gl' | '2d' | null>(null);
+  const [, setBackend] = useState<'gl' | '2d' | null>(null);
   const fitKeyRef = useRef('');
   const panRef = useRef<{ x: number; y: number; tx: number; ty: number } | null>(null);
 
@@ -80,6 +84,31 @@ export function Viewport() {
     setView({ baseW: out.w, baseH: out.h });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rdoc, comparing]);
+
+  // Layer composite pass: draw the base render + all visible layers onto the
+  // display canvas. Runs after the base render effect above.
+  useEffect(() => {
+    const r = rendererRef.current;
+    const comp = compCanvasRef.current;
+    if (!r || !rdoc || !comp) return;
+    const base = r.canvas;
+    if (comp.width !== base.width || comp.height !== base.height) {
+      comp.width = base.width;
+      comp.height = base.height;
+    }
+    const ctx = comp.getContext('2d');
+    if (!ctx) return;
+    const scale = out.w > 0 ? base.width / out.w : 1;
+    compositeLayers(base, rdoc, ctx, {
+      before: comparing,
+      scale,
+      hideLayers: cropping,
+      liveStroke: activeStroke
+        ? { layerId: activeStroke.layerId, canvas: activeStroke.canvas }
+        : undefined,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rdoc, comparing, activeStroke, cropping, out.w, out.h]);
 
   // Fit view when the document or output size changes
   useEffect(() => {
@@ -171,13 +200,19 @@ export function Viewport() {
         <canvas
           ref={glCanvasRef}
           className="viewport-canvas"
-          style={{ width: '100%', height: '100%', display: backend === 'gl' ? 'block' : 'none' }}
+          style={{ display: 'none' }}
         />
         <canvas
           ref={canvas2dRef}
           className="viewport-canvas"
-          style={{ width: '100%', height: '100%', display: backend === '2d' ? 'block' : 'none' }}
+          style={{ display: 'none' }}
         />
+        <canvas
+          ref={compCanvasRef}
+          className="viewport-canvas"
+          style={{ width: '100%', height: '100%', display: 'block' }}
+        />
+        <BrushCanvas out={out} compCanvasRef={compCanvasRef} />
         {comparing && <div className="compare-badge compare-before">Before</div>}
         {comparing && <div className="compare-badge compare-after">After</div>}
       </div>

@@ -36,6 +36,7 @@ function makeDoc(source: HTMLCanvasElement, over: Partial<Document> = {}): Docum
     straighten: 0,
     transform: { rotate90: 0, flipH: false, flipV: false },
     adjustments: defaultAdjustments(),
+    layers: [],
     ...over,
   };
 }

@@ -3,6 +3,18 @@ import { useEditor } from '../state/documentStore';
 
 const IMAGE_MIME = /image\//;
 
+/** Open the OS file picker for an image and load the selection. */
+export function pickImageFile() {
+  const inp = document.createElement('input');
+  inp.type = 'file';
+  inp.accept = 'image/*,.bmp';
+  inp.onchange = () => {
+    const f = inp.files?.[0];
+    if (f) void useEditor.getState().loadFile(f);
+  };
+  inp.click();
+}
+
 /** Global drag-drop + clipboard paste image ingest. Attach once at App level. */
 export function useFileInput() {
   const loadFile = useEditor((s) => s.loadFile);

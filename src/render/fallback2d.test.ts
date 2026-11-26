@@ -62,6 +62,7 @@ function makeDoc(over: Partial<Document> = {}): Document {
     straighten: 0,
     transform: { rotate90: 0, flipH: false, flipV: false },
     adjustments: defaultAdjustments(),
+    layers: [],
     ...over,
   };
 }

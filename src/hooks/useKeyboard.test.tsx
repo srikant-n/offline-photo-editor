@@ -31,12 +31,20 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('useKeyboard', () => {
-  it('maps v/c/t/a to tool selection', () => {
+  it('maps v/c/t/a and the section-2 tools', () => {
     renderHook(() => useKeyboard());
     key(window, 'c');
     expect(s().tool).toBe('crop');
     key(window, 't');
-    expect(s().tool).toBe('transform');
+    expect(s().tool).toBe('text');
+    key(window, 'b');
+    expect(s().tool).toBe('brush');
+    key(window, 's');
+    expect(s().tool).toBe('shape');
+    key(window, 'i');
+    expect(s().tool).toBe('eyedropper');
+    key(window, 'f');
+    expect(s().tool).toBe('preset');
     key(window, 'a');
     expect(s().tool).toBe('adjust');
     key(window, 'v');

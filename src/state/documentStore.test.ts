@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useEditor } from './documentStore';
 import type { Document } from '../types';
@@ -372,5 +373,81 @@ describe('ui state', () => {
     s().setAdjustment('brightness', 10);
     s().undo();
     expect(s().cropDraft).toBeNull();
+  });
+});
+
+describe('layers', () => {
+  it('loadImage seeds a locked image pseudo-layer at index 0', () => {
+    load(100, 50);
+    const layers = doc().layers;
+    expect(layers).toHaveLength(1);
+    expect(layers[0]).toMatchObject({ id: 'image', type: 'image', visible: true });
+  });
+
+  it('addTextLayer creates a selected text layer and is undoable', () => {
+    load(100, 50);
+    const id = s().addTextLayer(10, 10);
+    expect(id).toBeTruthy();
+    const layer = doc().layers.find((l) => l.id === id);
+    expect(layer?.type).toBe('text');
+    expect(s().selectedLayerId).toBe(id);
+    expect(s().canUndo()).toBe(true);
+    s().undo();
+    expect(doc().layers.find((l) => l.id === id)).toBeUndefined();
+  });
+
+  it('updateLayer patches fields and guards the image layer', () => {
+    load();
+    const id = s().addTextLayer(5, 5)!;
+    s().updateLayer(id, { opacity: 0.5, blendMode: 'multiply' });
+    const layer = doc().layers.find((l) => l.id === id)!;
+    expect(layer.opacity).toBe(0.5);
+    expect(layer.blendMode).toBe('multiply');
+    const before = doc().layers.length;
+    s().updateLayer('image', { opacity: 0.1 });
+    s().updateLayer('missing', { opacity: 0.1 });
+    expect(doc().layers[0].opacity).toBe(1);
+    expect(doc().layers).toHaveLength(before);
+  });
+
+  it('removeLayer deletes non-image layers only', () => {
+    load();
+    const id = s().addTextLayer(5, 5)!;
+    s().removeLayer(id);
+    expect(doc().layers.find((l) => l.id === id)).toBeUndefined();
+    s().removeLayer('image');
+    expect(doc().layers[0].type).toBe('image');
+    expect(s().selectedLayerId).toBeNull();
+  });
+
+  it('moveLayer reorders without touching index 0', () => {
+    load();
+    const a = s().addTextLayer(5, 5)!;
+    const b = s().addTextLayer(20, 20)!;
+    // layers: [image, a, b]; move b down → [image, b, a]
+    s().moveLayer(b, -1);
+    expect(doc().layers.map((l) => l.id)).toEqual(['image', b, a]);
+    s().moveLayer('image', 1);
+    expect(doc().layers[0].id).toBe('image');
+  });
+
+  it('duplicateLayer clones canvas and inserts above', () => {
+    load();
+    const id = s().addTextLayer(5, 5)!;
+    s().duplicateLayer(id);
+    expect(doc().layers).toHaveLength(3);
+    const copy = doc().layers[2];
+    expect(copy.id).not.toBe(id);
+    expect(copy.type).toBe('text');
+    expect(s().selectedLayerId).toBe(copy.id);
+  });
+
+  it('applyPreset writes lerped adjustments as one undo step', () => {
+    load();
+    s().applyPreset('bw', 1);
+    expect(doc().adjustments.saturation).toBe(-100);
+    expect(s().past.length).toBe(1);
+    s().undo();
+    expect(doc().adjustments.saturation).toBe(0);
   });
 });

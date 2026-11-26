@@ -3,6 +3,8 @@ import { useEditor } from '../state/documentStore';
 import type { Document } from '../types';
 import { createGlRenderer, supportsWebGL2 } from '../render/gl/engine';
 import { create2dRenderer } from '../render/fallback2d';
+import { compositeLayers } from '../render/composite';
+import { documentOutputSize } from '../render/geometry';
 
 export type ExportFormat = 'image/png' | 'image/jpeg' | 'image/webp';
 
@@ -20,16 +22,29 @@ async function renderExport(doc: Document, maxDim?: number): Promise<ExportResul
   const r = supportsWebGL2()
     ? createGlRenderer(glCanvas, { loseOnDispose: true })
     : null;
+  let base: HTMLCanvasElement;
+  let disposeBase: () => void;
   if (r) {
     r.render(doc, { maxDim });
+    base = glCanvas;
     // dispose() must run AFTER toBlob — loseContext clears the drawing buffer.
-    return { canvas: glCanvas, dispose: () => r.dispose() };
+    disposeBase = () => r.dispose();
+  } else {
+    glCanvas.getContext('webgl2')?.getExtension('WEBGL_lose_context')?.loseContext();
+    const c2d = document.createElement('canvas');
+    const r2 = create2dRenderer(c2d);
+    r2.render(doc, { maxDim });
+    base = c2d;
+    disposeBase = () => {};
   }
-  glCanvas.getContext('webgl2')?.getExtension('WEBGL_lose_context')?.loseContext();
-  const c2d = document.createElement('canvas');
-  const r2 = create2dRenderer(c2d);
-  r2.render(doc, { maxDim });
-  return { canvas: c2d, dispose: () => {} };
+  // Composite layers onto a fresh 2D canvas (the base may be a WebGL canvas).
+  const out = document.createElement('canvas');
+  out.width = base.width;
+  out.height = base.height;
+  const ctx = out.getContext('2d')!;
+  const outSize = documentOutputSize(doc);
+  compositeLayers(base, doc, ctx, { scale: outSize.w > 0 ? base.width / outSize.w : 1 });
+  return { canvas: out, dispose: disposeBase };
 }
 
 function formatBytes(b: number): string {

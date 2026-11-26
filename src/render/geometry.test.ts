@@ -204,6 +204,7 @@ describe('documentOutputSize', () => {
     straighten: 0,
     transform: T(),
     adjustments: {} as Document['adjustments'],
+    layers: [],
     ...over,
   });
 
