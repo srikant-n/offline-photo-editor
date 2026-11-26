@@ -22,7 +22,7 @@ export function TopBar({ onExport, zoom, onZoomIn, onZoomOut, onZoomFit, onOpenF
     <header className="topbar">
       <div className="topbar-left">
         <div className="brand-lockup">
-          <img className="brand-logo" src="/offline-photo-logo.svg" alt="" width={20} height={20} />
+          <img className="brand-logo" src="/logo.png" alt="" width={20} height={20} />
           <span className="brand">Offline Photo</span>
           <span className="brand-badge">Local</span>
         </div>
