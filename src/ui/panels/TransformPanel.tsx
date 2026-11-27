@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { useEditor } from '../../state/documentStore';
 
+/** Icon button with a Material Symbols icon and text label. */
 function ToolButton({ icon, label, onClick, active, disabled, iconStyle }: {
   icon: string; label: string; onClick?: () => void; active?: boolean; disabled?: boolean;
   iconStyle?: CSSProperties;
@@ -96,6 +97,7 @@ export function TransformPanel() {
   );
 }
 
+/** Canvas-size editor: fixed W/H/background inputs plus an auto-size reset. */
 function CanvasSizeSection({ w, h, bg, auto, onApply, onAuto }: {
   w: number; h: number; bg: string; auto: boolean;
   onApply: (w: number, h: number, bg: string) => void;

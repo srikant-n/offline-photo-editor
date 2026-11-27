@@ -10,11 +10,15 @@ interface Props {
   compCanvasRef: React.RefObject<HTMLCanvasElement | null>;
 }
 
+/** Tool modes that receive pointer interaction on the overlay. */
 const INTERACTIVE: ToolMode[] = ['select', 'brush', 'shape', 'text', 'eyedropper'];
 
+/** In-progress shape drag bounds in output-image px. */
 interface ShapeDraft { x0: number; y0: number; x1: number; y1: number }
 
+/** Arrowhead length multiplier relative to stroke width. */
 const ARROW_HEAD = 4; // × strokeWidth
+/** Half-angle of each arrowhead wing, in radians. */
 const HEAD_ANGLE = Math.PI / 6;
 
 /**
@@ -32,6 +36,7 @@ export function BrushCanvas({ out, compCanvasRef }: Props) {
   const effShape = { ...shape, color: currentColor };
 
   const svgRef = useRef<SVGSVGElement>(null);
+  /** Active drag state: brush stroke, shape drag, or layer move. */
   const dragRef = useRef<{
     kind: 'brush' | 'shape' | 'move';
     layerId?: string;
@@ -42,6 +47,7 @@ export function BrushCanvas({ out, compCanvasRef }: Props) {
 
   const interactive = INTERACTIVE.includes(tool);
 
+  /** Converts client (screen) coords to output-image px via the SVG bounding rect. */
   const toImg = (e: React.PointerEvent | PointerEvent) => {
     const el = svgRef.current!;
     const r = el.getBoundingClientRect();
@@ -51,6 +57,7 @@ export function BrushCanvas({ out, compCanvasRef }: Props) {
     };
   };
 
+  /** Routes pointer-down to the active tool: brush, shape, text, eyedropper, or layer select/move. */
   const onPointerDown = (e: React.PointerEvent) => {
     if (e.button !== 0 || !interactive) return;
     const st = useEditor.getState();
@@ -115,6 +122,7 @@ export function BrushCanvas({ out, compCanvasRef }: Props) {
     }
   };
 
+  /** Continues the active drag: stamps brush points, updates shape preview, or moves a layer. */
   const onPointerMove = (e: React.PointerEvent) => {
     const d = dragRef.current;
     if (!d) return;
@@ -133,6 +141,7 @@ export function BrushCanvas({ out, compCanvasRef }: Props) {
     }
   };
 
+  /** Finalizes the active drag: commits the stroke, creates the shape layer, or ends the move gesture. */
   const onPointerUp = (e: React.PointerEvent) => {
     const d = dragRef.current;
     if (!d) return;

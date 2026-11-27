@@ -1,6 +1,8 @@
 import type { TextProps } from '../../types';
 
+/** Shared offscreen canvas used only for text measurement. */
 let measureCanvas: HTMLCanvasElement | null = null;
+/** Returns the shared 2d context used for text measurement. */
 function measureCtx(): CanvasRenderingContext2D {
   if (!measureCanvas) {
     measureCanvas = document.createElement('canvas');
@@ -26,6 +28,7 @@ function nativeLetterSpacing(ctx: CanvasRenderingContext2D): boolean {
   return 'letterSpacing' in ctx;
 }
 
+/** Sets ctx.letterSpacing when the engine supports it natively. */
 function setLetterSpacing(ctx: CanvasRenderingContext2D, px: number) {
   if (nativeLetterSpacing(ctx)) {
     (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = `${px}px`;
@@ -94,6 +97,7 @@ export function wrapText(
   return out;
 }
 
+/** Result of measuring wrapped text: lines plus block dimensions. */
 export interface TextLayout {
   lines: string[];
   /** Natural text-block size in px (excludes shadow/bg padding). */
@@ -114,6 +118,7 @@ export function layoutText(t: TextProps, maxWidth = t.wrapWidth ?? 480): TextLay
   return { lines, w: Math.ceil(w), h: Math.ceil(h), lineHeightPx };
 }
 
+/** A rasterized text layer: its canvas and pixel dimensions. */
 export interface RasterizedText {
   canvas: HTMLCanvasElement;
   w: number;

@@ -13,11 +13,13 @@ import { rasterizeShape } from '../render/layers/shapes';
 import { makeStamp, stampSegment, type BrushParams, type StrokePoint } from '../render/layers/brush';
 import { getPreset, lerpAdjustments } from '../presets';
 
+/** Maximum number of undo snapshots retained in history. */
 const HISTORY_LIMIT = 50;
 
 /** Live crop marquee: rotated rect in crop-mode display px. */
 export type CropDraft = RotRect;
 
+/** Brush tool settings: size in px, hardness/opacity 0..1, eraser mode flag. */
 export interface BrushSettings {
   size: number;
   /** 0..1 */
@@ -27,14 +29,17 @@ export interface BrushSettings {
   eraser: boolean;
 }
 
+/** Default brush settings used for new strokes. */
 export const DEFAULT_BRUSH: BrushSettings = {
   size: 40, hardness: 0.8, opacity: 1, eraser: false,
 };
 
+/** Default shape properties used when the shape tool starts. */
 export const DEFAULT_SHAPE: ShapeProps = {
   kind: 'rect', color: '#ffd166', strokeWidth: 4,
 };
 
+/** Builds default TextProps for a new text layer, with the given color and wrap width. */
 export function defaultTextProps(color: string, wrapWidth: number): TextProps {
   return {
     content: 'Text',
@@ -65,9 +70,13 @@ export interface ActiveStroke {
   createdLayer: boolean;
 }
 
+/** Root zustand store holding the document, undo history, tool state, and viewport. */
 interface EditorState {
+  /** Current document, or null when no image is loaded. */
   doc: Document | null;
+  /** Undo stack of document snapshots, oldest→newest (capped at HISTORY_LIMIT). */
   past: Document[];
+  /** Redo stack of document snapshots. */
   future: Document[];
   /** Doc snapshot at the start of an in-progress gesture (slider drag etc.). */
   gestureBase: Document | null;
@@ -96,8 +105,11 @@ interface EditorState {
   container: { w: number; h: number };
 
   // ---- document lifecycle ----
+  /** Replace the current document with a freshly decoded image. */
   loadImage: (decoded: DecodedImage) => void;
+  /** Decode a Blob/File and load it as the document; sets loadError on failure. */
   loadFile: (file: Blob, name?: string) => Promise<void>;
+  /** Close the current document and reset all editor state. */
   clearDocument: () => void;
 
   // ---- history ----
@@ -107,47 +119,76 @@ interface EditorState {
   beginGesture: () => void;
   /** End gesture; pushes gestureBase onto history if doc changed. */
   endGesture: () => void;
+  /** Restore the previous document snapshot. */
   undo: () => void;
+  /** Re-apply the most recently undone snapshot. */
   redo: () => void;
+  /** Whether an undo is available. */
   canUndo: () => boolean;
+  /** Whether a redo is available. */
   canRedo: () => boolean;
 
   /** Mutate doc. `history: 'push'` commits first; 'transient' requires an active gesture. */
   updateDoc: (fn: (d: Document) => Document, history?: 'push' | 'transient' | 'none') => void;
 
   // ---- tools / ui ----
+  /** Switch the active tool; clears any in-progress crop draft. */
   setTool: (t: ToolMode) => void;
+  /** Set or clear the live crop marquee rect. */
   setCropDraft: (d: CropDraft | null) => void;
+  /** Set the locked crop aspect ratio (w/h); null = free. */
   setCropAspect: (a: number | null) => void;
+  /** Toggle before/after comparison display. */
   setComparing: (v: boolean) => void;
+  /** Set or clear the file-load error toast message. */
   setLoadError: (e: string | null) => void;
+  /** Patch the viewport transform (scale + translation). */
   setView: (v: Partial<EditorState['view']>) => void;
+  /** Update the viewport container size in screen px. */
   setContainer: (w: number, h: number) => void;
+  /** Zoom in one step around the container center. */
   zoomIn: () => void;
+  /** Zoom out one step around the container center. */
   zoomOut: () => void;
+  /** Fit the rendered image to the container with padding. */
   zoomFit: () => void;
 
   // ---- document edits ----
+  /** Commit the crop draft: convert it to source coords and resize the canvas to fit. */
   applyCrop: () => void;
+  /** Discard the crop draft and return to the select tool. */
   cancelCrop: () => void;
+  /** Rotate the image 90° clockwise (dir=1) or counter-clockwise (dir=-1). */
   rotate90: (dir: 1 | -1) => void;
+  /** Toggle horizontal ('h') or vertical ('v') flip. */
   flip: (axis: 'h' | 'v') => void;
+  /** Set the free straighten angle in degrees (-45..45); transient coalesces into a gesture. */
   setStraighten: (deg: number, transient?: boolean) => void;
+  /** Set a fixed output canvas size and background, disabling auto-sizing. */
   setCanvasSize: (w: number, h: number, background: string) => void;
+  /** Re-enable auto canvas sizing to the transformed image bounds. */
   resetCanvasAuto: () => void;
+  /** Set one adjustment value; transient coalesces into a gesture (e.g. slider drag). */
   setAdjustment: (key: keyof Document['adjustments'], value: number, transient?: boolean) => void;
+  /** Reset all adjustments to their defaults. */
   resetAdjustments: () => void;
 
   // ---- layers ----
+  /** Select a layer for editing, or null to deselect. */
   selectLayer: (id: string | null) => void;
+  /** Set the shared foreground color used by brush, text, shape, and eyedropper. */
   setCurrentColor: (c: string) => void;
+  /** Merge partial brush settings into the current brush config. */
   setBrush: (p: Partial<BrushSettings>) => void;
+  /** Merge partial shape props into the current shape config. */
   setShape: (p: Partial<ShapeProps>) => void;
   /** Patch any layer field; 'push' records history, 'transient' needs a gesture. */
   updateLayer: (id: string, patch: Partial<Layer>, history?: 'push' | 'transient' | 'none') => void;
   /** Patch a text layer's text props and re-rasterize (one history entry). */
   updateTextLayer: (id: string, patch: Partial<TextProps>, transient?: boolean) => void;
+  /** Delete a layer (the locked image layer cannot be removed). */
   removeLayer: (id: string) => void;
+  /** Deep-copy a layer, insert it above the original, and select the copy. */
   duplicateLayer: (id: string) => void;
   /** Move a layer up/down the stack (later index = visually on top). */
   moveLayer: (id: string, dir: 1 | -1) => void;
@@ -170,6 +211,7 @@ interface EditorState {
 }
 
 let layerCounter = 0;
+/** Generates a unique layer id with a readable prefix. */
 function layerId(prefix: string): string {
   layerCounter += 1;
   return `${prefix}-${Date.now().toString(36)}-${layerCounter}`;
@@ -184,6 +226,7 @@ export function imageLayer(): Layer {
   };
 }
 
+/** Builds a new Document from decoded image data with default edits and an image layer. */
 function freshDoc(d: DecodedImage): Document {
   return {
     source: d.bitmap,
@@ -672,6 +715,7 @@ export const useEditor = create<EditorState>((set, get) => {
   };
 });
 
+/** Creates a copy of a canvas with identical pixel content. */
 function cloneCanvas(src: HTMLCanvasElement): HTMLCanvasElement {
   const c = document.createElement('canvas');
   c.width = src.width;

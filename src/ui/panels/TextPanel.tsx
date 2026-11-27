@@ -9,6 +9,7 @@ const SYSTEM_FONTS = [
   'Courier New', 'monospace', 'Comic Sans MS', 'Impact', 'cursive', 'fantasy',
 ];
 
+/** Labeled row layout used throughout the text panel. */
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="field-row" style={{ marginBottom: 6 }}>
@@ -58,6 +59,7 @@ export function TextPanel() {
     );
   }
 
+  /** Applies a TextProps patch and re-rasterizes the layer in one history entry. */
   const set = (patch: Partial<typeof t>) => updateTextLayer(layer.id, patch);
   const known = SYSTEM_FONTS.includes(t.fontFamily);
 

@@ -14,12 +14,14 @@ export function PresetsPanel() {
 
   if (!doc) return null;
 
+  /** Selects a preset at full intensity as a single history entry. */
   const pick = (id: string) => {
     setPresetId(id);
     setIntensity(100);
     applyPreset(id, 1);
   };
 
+  /** Re-applies the selected preset at a new intensity within the active gesture. */
   const slide = (v: number) => {
     setIntensity(v);
     if (presetId) applyPreset(presetId, v / 100, true);

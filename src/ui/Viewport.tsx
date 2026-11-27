@@ -8,6 +8,7 @@ import { compositeLayers } from '../render/composite';
 import { CropOverlay } from './CropOverlay';
 import { BrushCanvas } from './overlays/BrushCanvas';
 
+/** Max dimension used when rendering the preview, to keep GPU memory bounded. */
 const PREVIEW_MAX_DIM = 4096;
 
 /** In crop mode the base render ignores crop+straighten so the user sees the full image. */
@@ -15,6 +16,7 @@ function renderDoc(doc: Document, cropping: boolean): Document {
   return cropping ? { ...doc, crop: undefined, straighten: 0 } : doc;
 }
 
+/** Main image viewport: hosts the renderer canvases, pan/zoom, and crop overlay. */
 export function Viewport() {
   const doc = useEditor((s) => s.doc);
   const tool = useEditor((s) => s.tool);
@@ -147,6 +149,7 @@ export function Viewport() {
     useEditor.getState().setCropDraft(rect);
   }, [tool, doc, cropDraft]);
 
+  /** Converts client (screen) coordinates to output-image pixel coordinates. */
   const toImg = (clientX: number, clientY: number) => {
     const el = containerRef.current!;
     const r = el.getBoundingClientRect();
@@ -156,6 +159,7 @@ export function Viewport() {
     };
   };
 
+  /** Zooms around the cursor position on wheel events. */
   const onWheel = (e: React.WheelEvent) => {
     e.preventDefault();
     const el = containerRef.current!;
@@ -168,17 +172,20 @@ export function Viewport() {
     setView({ scale: ns, tx: sx - imgX * ns, ty: sy - imgY * ns });
   };
 
+  /** Begins a pan drag (ignored while cropping; CropOverlay handles its own events). */
   const onPointerDown = (e: React.PointerEvent) => {
     if (e.button !== 0) return;
     if (cropping) return; // CropOverlay handles its own pointer events
     panRef.current = { x: e.clientX, y: e.clientY, tx: view.tx, ty: view.ty };
     (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
   };
+  /** Drags the viewport translation while a pan is active. */
   const onPointerMove = (e: React.PointerEvent) => {
     const pan = panRef.current;
     if (!pan) return;
     setView({ tx: pan.tx + (e.clientX - pan.x), ty: pan.ty + (e.clientY - pan.y) });
   };
+  /** Ends an active pan drag. */
   const onPointerUp = () => { panRef.current = null; };
 
   if (!doc || !rdoc) return null;

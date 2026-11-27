@@ -1,5 +1,6 @@
 /** Brush stamp engine: soft-edged circular stamps along a stroke path. */
 
+/** Parameters describing a single brush stamp. */
 export interface BrushParams {
   /** Stamp diameter in output px. */
   size: number;
@@ -18,7 +19,9 @@ export function makeStamp(p: BrushParams): HTMLCanvasElement {
   return stampFor(key, p);
 }
 
+/** Cache of generated stamp canvases keyed by size|hardness|color|eraser. */
 const stampMap = new Map<string, HTMLCanvasElement>();
+/** Builds (or fetches from cache) the radial-gradient stamp canvas for the given params. */
 function stampFor(key: string, p: BrushParams): HTMLCanvasElement {
   const cached = stampMap.get(key);
   if (cached) return cached;
@@ -50,6 +53,7 @@ function stampFor(key: string, p: BrushParams): HTMLCanvasElement {
   return c;
 }
 
+/** Converts a #rgb/#rrggbb hex color to an rgba() CSS string. */
 function hexToRgba(hex: string, alpha: number): string {
   const m = /^#?([0-9a-f]{6}|[0-9a-f]{3})$/i.exec(hex.trim());
   if (!m) return `rgba(255,255,255,${alpha})`;
@@ -59,6 +63,7 @@ function hexToRgba(hex: string, alpha: number): string {
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
 }
 
+/** Returns the distance between consecutive stamps along a stroke, in px. */
 export function stampSpacing(size: number): number {
   return Math.max(1, size / 4);
 }
@@ -90,4 +95,5 @@ export function stampSegment(
   ctx.restore();
 }
 
+/** A point along a brush stroke path, in the target canvas's pixel space. */
 export interface StrokePoint { x: number; y: number }

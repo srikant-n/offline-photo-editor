@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useEditor } from '../state/documentStore';
 import type { ToolMode } from '../types';
 
+/** Ordered list of tools shown in the rail, with icon, label, and shortcut key. */
 const TOOLS: { mode: ToolMode; icon: string; label: string; key?: string }[] = [
   { mode: 'select', icon: 'near_me', label: 'Select / Move', key: 'V' },
   { mode: 'crop', icon: 'crop', label: 'Crop & Straighten', key: 'C' },

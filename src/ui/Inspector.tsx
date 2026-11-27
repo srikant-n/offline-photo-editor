@@ -8,6 +8,7 @@ import { BrushPanel } from './panels/BrushPanel';
 import { ShapePanel } from './panels/ShapePanel';
 import { PresetsPanel } from './panels/PresetsPanel';
 
+/** Display titles for each tool mode, used in the inspector tab header. */
 const TITLES: Record<string, string> = {
   select: 'Select',
   crop: 'Crop & Straighten',

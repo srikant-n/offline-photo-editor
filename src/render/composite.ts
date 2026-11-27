@@ -1,5 +1,6 @@
 import type { BlendMode, Document, Layer } from '../types';
 
+/** Maps each BlendMode to the equivalent Canvas2D globalCompositeOperation. */
 const BLEND_MAP: Record<BlendMode, GlobalCompositeOperation> = {
   normal: 'source-over',
   multiply: 'multiply',
@@ -19,10 +20,12 @@ const BLEND_MAP: Record<BlendMode, GlobalCompositeOperation> = {
   luminosity: 'luminosity',
 };
 
+/** Converts a BlendMode to the matching Canvas2D globalCompositeOperation. */
 export function blendModeToComposite(mode: BlendMode): GlobalCompositeOperation {
   return BLEND_MAP[mode] ?? 'source-over';
 }
 
+/** Options controlling how {@link compositeLayers} draws the layer stack. */
 export interface CompositeOptions {
   /** Render the pre-adjustment base and skip all layers (before/after). */
   before?: boolean;

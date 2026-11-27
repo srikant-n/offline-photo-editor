@@ -2,16 +2,22 @@ import { useRef, useState } from 'react';
 import { useEditor, type CropDraft } from '../state/documentStore';
 import { rotatedRectCorners, type RotRect } from '../render/geometry';
 
+/** Viewport transform (scale + translation) matching the viewport's `view` state. */
 interface View {
   scale: number; tx: number; ty: number; baseW: number; baseH: number;
 }
+/** Converts container (screen) coords to output-image px. */
 type ToImg = (cx: number, cy: number) => { x: number; y: number };
 
+/** Minimum crop marquee size in output px. */
 const MIN_SIZE = 8;
+/** Distance in screen px of the rotate handle above the marquee's top edge. */
 const ROT_OFFSET = 44; // display px above top edge for the rotate handle
 
+/** Drag interaction modes for the crop marquee. */
 type DragMode = 'create' | 'move' | 'nw' | 'ne' | 'sw' | 'se' | 'rotate';
 
+/** State captured when a marquee drag begins. */
 interface DragState {
   mode: DragMode;
   startClient: { x: number; y: number };
@@ -20,16 +26,19 @@ interface DragState {
   aspect: number | null;
 }
 
+/** Corner drag modes mapped to their sign in the rect's local frame. */
 const CORNERS: [DragMode, number, number][] = [
   ['nw', -1, -1], ['ne', 1, -1], ['sw', -1, 1], ['se', 1, 1],
 ];
 
+/** Rotates a vector by `deg` degrees (y-down space). */
 function rot(vx: number, vy: number, deg: number): [number, number] {
   const r = (deg * Math.PI) / 180;
   const cos = Math.cos(r), sin = Math.sin(r);
   return [vx * cos - vy * sin, vx * sin + vy * cos];
 }
 
+/** Clamps a crop draft so its bounding box stays inside the output bounds. */
 function clampDraft(r: RotRect, out: { w: number; h: number }): RotRect {
   // keep the quad's bbox inside the output bounds
   const corners = rotatedRectCorners(r);
@@ -51,6 +60,7 @@ function clampDraft(r: RotRect, out: { w: number; h: number }): RotRect {
   };
 }
 
+/** Adjusts the draft's height to match the locked aspect ratio (w/h). */
 function enforceAspect(r: RotRect, aspect: number | null): RotRect {
   if (!aspect || r.w <= 0 || r.h <= 0) return r;
   // adjust height from width, then re-clamp extremes
@@ -73,6 +83,7 @@ export function CropOverlay({ draft, out, view, toImg }: {
   const [, force] = useState(0);
 
   const s = view.scale;
+  /** Converts output-image px to screen px using the viewport transform. */
   const toScreen = (x: number, y: number): [number, number] => [x * s + view.tx, y * s + view.ty];
   const cornersD = rotatedRectCorners(draft);
   const cornersS = cornersD.map(([x, y]) => toScreen(x, y));
@@ -82,6 +93,7 @@ export function CropOverlay({ draft, out, view, toImg }: {
   const cw = container.w || out.w * s;
   const ch = container.h || out.h * s;
 
+  /** Applies clamping and aspect enforcement, then writes the draft to the store. */
   const update = (r: RotRect) => {
     let n = clampDraft(r, out);
     n = enforceAspect(n, cropAspect);
@@ -90,11 +102,13 @@ export function CropOverlay({ draft, out, view, toImg }: {
     force((v) => v + 1);
   };
 
+  /** Converts a world point into the marquee's local (unrotated, centered) frame. */
   const worldToLocal = (px: number, py: number): [number, number] => {
     const dx = px - draft.cx, dy = py - draft.cy;
     return rot(dx, dy, -draft.angle);
   };
 
+  /** Hit-tests handles and begins the appropriate drag mode on pointer down. */
   const onPointerDown = (e: React.PointerEvent) => {
     if (e.button !== 0) return;
     const p = toImg(e.clientX, e.clientY);
@@ -126,11 +140,13 @@ export function CropOverlay({ draft, out, view, toImg }: {
     e.stopPropagation();
   };
 
+  /** Returns the rotate handle's position in output-image px. */
   const rotateHandlePos = (): [number, number] => {
     const [ux, uy] = rot(0, -1, draft.angle);
     return [draft.cx + ux * (draft.h / 2 + ROT_OFFSET), draft.cy + uy * (draft.h / 2 + ROT_OFFSET)];
   };
 
+  /** Handles marquee dragging: rotate, create, move, or corner resize. */
   const onPointerMove = (e: React.PointerEvent) => {
     const d = dragRef.current;
     if (!d) return;
@@ -186,9 +202,11 @@ export function CropOverlay({ draft, out, view, toImg }: {
     });
   };
 
+  /** Clears the active drag state on pointer up. */
   const onPointerUp = () => { dragRef.current = null; };
 
-  // thirds grid: lines connecting trisection points on opposite edges
+  // Thirds grid: lines connecting trisection points on opposite edges.
+  /** Returns a point on a marquee edge (side 0=top,1=right,2=bottom,3=left) at fraction t, in output px. */
   const edgePt = (t: number, side: 0 | 1 | 2 | 3): [number, number] => {
     // side: 0=top 1=right 2=bottom 3=left; t in 0..1 along that edge
     const hw = draft.w / 2, hh = draft.h / 2;

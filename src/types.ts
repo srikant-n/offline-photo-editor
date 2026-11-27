@@ -1,3 +1,4 @@
+/** Dimensions of the output canvas plus the background color used where no content covers. */
 export interface CanvasSize {
   width: number;
   height: number;
@@ -5,6 +6,7 @@ export interface CanvasSize {
   background: string;
 }
 
+/** Axis-aligned rectangle in source-image pixel coordinates used for cropping. */
 export interface CropRect {
   /** Crop rectangle in source-image pixel coordinates. */
   x: number;
@@ -15,8 +17,10 @@ export interface CropRect {
   angle?: number;
 }
 
+/** Allowed quarter-turn rotation values (multiples of 90 degrees). */
 export type Rotate90 = 0 | 90 | 180 | 270;
 
+/** Discrete transform operations applied to the source image. */
 export interface TransformState {
   /** Clockwise quarter-turns. */
   rotate90: Rotate90;
@@ -24,6 +28,7 @@ export interface TransformState {
   flipV: boolean;
 }
 
+/** Tone, color, and detail adjustments applied to the source image. */
 export interface AdjustmentState {
   /** Exposure in EV stops, -3..3 */
   exposure: number;
@@ -42,13 +47,16 @@ export interface AdjustmentState {
   sharpness: number;
 }
 
+/** Blend modes supported for compositing layers, matching CSS global-composite-operation names. */
 export type BlendMode =
   | 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten'
   | 'color-dodge' | 'color-burn' | 'hard-light' | 'soft-light' | 'difference'
   | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity';
 
+/** Kinds of layers supported in the layer stack. */
 export type LayerType = 'image' | 'raster' | 'text' | 'shape';
 
+/** Drop-shadow parameters for text layers. */
 export interface TextShadow {
   color: string;
   blur: number;
@@ -56,6 +64,7 @@ export interface TextShadow {
   dy: number;
 }
 
+/** Typography and style properties for text layers. */
 export interface TextProps {
   content: string;
   fontFamily: string;
@@ -75,6 +84,7 @@ export interface TextProps {
   bgOpacity?: number;
 }
 
+/** Vector shape properties for shape layers. */
 export interface ShapeProps {
   kind: 'rect' | 'ellipse' | 'line' | 'arrow';
   color: string;
@@ -83,6 +93,7 @@ export interface ShapeProps {
   fill?: string;
 }
 
+/** A single layer in the compositing stack, bottom→top. */
 export interface Layer {
   id: string;
   type: LayerType;
@@ -102,6 +113,7 @@ export interface Layer {
   shape?: ShapeProps;
 }
 
+/** The complete editor state: source image plus all edits and canvas settings. */
 export interface Document {
   /** Decoded source image (GPU-friendly). */
   source: ImageBitmap;
@@ -122,11 +134,12 @@ export interface Document {
   layers: Layer[];
 }
 
+/** Editor tool modes selectable from the tool rail. */
 export type ToolMode =
   | 'select' | 'crop' | 'transform' | 'adjust'
   | 'text' | 'brush' | 'shape' | 'eyedropper' | 'preset';
 
-/** Geometry parameters used by the renderer (draft-aware). */
+/** Geometry parameters used by the renderer to compute output-image dimensions (draft-aware). */
 export interface GeoParams {
   crop?: CropRect;
   straighten: number;

@@ -2,12 +2,14 @@ import type { AdjustmentState, Document, GeoParams } from '../../types';
 import { renderGeometry, transformedSize } from '../geometry';
 import { VERT_SRC, TONE_FRAG_SRC, BLUR_FRAG_SRC, SHARPEN_FRAG_SRC } from './shaders';
 
+/** Options controlling a single render pass. */
 export interface RenderOptions {
   before?: boolean;
   /** Max dimension for the output; defaults to canvas size. */
   maxDim?: number;
 }
 
+/** A render backend (WebGL2 or Canvas2D fallback) that draws a Document into a canvas. */
 export interface Renderer {
   canvas: HTMLCanvasElement;
   /** Render doc into renderer.canvas (sized by caller beforehand or via resize). */
@@ -15,6 +17,7 @@ export interface Renderer {
   dispose(): void;
 }
 
+/** An offscreen framebuffer + texture pair used as an intermediate render target. */
 interface GpuTarget {
   fbo: WebGLFramebuffer;
   tex: WebGLTexture;
@@ -22,6 +25,7 @@ interface GpuTarget {
   h: number;
 }
 
+/** Compiles a GLSL shader and throws with the info log on failure. */
 function compile(gl: WebGL2RenderingContext, type: number, src: string): WebGLShader {
   const sh = gl.createShader(type)!;
   gl.shaderSource(sh, src);
@@ -34,6 +38,7 @@ function compile(gl: WebGL2RenderingContext, type: number, src: string): WebGLSh
   return sh;
 }
 
+/** Links a vertex + fragment shader pair into a program; throws on link failure. */
 function program(gl: WebGL2RenderingContext, fragSrc: string) {
   const vs = compile(gl, gl.VERTEX_SHADER, VERT_SRC);
   const fs = compile(gl, gl.FRAGMENT_SHADER, fragSrc);
@@ -53,6 +58,7 @@ function program(gl: WebGL2RenderingContext, fragSrc: string) {
   return p;
 }
 
+/** Allocates an RGBA render target (framebuffer + texture) of the given size. */
 function makeTarget(gl: WebGL2RenderingContext, w: number, h: number): GpuTarget {
   const tex = gl.createTexture()!;
   gl.bindTexture(gl.TEXTURE_2D, tex);
@@ -68,7 +74,9 @@ function makeTarget(gl: WebGL2RenderingContext, w: number, h: number): GpuTarget
   return { fbo, tex, w, h };
 }
 
+/** Cached result of probing the environment for WebGL2 support. */
 let webgl2Support: boolean | null = null;
+/** Returns true if WebGL2 is available in this browser (result is cached). */
 export function supportsWebGL2(): boolean {
   if (webgl2Support !== null) return webgl2Support;
   try {
@@ -122,6 +130,7 @@ export function createGlRenderer(canvas: HTMLCanvasElement, opts?: { loseOnDispo
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
   let targets: GpuTarget[] = [];
+  /** Reallocates ping-pong render targets when the output size changes. */
   const ensureTargets = (w: number, h: number) => {
     if (targets.length === 3 && targets[0].w === w && targets[0].h === h) return;
     for (const t of targets) {
@@ -131,6 +140,7 @@ export function createGlRenderer(canvas: HTMLCanvasElement, opts?: { loseOnDispo
     targets = [makeTarget(gl, w, h), makeTarget(gl, w, h), makeTarget(gl, w, h)];
   };
 
+  /** Looks up a uniform location by name (convenience wrapper). */
   const U = (p: WebGLProgram, name: string) => gl.getUniformLocation(p, name);
 
   const toneLocs = {
@@ -151,12 +161,14 @@ export function createGlRenderer(canvas: HTMLCanvasElement, opts?: { loseOnDispo
     amount: U(sharpProg, 'uAmount'),
   };
 
+  /** Uploads the geometry-stage canvas as the source texture. */
   function setSourceTexture(geo: HTMLCanvasElement) {
     gl.bindTexture(gl.TEXTURE_2D, srcTex);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, geo);
   }
 
+  /** Binds a render target (or the default framebuffer) and sets the viewport. */
   function bindQuad(target: GpuTarget | null, w: number, h: number) {
     if (target) {
       gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
@@ -167,12 +179,14 @@ export function createGlRenderer(canvas: HTMLCanvasElement, opts?: { loseOnDispo
     gl.viewport(0, 0, w, h);
   }
 
+  /** Issues the fullscreen-triangle draw call. */
   function draw() {
     gl.bindVertexArray(vao);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     gl.bindVertexArray(null);
   }
 
+  /** Pushes all adjustment uniforms for the tone pass. */
   function setAdjUniforms(a: AdjustmentState, before: boolean) {
     gl.uniform1f(toneLocs.exposure, a.exposure);
     gl.uniform1f(toneLocs.brightness, a.brightness);
@@ -266,6 +280,7 @@ export function createGlRenderer(canvas: HTMLCanvasElement, opts?: { loseOnDispo
     }
   }
 
+  /** Computes GeoParams for a document at the requested output size. */
   function geoParams(doc: Document, w?: number, h?: number): GeoParams {
     const size = doc.canvasAuto
       ? transformedSize(doc.source.width, doc.source.height, {

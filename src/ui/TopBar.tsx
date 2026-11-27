@@ -1,5 +1,6 @@
 import { useEditor } from '../state/documentStore';
 
+/** Props for the {@link TopBar} command bar. */
 interface Props {
   onExport: () => void;
   zoom: number;

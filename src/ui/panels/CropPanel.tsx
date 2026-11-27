@@ -3,12 +3,14 @@ import { documentOutputSize } from '../../render/geometry';
 import type { Document } from '../../types';
 import type { CropDraft } from '../../state/documentStore';
 
+/** A named crop aspect-ratio preset; ratio null means free-form. */
 interface RatioPreset {
   label: string;
   /** width/height; null = free */
   ratio: number | null;
 }
 
+/** Aspect-ratio presets offered in the crop panel. */
 const PRESETS: RatioPreset[] = [
   { label: 'Free', ratio: null },
   { label: '1:1', ratio: 1 },
@@ -58,6 +60,7 @@ export function CropPanel() {
 
   const angle = cropDraft?.angle ?? 0;
 
+  /** Sets the locked aspect ratio and resizes the draft to match. */
   const pickRatio = (ratio: number | null) => {
     setCropAspect(ratio);
     if (ratio != null && cropDraft) {

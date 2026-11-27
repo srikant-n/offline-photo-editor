@@ -1,4 +1,4 @@
-// Fullscreen-triangle vertex shader (shared by all passes).
+/** Fullscreen-triangle vertex shader shared by all passes. */
 export const VERT_SRC = `#version 300 es
 layout(location = 0) in vec2 aPos;
 out vec2 vUv;
@@ -7,8 +7,7 @@ void main() {
   gl_Position = vec4(aPos, 0.0, 1.0);
 }`;
 
-// Tone-adjustment fragment shader. Samples uTex, applies the full tone chain.
-// When uBefore > 0.5 the adjustments are skipped entirely.
+/** Tone-adjustment fragment shader applying the full tone chain; uBefore skips adjustments. */
 export const TONE_FRAG_SRC = `#version 300 es
 precision highp float;
 
@@ -82,7 +81,7 @@ void main() {
   fragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
 }`;
 
-// Separable gaussian blur, direction given by uDir (1,0) or (0,1).
+/** Separable 5-tap gaussian blur fragment shader; uDir gives the texel-space direction. */
 export const BLUR_FRAG_SRC = `#version 300 es
 precision highp float;
 
@@ -104,7 +103,7 @@ void main() {
   fragColor = sum;
 }`;
 
-// Unsharp-mask composite: samples toned (uSharp) and blurred (uBlur) textures.
+/** Unsharp-mask composite shader sampling the toned (uSharp) and blurred (uBlur) textures. */
 export const SHARPEN_FRAG_SRC = `#version 300 es
 precision highp float;
 

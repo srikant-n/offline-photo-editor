@@ -1,6 +1,7 @@
 import { useEditor } from '../../state/documentStore';
 import type { ShapeProps } from '../../types';
 
+/** Shape kinds selectable in the panel, with icon and label. */
 const KINDS: { id: ShapeProps['kind']; label: string; icon: string }[] = [
   { id: 'rect', label: 'Rect', icon: 'rectangle' },
   { id: 'ellipse', label: 'Ellipse', icon: 'circle' },

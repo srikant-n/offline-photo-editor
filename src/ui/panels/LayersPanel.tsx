@@ -3,6 +3,7 @@ import { useEditor } from '../../state/documentStore';
 import { documentOutputSize } from '../../render/geometry';
 import type { BlendMode, Layer } from '../../types';
 
+/** Blend modes offered in the layer panel dropdown. */
 const BLEND_MODES: { id: BlendMode; label: string }[] = [
   { id: 'normal', label: 'Normal' },
   { id: 'multiply', label: 'Multiply' },
@@ -22,10 +23,12 @@ const BLEND_MODES: { id: BlendMode; label: string }[] = [
   { id: 'luminosity', label: 'Luminosity' },
 ];
 
+/** Material icon names per layer type. */
 const TYPE_ICONS: Record<Layer['type'], string> = {
   image: 'image', raster: 'brush', text: 'title', shape: 'category',
 };
 
+/** A single row in the layer list with visibility, rename, blend/opacity controls, and reorder buttons. */
 function LayerRow({ layer, index, count }: { layer: Layer; index: number; count: number }) {
   const selectedLayerId = useEditor((s) => s.selectedLayerId);
   const selectLayer = useEditor((s) => s.selectLayer);
@@ -43,6 +46,7 @@ function LayerRow({ layer, index, count }: { layer: Layer; index: number; count:
   const canMoveUp = index < count - 1;
   const canMoveDown = index > 1;
 
+  /** Commits the rename input; reverts to the old name when empty. */
   const commitRename = () => {
     setRenaming(false);
     const n = name.trim();

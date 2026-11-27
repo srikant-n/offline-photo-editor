@@ -9,6 +9,7 @@ import type { RenderOptions, Renderer } from './gl/engine';
 export function create2dRenderer(canvas: HTMLCanvasElement): Renderer {
   const ctx = canvas.getContext('2d')!;
 
+  /** Builds GeoParams for a document at the given output size (0 → natural size). */
   function geo(doc: Document, w: number, h: number): GeoParams {
     const size = doc.canvasAuto
       ? transformedSize(doc.source.width, doc.source.height, {
@@ -22,6 +23,7 @@ export function create2dRenderer(canvas: HTMLCanvasElement): Renderer {
     };
   }
 
+  /** Renders the document into the renderer's canvas, respecting maxDim downscaling. */
   function render(doc: Document, opts: RenderOptions = {}) {
     const before = !!opts.before;
     const a = doc.adjustments;
@@ -70,6 +72,7 @@ export function create2dRenderer(canvas: HTMLCanvasElement): Renderer {
   return { canvas, render, dispose() {} };
 }
 
+/** Applies a cheap unsharp mask by differencing the image against a blurred copy. */
 function applySharpness2d(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, amount: number) {
   const w = canvas.width, h = canvas.height;
   const tmp = document.createElement('canvas');

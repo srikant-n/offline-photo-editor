@@ -1,5 +1,6 @@
 import type { ShapeProps } from '../../types';
 
+/** A rasterized shape: its canvas plus the placement rect in output px. */
 export interface RasterizedShape {
   canvas: HTMLCanvasElement;
   /** Placement rect in output px. */

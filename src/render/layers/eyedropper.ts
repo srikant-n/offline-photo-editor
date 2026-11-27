@@ -2,6 +2,7 @@
  * Sample the composite render at an output-image-space point.
  * `src` is the already-composited canvas (e.g. the viewport composite
  * canvas); `outW/outH` are the output-image dims the canvas represents.
+ * @returns a '#rrggbb' hex string, or null when out of bounds.
  */
 export function samplePixel(
   src: HTMLCanvasElement,

@@ -6,16 +6,20 @@ import { create2dRenderer } from '../render/fallback2d';
 import { compositeLayers } from '../render/composite';
 import { documentOutputSize } from '../render/geometry';
 
+/** MIME types supported by the export dialog, with display labels. */
 export type ExportFormat = 'image/png' | 'image/jpeg' | 'image/webp';
 
+/** Export format choices shown in the dialog. */
 const FORMATS: { id: ExportFormat; label: string; sub: string }[] = [
   { id: 'image/jpeg', label: 'JPEG', sub: 'Lossy' },
   { id: 'image/png', label: 'PNG', sub: 'Lossless' },
   { id: 'image/webp', label: 'WebP', sub: 'Compact' },
 ];
 
+/** A composited export canvas plus a cleanup callback for GPU resources. */
 type ExportResult = { canvas: HTMLCanvasElement; dispose: () => void };
 
+/** Renders the document (base + layers) to a fresh canvas at full or capped resolution. */
 async function renderExport(doc: Document, maxDim?: number): Promise<ExportResult> {
   // GL and 2D need separate canvases: a canvas can't switch context modes.
   const glCanvas = document.createElement('canvas');
@@ -47,6 +51,7 @@ async function renderExport(doc: Document, maxDim?: number): Promise<ExportResul
   return { canvas: out, dispose: disposeBase };
 }
 
+/** Formats a byte count as a human-readable size string. */
 function formatBytes(b: number): string {
   if (b < 1024) return `${b} B`;
   if (b < 1024 * 1024) return `${(b / 1024).toFixed(1)} KB`;
@@ -62,6 +67,7 @@ export function ExportDialog({ open, onClose }: { open: boolean; onClose: () => 
   const [busy, setBusy] = useState(false);
   const estRef = useRef(0);
 
+  /** Estimates the full-resolution export size from a downscaled preview render. */
   useEffect(() => {
     if (!open || !doc) return;
     setEstimate(null);
@@ -83,6 +89,7 @@ export function ExportDialog({ open, onClose }: { open: boolean; onClose: () => 
 
   if (!open || !doc) return null;
 
+  /** Renders at full resolution and triggers a file download. */
   const doExport = async () => {
     setBusy(true);
     try {

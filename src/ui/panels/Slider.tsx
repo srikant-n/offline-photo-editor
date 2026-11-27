@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import type { AdjustmentDef } from '../../state/adjustments';
 import { formatValue } from '../../state/adjustments';
 
+/** Props for {@link Slider}: the adjustment definition, current value, and gesture callbacks. */
 interface Props {
   def: AdjustmentDef;
   value: number;
@@ -14,6 +15,7 @@ interface Props {
 export function Slider({ def, value, onChange, onGestureStart, onGestureEnd }: Props) {
   const scrub = useRef<{ x: number; v: number } | null>(null);
 
+  /** Snaps a raw value to the def's step and clamps it to [min, max]. */
   const clampStep = (v: number) => {
     const stepped = Math.round(v / def.step) * def.step;
     return Math.min(def.max, Math.max(def.min, Number(stepped.toFixed(4))));

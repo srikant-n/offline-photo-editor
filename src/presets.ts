@@ -1,6 +1,7 @@
 import type { AdjustmentState } from './types';
 import { defaultAdjustments } from './state/adjustments';
 
+/** A named, one-click adjustment preset shown in the presets panel. */
 export interface Preset {
   id: string;
   name: string;
@@ -10,6 +11,7 @@ export interface Preset {
   adjustments: Partial<AdjustmentState>;
 }
 
+/** Library of built-in adjustment presets. */
 export const PRESETS: Preset[] = [
   {
     id: 'vintage', name: 'Vintage', icon: 'filter_vintage',
@@ -65,6 +67,7 @@ export const PRESETS: Preset[] = [
   },
 ];
 
+/** Look up a preset by its id. Returns undefined if not found. */
 export function getPreset(id: string): Preset | undefined {
   return PRESETS.find((p) => p.id === id);
 }

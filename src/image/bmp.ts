@@ -8,6 +8,7 @@
 
 const BMP_MAGIC = 0x4d42; // 'BM'
 
+/** Parsed BMP header fields needed to decode pixel data. */
 interface BmpInfo {
   width: number;
   height: number;
@@ -20,6 +21,7 @@ interface BmpInfo {
   data: ArrayBuffer;
 }
 
+/** Reads R/G/B/A bitfield masks from a V2+ header or the fields following a BITMAPINFOHEADER. */
 function readMasks(dv: DataView, off: number, compression: number, headerSize: number): BmpInfo['masks'] {
   // For BI_BITFIELDS(3) and BI_ALPHABITFIELDS(6): masks follow the file header
   // for headerSize==40, or live inside BITMAPV4/V5 headers.
@@ -45,6 +47,7 @@ function readMasks(dv: DataView, off: number, compression: number, headerSize: n
   return null;
 }
 
+/** Computes the right-shift and max-value scale for a contiguous bitfield mask. */
 function shiftFor(mask: number): { shift: number; scale: number } {
   if (!mask) return { shift: 0, scale: 0 };
   let shift = 0;
@@ -54,6 +57,7 @@ function shiftFor(mask: number): { shift: number; scale: number } {
   return { shift, scale: (1 << bits) - 1 };
 }
 
+/** Decodes a BMP file buffer into an ImageBitmap. Throws on unsupported or corrupt files. */
 export async function decodeBMP(buf: ArrayBuffer): Promise<ImageBitmap> {
   const dv = new DataView(buf);
   if (buf.byteLength < 54 || dv.getUint16(0, true) !== BMP_MAGIC) {
@@ -140,8 +144,10 @@ export async function decodeBMP(buf: ArrayBuffer): Promise<ImageBitmap> {
   return createImageBitmap(canvas);
 }
 
+/** Writes one pixel; coordinates outside the image are ignored. */
 type PutFn = (x: number, y: number, r: number, g: number, b: number, a: number) => void;
 
+/** Decodes uncompressed BMP pixel rows (24/32bpp, palette 4/8bpp, and bitfield 16/32bpp). */
 function decodeRaw(info: BmpInfo, stride: number, put: PutFn) {
   const { width, height, topDown, bpp, data, masks } = info;
   const dv = new DataView(data);
@@ -223,6 +229,7 @@ function decodeRaw(info: BmpInfo, stride: number, put: PutFn) {
   throw new Error(`Unsupported BMP bit depth: ${bpp}`);
 }
 
+/** Decodes RLE-compressed BMP data (BI_RLE8 or BI_RLE4). */
 function decodeRLE(info: BmpInfo, put: PutFn, bpp: 4 | 8) {
   const { height, data, palette } = info;
   const dv = new DataView(data);

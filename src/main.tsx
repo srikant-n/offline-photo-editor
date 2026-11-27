@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './styles.css'
 import App from './App.tsx'
 
+// Application entry point: mounts the React root into #root.
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />

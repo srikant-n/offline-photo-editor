@@ -9,6 +9,7 @@ import { Inspector } from './ui/Inspector';
 import { ExportDialog } from './ui/ExportDialog';
 import { EmptyState } from './ui/EmptyState';
 
+/** Root application component: wires the store, global hooks, and layout regions. */
 export default function App() {
   const doc = useEditor((s) => s.doc);
   const loadError = useEditor((s) => s.loadError);

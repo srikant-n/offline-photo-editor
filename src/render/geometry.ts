@@ -9,6 +9,7 @@ export interface Mat {
   a: number; b: number; c: number; d: number; e: number; f: number;
 }
 
+/** Identity affine transform (no change). */
 export const IDENTITY: Mat = { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 };
 
 /** Returns M = M2 * M1 (apply M1 first, then M2). */
@@ -23,20 +24,24 @@ export function multiply(m2: Mat, m1: Mat): Mat {
   };
 }
 
+/** Returns a translation matrix. */
 export function translate(tx: number, ty: number): Mat {
   return { a: 1, b: 0, c: 0, d: 1, e: tx, f: ty };
 }
 
+/** Returns a rotation matrix (degrees, y-down coordinate space). */
 export function rotate(deg: number): Mat {
   const r = (deg * Math.PI) / 180;
   const cos = Math.cos(r), sin = Math.sin(r);
   return { a: cos, b: sin, c: -sin, d: cos, e: 0, f: 0 };
 }
 
+/** Returns a non-uniform scale matrix. */
 export function scale(sx: number, sy: number): Mat {
   return { a: sx, b: 0, c: 0, d: sy, e: 0, f: 0 };
 }
 
+/** Applies an affine matrix to a point, returning the transformed [x, y]. */
 export function applyMat(m: Mat, x: number, y: number): [number, number] {
   return [m.a * x + m.c * y + m.e, m.b * x + m.d * y + m.f];
 }
@@ -57,6 +62,7 @@ export function effectiveCrop(srcW: number, srcH: number, crop?: CropRect): Effe
   return { x, y, w, h, angle: crop.angle ?? 0 };
 }
 
+/** Axis-aligned bounding rectangle in pixels. */
 export interface Bounds {
   w: number; h: number;
   /** Top-left offset of the rotated content inside its bounding box. */
@@ -143,6 +149,7 @@ export function sourceToOutputMatrix(
   return m;
 }
 
+/** Computes the inverse of an affine matrix; returns IDENTITY if singular. */
 export function invertMat(m: Mat): Mat {
   const det = m.a * m.d - m.b * m.c;
   if (Math.abs(det) < 1e-9) return IDENTITY;

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useEditor } from '../state/documentStore';
 
+/** Matches image/* MIME types for drag-drop and paste detection. */
 const IMAGE_MIME = /image\//;
 
 /** Open the OS file picker for an image and load the selection. */
